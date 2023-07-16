@@ -29,4 +29,6 @@ message Tokens {
 service AuthService {
   rpc CreateUser (User) returns (google.protobuf.Empty);
   rpc Login (User) returns (Tokens);
+  rpc Refresh (Token) returns (Token);
+  rpc Logout (Token) returns (google.protobuf.Empty);
 }
