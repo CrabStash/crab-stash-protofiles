@@ -17,6 +17,7 @@ message User {
 message Token {
   string jwtToken = 1;
   string refresh = 2;
+  string uuid = 3;
 }
 
 service AuthService {
