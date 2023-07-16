@@ -22,8 +22,8 @@ message Token {
  }
 
 message Tokens {
-  Token Auth = 1;
-  Token Refresh = 2;
+  Token auth = 1;
+  Token refresh = 2;
 }
 
 service AuthService {
