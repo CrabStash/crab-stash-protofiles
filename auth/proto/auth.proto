@@ -7,7 +7,7 @@ option go_package = "github.com/CrabStash/crab-stash-protofiles/auth/proto";
 import "google/protobuf/empty.proto";
 
 message User {
-  string id = 1;
+  string uuid = 1;
   string email = 2;
   string passwd = 3;
   string firstName = 4;
