@@ -61,8 +61,8 @@ message LogoutResponse {
 
 service AuthService {
   rpc Login (LoginRequest) returns (LoginResponse);
-  rpc Register (RegisterRequest) returns (RefreshResponse);
+  rpc Register (RegisterRequest) returns (RegisterResponse);
   rpc Validate (ValidateRequest) returns (ValidateResponse);
   rpc Refresh (RefreshRequest) returns (RefreshResponse);
-  rpc Logout (LoginRequest) returns (LoginResponse);
+  rpc Logout (LogoutRequest) returns (LogoutResponse);
 }
