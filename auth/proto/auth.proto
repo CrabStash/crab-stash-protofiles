@@ -6,29 +6,63 @@ option go_package = "github.com/CrabStash/crab-stash-protofiles/auth/proto";
 
 import "google/protobuf/empty.proto";
 
-message User {
-  string id = 1;
-  string email = 2;
-  string passwd = 3;
-  string firstName = 4;
-  string lastName = 5;
+
+// Login
+message LoginRequest {
+  string email = 1;
+  string passwd = 2;
 }
 
-message Token {
+message LoginResponse {
   string token = 1;
-  string uuid = 2;
-  string userid = 3;
-  int64 expiresIn = 4; 
- }
-
-message Tokens {
-  Token auth = 1;
-  Token refresh = 2;
+  string refresh = 2;
 }
+
+// Register
+message RegisterRequest {
+  string email = 1;
+  string passwd = 2;
+  string firstName = 3;
+  string lastName = 4;
+}
+
+message RegisterResponse {
+  string status = 1;
+}
+
+// Validate
+message ValidateRequest {
+  string token = 1;
+}
+
+message ValidateResponse {
+  string status = 1;
+}
+
+// Refresh
+message RefreshRequest {
+  string token = 1;
+}
+
+message RefreshResponse {
+  string token = 1;
+}
+
+// Logout
+message LogoutRequest {
+  string token = 1;
+}
+
+message LogoutResponse {
+  string status = 1;
+}
+
+// Service
 
 service AuthService {
-  rpc CreateUser (User) returns (google.protobuf.Empty);
-  rpc Login (User) returns (Tokens);
-  rpc Refresh (Token) returns (Token);
-  rpc Logout (Token) returns (google.protobuf.Empty);
+  rpc Login (LoginRequest) returns (LoginResponse);
+  rpc Register (RegisterRequest) returns (RefreshResponse);
+  rpc Validate (ValidateRequest) returns (ValidateResponse);
+  rpc Refresh (RefreshRequest) returns (RefreshResponse);
+  rpc Logout (LoginRequest) returns (LoginResponse);
 }
