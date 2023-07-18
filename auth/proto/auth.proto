@@ -36,7 +36,7 @@ message ValidateRequest {
 }
 
 message ValidateResponse {
-  string status = 1;
+  string uuid = 1;
 }
 
 // Refresh
