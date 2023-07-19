@@ -51,6 +51,7 @@ message RefreshResponse {
 // Logout
 message LogoutRequest {
   string token = 1;
+  string refresh = 2;
 }
 
 message LogoutResponse {
