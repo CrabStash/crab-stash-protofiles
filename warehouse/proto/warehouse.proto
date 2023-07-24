@@ -30,7 +30,7 @@ message GetInfoResponse {
 // UpdateWarehouse
 message UpdateRequest {
   string warehouseID = 1;
-  WarehouseMeta warehouseData = 2;
+  WarehouseMeta newWarehouseData = 2;
 }
 
 message UpdateResponse {
