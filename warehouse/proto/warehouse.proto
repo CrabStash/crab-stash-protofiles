@@ -4,18 +4,11 @@ package warehouse;
 
 option go_package = "github.com/CrabStash/crab-stash-protofiles/warehouse/proto";
 
-enum WarehouseType {
-  WAREHOUSE_VIRTUAL = 0;
-  WAREHOUSE_PHYSICAL = 1;
-}
-
 message WarehouseMeta {
   string name = 1;
   string desc = 2;
   string logo = 3;
   string owner = 4;
-  WarehouseType type = 5;
-  int32 capacity = 6;
 }
 
 // GetInfo
@@ -24,13 +17,13 @@ message GetInfoRequest {
 }
 
 message GetInfoResponse {
-  WarehouseMeta WarehouseData = 1;
+  WarehouseMeta warehouseData = 1;
 }
 
 // UpdateWarehouse
 message UpdateRequest {
   string warehouseID = 1;
-  WarehouseMeta newWarehouseData = 2;
+  WarehouseMeta newData = 2;
 }
 
 message UpdateResponse {
@@ -41,7 +34,7 @@ message UpdateResponse {
 // CreateWarehouse
 message CreateRequest {
   string ownerID = 1;
-  WarehouseMeta warehouseData = 2;
+  WarehouseMeta data = 2;
 }
 
 message CreateResponse {
