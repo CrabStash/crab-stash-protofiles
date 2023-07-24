@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+package warehouse;
+
+option go_package = "github.com/CrabStash/crab-stash-protofiles/warehouse/proto";
+
+enum WarehouseType {
+  WAREHOUSE_VIRTUAL = 0;
+  WAREHOUSE_PHYSICAL = 1;
+}
+
+message WarehouseMeta {
+  string name = 1;
+  string desc = 2;
+  string logo = 3;
+  string owner = 4;
+  WarehouseType type = 5;
+  int32 capacity = 6;
+}
+
+// GetInfo
+message GetInfoRequest {
+  string warehouseID = 1;
+}
+
+message GetInfoResponse {
+  WarehouseMeta WarehouseData = 1;
+}
+
+// UpdateWarehouse
+message UpdateRequest {
+  string warehouseID = 1;
+  WarehouseMeta newData = 2;
+}
+
+message UpdateResponse {
+  string status = 1;
+  string response = 2;
+}
+
+// CreateWarehouse
+message CreateRequest {
+  string ownerID = 1;
+}
+
+message CreateResponse {
+  string warehouseID = 1;
+}
+
+// AddUserToWarehouse
+message AddUsersRequest {
+  string warehouseID = 1;
+  repeated string userIds = 2;
+}
+
+message AddUsersResponse {
+  string status = 1;
+  string response = 2;
+}
+
+// RemoveUserFromWarehouse
+message RemoveUserRequest {
+  string warehouseID = 1;
+  repeated string userIds = 2;
+}
+
+message RemoveUserResponse {
+  string status = 1;
+  string response = 2;
+}
+
+// DeleteWarehouse
+message DeleteRequest {
+  string warehouseID = 1;
+}
+
+message DeleteResponse {
+  string status = 1;
+  string response = 2;
+}
+
+
+// Service
+
+service WarehouseService {
+  rpc GetInfo (GetInfoRequest) returns (GetInfoResponse);
+  rpc UpdateWarehouse (UpdateRequest) returns (UpdateResponse);
+  rpc CreateWarehouse (CreateRequest) returns (CreateResponse);
+  rpc AddUsersToWarehouse (AddUsersRequest) returns (AddUsersResponse);
+  rpc RemoveUserFromWarehouse (RemoveUserRequest) returns (RemoveUserResponse);
+  rpc DeleteWarehouse (DeleteRequest) returns (DeleteResponse);
+}

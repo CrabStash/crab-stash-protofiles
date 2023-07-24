@@ -29,16 +29,21 @@ else
 endif
 
 .DEFAULT_GOAL := help
-.PHONY: auth
-project := auth
+.PHONY: auth warehouse
+project := auth warehouse
 
 all: $(project) ## Generate Pbs and build
 
-auth: $@ ## Generate Pbs and build for greet
+auth: $@ ## Generate Pbs and build for auth
+
+warehouse: $@ ## Generate Pbs and build for warehouse
 
 $(project):
 	@${CHECK_DIR_CMD}
 	protoc -I$@/${PROTO_DIR} --go_opt=module=${PACKAGE} --go_out=. --go-grpc_opt=module=${PACKAGE} --go-grpc_out=. $@/${PROTO_DIR}/*.proto
 
-clean_auth: ## Clean generated files for greet
-	${RM_F_CMD} greet/${PROTO_DIR}/*.pb.go
+clean_auth: ## Clean generated files for auth
+	${RM_F_CMD} auth/${PROTO_DIR}/*.pb.go
+
+clean_warehouse: ## Clean generated files for warehouse
+	${RM_F_CMD} warehouse/${PROTO_DIR}/*.pb.go
