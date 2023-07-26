@@ -24,8 +24,8 @@ message UpdateRequest {
   string name = 2; // @gotags: valid:"required,minstringlength(1)"
   string desc = 3; // @gotags: valid:"required,minstringlength(1)"
   string logo = 4; // @gotags: valid:"url,required"
-  bool isPhysical = 5; // @gotags: valid:"required"
-  int64 capacity = 6; // @gotags: valid:"required"
+  bool isPhysical = 5; // @gotags: valid:"bool"
+  int64 capacity = 6; // @gotags: valid:"int"
 }
 
 message UpdateResponse {
@@ -35,12 +35,12 @@ message UpdateResponse {
 
 // CreateWarehouse
 message CreateRequest {
-  string ownerID = 1;
+  string ownerID = 1; // @gotags: valid:"required"
   string name = 2; // @gotags: valid:"required,minstringlength(1)"
   string desc = 3; // @gotags: valid:"required,minstringlength(1)"
-  string logo = 4; // @gotags: valid:"url,required"
-  bool isPhysical = 5; // @gotags: valid:"required"
-  int64 capacity = 6; // @gotags: valid:"required"
+  string logo = 4; // @gotags: valid:"url,optional"
+  bool isPhysical = 5; // @gotags: valid:"bool"
+  int64 capacity = 6; // @gotags: valid:"int"
 }
 
 message CreateResponse {
