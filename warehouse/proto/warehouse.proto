@@ -24,7 +24,7 @@ message UpdateRequest {
   string name = 2; // @gotags: valid:"required,minstringlength(1)"
   string desc = 3; // @gotags: valid:"required,minstringlength(1)"
   string logo = 4; // @gotags: valid:"url,required"
-  bool isPhysical = 5;
+  bool isPhysical = 5; // @gotags: valid:"-"
   int64 capacity = 6; // @gotags: valid:"int"
 }
 
@@ -39,7 +39,7 @@ message CreateRequest {
   string name = 2; // @gotags: valid:"required,minstringlength(1)"
   string desc = 3; // @gotags: valid:"required,minstringlength(1)"
   string logo = 4; // @gotags: valid:"url,optional"
-  bool isPhysical = 5;
+  bool isPhysical = 5; // @gotags: valid:"-"
   int64 capacity = 6; // @gotags: valid:"int"
 }
 
