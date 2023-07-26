@@ -4,13 +4,10 @@ package auth;
 
 option go_package = "github.com/CrabStash/crab-stash-protofiles/auth/proto";
 
-import "google/protobuf/empty.proto";
-
-
 // Login
 message LoginRequest {
-  string email = 1;
-  string passwd = 2;
+  string email = 1; // @gotags: valid:"email"
+  string passwd = 2; // @gotags: valid:"required"
 }
 
 message LoginResponse {
@@ -20,19 +17,20 @@ message LoginResponse {
 
 // Register
 message RegisterRequest {
-  string email = 1;
-  string passwd = 2;
-  string firstName = 3;
-  string lastName = 4;
+  string email = 1; // @gotags: valid:"email"
+  string passwd = 2; // @gotags: valid:"alphanum"
+  string firstName = 3; // @gotags: valid:"alpha,minstringlength(1)"
+  string lastName = 4; // @gotags: valid:"alpha,minstringlength(1)"
 }
 
 message RegisterResponse {
   string status = 1;
+  string response = 2;
 }
 
 // Validate
 message ValidateRequest {
-  string token = 1;
+  string token = 1; // @gotags: valid:"required"
 }
 
 message ValidateResponse {
@@ -41,7 +39,7 @@ message ValidateResponse {
 
 // Refresh
 message RefreshRequest {
-  string token = 1;
+  string token = 1; // @gotags: valid:"required"
 }
 
 message RefreshResponse {
@@ -50,12 +48,13 @@ message RefreshResponse {
 
 // Logout
 message LogoutRequest {
-  string token = 1;
-  string refresh = 2;
+  string token = 1; // @gotags: valid:"email"
+  string refresh = 2; // @gotags: valid:"email"
 }
 
 message LogoutResponse {
   string status = 1;
+  string response = 2;
 }
 
 // Service

@@ -4,26 +4,32 @@ package warehouse;
 
 option go_package = "github.com/CrabStash/crab-stash-protofiles/warehouse/proto";
 
-message WarehouseMeta {
-  string name = 1;
-  string desc = 2;
-  string logo = 3;
-  string owner = 4;
-}
-
 // GetInfo
 message GetInfoRequest {
-  string warehouseID = 1;
+  string warehouseID = 1; // @gotags: valid:"required,minstringlength(1)"
 }
 
 message GetInfoResponse {
-  WarehouseMeta warehouseData = 1;
+  message WarehouseInfo {
+    string name = 1;
+    string desc = 2;
+    string logo = 3;
+    string owner = 4;
+    bool isPhysical = 5;
+    int64 capacity = 6;
+  }
 }
 
 // UpdateWarehouse
 message UpdateRequest {
   string warehouseID = 1;
-  WarehouseMeta newData = 2;
+  message NewWarehouseData {
+    string name = 1; // @gotags: valid:"required,minstringlength(1)"
+    string desc = 2; // @gotags: valid:"required,minstringlength(1)"
+    string logo = 3; // @gotags: valid:"url,required"
+    bool isPhysical = 4; // @gotags: valid:"required"
+    int64 capacity = 5; // @gotags: valid:"required"
+  }
 }
 
 message UpdateResponse {
@@ -34,7 +40,13 @@ message UpdateResponse {
 // CreateWarehouse
 message CreateRequest {
   string ownerID = 1;
-  WarehouseMeta data = 2;
+  message data {
+    string name = 1; // @gotags: valid:"required,minstringlength(1)"
+    string desc = 2; // @gotags: valid:"required,minstringlength(1)"
+    string logo = 3; // @gotags: valid:"url,required"
+    bool isPhysical = 4; // @gotags: valid:"required"
+    int64 capacity = 5; // @gotags: valid:"required"
+  }
 }
 
 message CreateResponse {
@@ -43,8 +55,8 @@ message CreateResponse {
 
 // AddUserToWarehouse
 message AddUsersRequest {
-  string warehouseID = 1;
-  repeated string userIds = 2;
+  string warehouseID = 1; // @gotags: valid:"required,minstringlength(1)"
+  string userIds = 2; // @gotags: valid:"required,minstringlength(1)"
 }
 
 message AddUsersResponse {
@@ -54,8 +66,8 @@ message AddUsersResponse {
 
 // RemoveUserFromWarehouse
 message RemoveUserRequest {
-  string warehouseID = 1;
-  repeated string userIds = 2;
+  string warehouseID = 1; // @gotags: valid:"required,minstringlength(1)"
+  string userIds = 2; // @gotags: valid:"required,minstringlength(1)"
 }
 
 message RemoveUserResponse {
@@ -65,7 +77,7 @@ message RemoveUserResponse {
 
 // DeleteWarehouse
 message DeleteRequest {
-  string warehouseID = 1;
+  string warehouseID = 1; // @gotags: valid:"required,minstringlength(1)"
 }
 
 message DeleteResponse {
