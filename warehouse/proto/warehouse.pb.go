@@ -165,8 +165,8 @@ type UpdateRequest struct {
 	Name        string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty" valid:"required,minstringlength(1)"`               // @gotags: valid:"required,minstringlength(1)"
 	Desc        string `protobuf:"bytes,3,opt,name=desc,proto3" json:"desc,omitempty" valid:"required,minstringlength(1)"`               // @gotags: valid:"required,minstringlength(1)"
 	Logo        string `protobuf:"bytes,4,opt,name=logo,proto3" json:"logo,omitempty" valid:"url,required"`               // @gotags: valid:"url,required"
-	IsPhysical  bool   `protobuf:"varint,5,opt,name=isPhysical,proto3" json:"isPhysical,omitempty" valid:"bool"`  // @gotags: valid:"bool"
-	Capacity    int64  `protobuf:"varint,6,opt,name=capacity,proto3" json:"capacity,omitempty" valid:"int"`      // @gotags: valid:"int"
+	IsPhysical  bool   `protobuf:"varint,5,opt,name=isPhysical,proto3" json:"isPhysical,omitempty"`
+	Capacity    int64  `protobuf:"varint,6,opt,name=capacity,proto3" json:"capacity,omitempty" valid:"int"` // @gotags: valid:"int"
 }
 
 func (x *UpdateRequest) Reset() {
@@ -304,12 +304,12 @@ type CreateRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	OwnerID    string `protobuf:"bytes,1,opt,name=ownerID,proto3" json:"ownerID,omitempty" valid:"required"`        // @gotags: valid:"required"
-	Name       string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty" valid:"required,minstringlength(1)"`              // @gotags: valid:"required,minstringlength(1)"
-	Desc       string `protobuf:"bytes,3,opt,name=desc,proto3" json:"desc,omitempty" valid:"required,minstringlength(1)"`              // @gotags: valid:"required,minstringlength(1)"
-	Logo       string `protobuf:"bytes,4,opt,name=logo,proto3" json:"logo,omitempty" valid:"url,optional"`              // @gotags: valid:"url,optional"
-	IsPhysical bool   `protobuf:"varint,5,opt,name=isPhysical,proto3" json:"isPhysical,omitempty" valid:"bool"` // @gotags: valid:"bool"
-	Capacity   int64  `protobuf:"varint,6,opt,name=capacity,proto3" json:"capacity,omitempty" valid:"int"`     // @gotags: valid:"int"
+	OwnerID    string `protobuf:"bytes,1,opt,name=ownerID,proto3" json:"ownerID,omitempty" valid:"required"` // @gotags: valid:"required"
+	Name       string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty" valid:"required,minstringlength(1)"`       // @gotags: valid:"required,minstringlength(1)"
+	Desc       string `protobuf:"bytes,3,opt,name=desc,proto3" json:"desc,omitempty" valid:"required,minstringlength(1)"`       // @gotags: valid:"required,minstringlength(1)"
+	Logo       string `protobuf:"bytes,4,opt,name=logo,proto3" json:"logo,omitempty" valid:"url,optional"`       // @gotags: valid:"url,optional"
+	IsPhysical bool   `protobuf:"varint,5,opt,name=isPhysical,proto3" json:"isPhysical,omitempty"`
+	Capacity   int64  `protobuf:"varint,6,opt,name=capacity,proto3" json:"capacity,omitempty" valid:"int"` // @gotags: valid:"int"
 }
 
 func (x *CreateRequest) Reset() {
