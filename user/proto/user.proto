@@ -1,0 +1,82 @@
+syntax = "proto3";
+package proto;
+
+option go_package="github.com/CrabStash/crab-stash-protofiles/user/proto";
+
+message MeInfoRequest{
+    string userID=1; // @gotags: valid:"required,minstringlength(1)"
+
+}
+
+message MeInfoResponse{
+    string firstName=1; //@gotags: valid:"alpha,minstringlength(1)"
+    string lastName=2; //@gotags: valid:"alpha,minstringlength(1)"
+    string email=3;//@gotags: valid:"email"
+    string avatar=4;//@gotags: valid:"url"
+    repeated string owns=5; 
+}
+
+message UpdateUserInfoRequest{
+    message Data{
+    string firstName=1; //@gotags: valid:"alpha,minstringlength(1)"
+    string lastName=2; //@gotags: valid:"alpha,minstringlength(1)"
+    string email=3; //@gotags: valid:"email"
+    string avatar=4; //@gotags: valid:"url"
+    }
+    string userID=1;
+    Data data=2; // @gotags: valid:"required"
+}
+
+message UpdateUserInfoResponse{
+    string status=1;
+    string response=2;
+}
+
+message GetUserInfoRequest{
+    string email=1; //@gotags: valid:"email"
+}
+
+message GetUserInfoResponse{
+    string firstName=1; //@gotags: valid:"alpha,minstringlength(1)"
+    string lastName=2; //@gotags: valid:"alpha,minstringlength(1)"
+    string email=3; //@gotags: valid:"required,email"
+    string avatar=4; //@gotags: valid:"url"
+}
+
+message InternalGetUserByEmailRequest{
+    string email=1;
+}
+
+message InternalGetUserByEmailAuthResponse{
+    string id=1; // @gotags: valid:"required,minstringlength(1)"
+    string passwd=2; // @gotags: valid:"required, alphanum"
+    string email=3; //@gotags: valid:"required,email"
+}
+
+message InternalGetUserByEmailWarehouseResponse{
+    string id=1; // @gotags: valid:"required,minstringlength(1)"
+}
+
+message DeleteUserRequest{
+    string userID=1; // @gotags: valid:"required,minstringlength(1)"
+}
+
+message DeleteUserResponse{
+    string status=1;
+    string response=2;
+}
+
+message InternalGetUserByUUIDCheck{
+    string id=1; // @gotags: valid:"required,minstringlength(1)"
+}
+
+service UserService{
+    rpc MeInfo(MeInfoRequest) returns(MeInfoResponse);
+    rpc UpdateUserInfo(UpdateUserInfoRequest) returns(UpdateUserInfoResponse);
+    rpc GetUserInfo(GetUserInfoRequest) returns(GetUserInfoResponse);
+    rpc DeleteUser(DeleteUserRequest) returns(DeleteUserResponse);
+    //Internal comms below   v
+    rpc InternalGetUserByEmailAuth(InternalGetUserByEmailRequest) returns (InternalGetUserByEmailAuthResponse);
+    rpc InternalGetUserByEmailWarehouse(InternalGetUserByEmailRequest) returns(InternalGetUserByEmailWarehouseResponse);
+    rpc InternalGetUserByUUID(InternalGetUserByUUIDCheck) returns(InternalGetUserByUUIDCheck);
+}

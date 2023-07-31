@@ -29,14 +29,16 @@ else
 endif
 
 .DEFAULT_GOAL := help
-.PHONY: auth warehouse
-project := auth warehouse
+.PHONY: auth warehouse user
+project := auth warehouse user
 
 all: $(project) ## Generate Pbs and build
 
 auth: $@ ## Generate Pbs and build for auth
 
 warehouse: $@ ## Generate Pbs and build for warehouse
+
+user: $@ ## Generate Pbs and build for user
 
 $(project):
 	@${CHECK_DIR_CMD}
@@ -47,3 +49,6 @@ clean_auth: ## Clean generated files for auth
 
 clean_warehouse: ## Clean generated files for warehouse
 	${RM_F_CMD} warehouse/${PROTO_DIR}/*.pb.go
+
+clean_user: ## Clean generated files for user
+	${RM_F_CMD} user/${PROTO_DIR}/*.pb.go
