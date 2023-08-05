@@ -3,6 +3,7 @@ syntax = "proto3";
 package warehouse;
 
 option go_package = "github.com/CrabStash/crab-stash-protofiles/warehouse/proto";
+import "google/protobuf/empty.proto";
 
 // GetInfo
 message GetInfoRequest {
@@ -79,6 +80,25 @@ message DeleteResponse {
   string response = 2;
 }
 
+// Internal
+
+message InternalFetchWarehousesRequest {
+  string userID = 1; // @gotags: valid:"required,minstringlength(1)"
+}
+
+message InternalFetchWarehousesResponse {
+  message Nested {
+    string warehouseID = 1;
+    repeated string roles = 2;
+  }
+  repeated Nested items = 1;
+}
+
+
+message InternalDeleteAccRequest {
+  string userID = 1; // @gotags: valid:"required,minstringlength(1)"
+}
+
 
 // Service
 
@@ -89,4 +109,6 @@ service WarehouseService {
   rpc AddUsersToWarehouse (AddUsersRequest) returns (AddUsersResponse);
   rpc RemoveUserFromWarehouse (RemoveUserRequest) returns (RemoveUserResponse);
   rpc DeleteWarehouse (DeleteRequest) returns (DeleteResponse);
+  rpc InternalFetchWarehouses (InternalFetchWarehousesRequest) returns (InternalFetchWarehousesResponse);
+  rpc InternalDeleteAcc (InternalDeleteAccRequest) returns (google.protobuf.Empty);
 }

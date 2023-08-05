@@ -11,6 +11,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -28,6 +29,8 @@ type WarehouseServiceClient interface {
 	AddUsersToWarehouse(ctx context.Context, in *AddUsersRequest, opts ...grpc.CallOption) (*AddUsersResponse, error)
 	RemoveUserFromWarehouse(ctx context.Context, in *RemoveUserRequest, opts ...grpc.CallOption) (*RemoveUserResponse, error)
 	DeleteWarehouse(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteResponse, error)
+	InternalFetchWarehouses(ctx context.Context, in *InternalFetchWarehousesRequest, opts ...grpc.CallOption) (*InternalFetchWarehousesResponse, error)
+	InternalDeleteAcc(ctx context.Context, in *InternalDeleteAccRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type warehouseServiceClient struct {
@@ -92,6 +95,24 @@ func (c *warehouseServiceClient) DeleteWarehouse(ctx context.Context, in *Delete
 	return out, nil
 }
 
+func (c *warehouseServiceClient) InternalFetchWarehouses(ctx context.Context, in *InternalFetchWarehousesRequest, opts ...grpc.CallOption) (*InternalFetchWarehousesResponse, error) {
+	out := new(InternalFetchWarehousesResponse)
+	err := c.cc.Invoke(ctx, "/warehouse.WarehouseService/InternalFetchWarehouses", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *warehouseServiceClient) InternalDeleteAcc(ctx context.Context, in *InternalDeleteAccRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, "/warehouse.WarehouseService/InternalDeleteAcc", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // WarehouseServiceServer is the server API for WarehouseService service.
 // All implementations must embed UnimplementedWarehouseServiceServer
 // for forward compatibility
@@ -102,6 +123,8 @@ type WarehouseServiceServer interface {
 	AddUsersToWarehouse(context.Context, *AddUsersRequest) (*AddUsersResponse, error)
 	RemoveUserFromWarehouse(context.Context, *RemoveUserRequest) (*RemoveUserResponse, error)
 	DeleteWarehouse(context.Context, *DeleteRequest) (*DeleteResponse, error)
+	InternalFetchWarehouses(context.Context, *InternalFetchWarehousesRequest) (*InternalFetchWarehousesResponse, error)
+	InternalDeleteAcc(context.Context, *InternalDeleteAccRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedWarehouseServiceServer()
 }
 
@@ -126,6 +149,12 @@ func (UnimplementedWarehouseServiceServer) RemoveUserFromWarehouse(context.Conte
 }
 func (UnimplementedWarehouseServiceServer) DeleteWarehouse(context.Context, *DeleteRequest) (*DeleteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteWarehouse not implemented")
+}
+func (UnimplementedWarehouseServiceServer) InternalFetchWarehouses(context.Context, *InternalFetchWarehousesRequest) (*InternalFetchWarehousesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method InternalFetchWarehouses not implemented")
+}
+func (UnimplementedWarehouseServiceServer) InternalDeleteAcc(context.Context, *InternalDeleteAccRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method InternalDeleteAcc not implemented")
 }
 func (UnimplementedWarehouseServiceServer) mustEmbedUnimplementedWarehouseServiceServer() {}
 
@@ -248,6 +277,42 @@ func _WarehouseService_DeleteWarehouse_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _WarehouseService_InternalFetchWarehouses_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InternalFetchWarehousesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WarehouseServiceServer).InternalFetchWarehouses(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/warehouse.WarehouseService/InternalFetchWarehouses",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WarehouseServiceServer).InternalFetchWarehouses(ctx, req.(*InternalFetchWarehousesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WarehouseService_InternalDeleteAcc_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InternalDeleteAccRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WarehouseServiceServer).InternalDeleteAcc(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/warehouse.WarehouseService/InternalDeleteAcc",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WarehouseServiceServer).InternalDeleteAcc(ctx, req.(*InternalDeleteAccRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // WarehouseService_ServiceDesc is the grpc.ServiceDesc for WarehouseService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -278,6 +343,14 @@ var WarehouseService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteWarehouse",
 			Handler:    _WarehouseService_DeleteWarehouse_Handler,
+		},
+		{
+			MethodName: "InternalFetchWarehouses",
+			Handler:    _WarehouseService_InternalFetchWarehouses_Handler,
+		},
+		{
+			MethodName: "InternalDeleteAcc",
+			Handler:    _WarehouseService_InternalDeleteAcc_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
