@@ -11,12 +11,19 @@ message GetInfoRequest {
 }
 
 message GetInfoResponse {
-  string name = 1;
-  string desc = 2;
-  string logo = 3;
-  string owner = 4;
-  bool isPhysical = 5;
-  int64 capacity = 6;
+  message Response {
+    string name = 1;
+    string desc = 2;
+    string logo = 3;
+    string owner = 4;
+    bool isPhysical = 5;
+    int64 capacity = 6;
+  }
+  int32 status = 1;
+  oneof response {
+    Response data = 2;
+    string error = 3;
+  }
 }
 
 // UpdateWarehouse
@@ -30,7 +37,7 @@ message UpdateRequest {
 }
 
 message UpdateResponse {
-  string status = 1;
+  int32 status = 1;
   string response = 2;
 }
 
@@ -45,7 +52,14 @@ message CreateRequest {
 }
 
 message CreateResponse {
-  string warehouseID = 1;
+  message Response {
+    string warehouseID = 1;
+  }
+  int32 status = 1;
+  oneof response {
+    Response data = 2;
+    string error = 3;
+  }
 }
 
 // AddUserToWarehouse
@@ -55,7 +69,7 @@ message AddUsersRequest {
 }
 
 message AddUsersResponse {
-  string status = 1;
+  int32 status = 1;
   string response = 2;
 }
 
@@ -66,7 +80,7 @@ message RemoveUserRequest {
 }
 
 message RemoveUserResponse {
-  string status = 1;
+  int32 status = 1;
   string response = 2;
 }
 
@@ -76,7 +90,7 @@ message DeleteRequest {
 }
 
 message DeleteResponse {
-  string status = 1;
+  int32 status = 1;
   string response = 2;
 }
 

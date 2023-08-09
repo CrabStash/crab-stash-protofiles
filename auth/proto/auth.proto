@@ -11,8 +11,15 @@ message LoginRequest {
 }
 
 message LoginResponse {
-  string token = 1;
-  string refresh = 2;
+  message Response {
+    string token = 1;
+    string refresh = 2;
+  }
+  int32 status = 1;
+  oneof response {
+    Response data = 2;
+    string error = 3;
+  }
 }
 
 // Register
@@ -24,7 +31,7 @@ message RegisterRequest {
 }
 
 message RegisterResponse {
-  string status = 1;
+  int32 status = 1;
   string response = 2;
 }
 
@@ -34,7 +41,14 @@ message ValidateRequest {
 }
 
 message ValidateResponse {
-  string uuid = 1;
+  message Response {
+    string uuid = 1;
+  }
+  int32 status = 1;
+  oneof response {
+    Response data = 2;
+    string error = 3;
+  }
 }
 
 // Refresh
@@ -43,7 +57,14 @@ message RefreshRequest {
 }
 
 message RefreshResponse {
-  string token = 1;
+  message Response {
+    string token = 1;
+  }
+  int32 status = 1;
+  oneof response {
+    Response data = 2;
+    string error = 3;
+  }
 }
 
 // Logout
@@ -53,7 +74,7 @@ message LogoutRequest {
 }
 
 message LogoutResponse {
-  string status = 1;
+  int32 status = 1;
   string response = 2;
 }
 
