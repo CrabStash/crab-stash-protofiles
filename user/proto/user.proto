@@ -41,7 +41,7 @@ message UpdateUserInfoResponse{
 }
 
 message GetUserInfoRequest{
-    string id=1; //@gotags: valid:"email"
+    string id=1; //@gotags: valid:"required"
 }
 
 message GetUserInfoResponse{
