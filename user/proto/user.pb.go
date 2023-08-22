@@ -271,7 +271,7 @@ type GetUserInfoRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty" valid:"email"` //@gotags: valid:"email"
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty" valid:"required"` //@gotags: valid:"required"
 }
 
 func (x *GetUserInfoRequest) Reset() {
