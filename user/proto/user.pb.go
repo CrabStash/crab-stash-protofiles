@@ -161,8 +161,8 @@ type UpdateUserInfoRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserID string                      `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID,omitempty"`
-	Data   *UpdateUserInfoRequest_Data `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty" valid:"required"` // @gotags: valid:"required"
+	UserID string                      `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID,omitempty" valid:"required"` //@gotags: valid:"required"
+	Data   *UpdateUserInfoRequest_Data `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty" valid:"required"`     // @gotags: valid:"required"
 }
 
 func (x *UpdateUserInfoRequest) Reset() {
