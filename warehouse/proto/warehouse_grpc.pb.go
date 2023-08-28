@@ -30,6 +30,7 @@ type WarehouseServiceClient interface {
 	RemoveUserFromWarehouse(ctx context.Context, in *RemoveUserRequest, opts ...grpc.CallOption) (*RemoveUserResponse, error)
 	DeleteWarehouse(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteResponse, error)
 	InternalFetchWarehouses(ctx context.Context, in *InternalFetchWarehousesRequest, opts ...grpc.CallOption) (*InternalFetchWarehousesResponse, error)
+	InternalFetchWarehouseRole(ctx context.Context, in *InternalFetchWarehouseRoleRequest, opts ...grpc.CallOption) (*InternalFetchWarehouseRoleResponse, error)
 	InternalDeleteAcc(ctx context.Context, in *InternalDeleteAccRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
@@ -104,6 +105,15 @@ func (c *warehouseServiceClient) InternalFetchWarehouses(ctx context.Context, in
 	return out, nil
 }
 
+func (c *warehouseServiceClient) InternalFetchWarehouseRole(ctx context.Context, in *InternalFetchWarehouseRoleRequest, opts ...grpc.CallOption) (*InternalFetchWarehouseRoleResponse, error) {
+	out := new(InternalFetchWarehouseRoleResponse)
+	err := c.cc.Invoke(ctx, "/warehouse.WarehouseService/InternalFetchWarehouseRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *warehouseServiceClient) InternalDeleteAcc(ctx context.Context, in *InternalDeleteAccRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/warehouse.WarehouseService/InternalDeleteAcc", in, out, opts...)
@@ -124,6 +134,7 @@ type WarehouseServiceServer interface {
 	RemoveUserFromWarehouse(context.Context, *RemoveUserRequest) (*RemoveUserResponse, error)
 	DeleteWarehouse(context.Context, *DeleteRequest) (*DeleteResponse, error)
 	InternalFetchWarehouses(context.Context, *InternalFetchWarehousesRequest) (*InternalFetchWarehousesResponse, error)
+	InternalFetchWarehouseRole(context.Context, *InternalFetchWarehouseRoleRequest) (*InternalFetchWarehouseRoleResponse, error)
 	InternalDeleteAcc(context.Context, *InternalDeleteAccRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedWarehouseServiceServer()
 }
@@ -152,6 +163,9 @@ func (UnimplementedWarehouseServiceServer) DeleteWarehouse(context.Context, *Del
 }
 func (UnimplementedWarehouseServiceServer) InternalFetchWarehouses(context.Context, *InternalFetchWarehousesRequest) (*InternalFetchWarehousesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InternalFetchWarehouses not implemented")
+}
+func (UnimplementedWarehouseServiceServer) InternalFetchWarehouseRole(context.Context, *InternalFetchWarehouseRoleRequest) (*InternalFetchWarehouseRoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method InternalFetchWarehouseRole not implemented")
 }
 func (UnimplementedWarehouseServiceServer) InternalDeleteAcc(context.Context, *InternalDeleteAccRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InternalDeleteAcc not implemented")
@@ -295,6 +309,24 @@ func _WarehouseService_InternalFetchWarehouses_Handler(srv interface{}, ctx cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _WarehouseService_InternalFetchWarehouseRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InternalFetchWarehouseRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WarehouseServiceServer).InternalFetchWarehouseRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/warehouse.WarehouseService/InternalFetchWarehouseRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WarehouseServiceServer).InternalFetchWarehouseRole(ctx, req.(*InternalFetchWarehouseRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _WarehouseService_InternalDeleteAcc_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(InternalDeleteAccRequest)
 	if err := dec(in); err != nil {
@@ -347,6 +379,10 @@ var WarehouseService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "InternalFetchWarehouses",
 			Handler:    _WarehouseService_InternalFetchWarehouses_Handler,
+		},
+		{
+			MethodName: "InternalFetchWarehouseRole",
+			Handler:    _WarehouseService_InternalFetchWarehouseRole_Handler,
 		},
 		{
 			MethodName: "InternalDeleteAcc",

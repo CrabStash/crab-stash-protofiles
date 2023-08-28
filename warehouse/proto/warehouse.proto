@@ -5,6 +5,15 @@ package warehouse;
 option go_package = "github.com/CrabStash/crab-stash-protofiles/warehouse/proto";
 import "google/protobuf/empty.proto";
 
+// enums
+enum Roles {
+  ROLE_VIEWER = 0;
+  ROLE_CC = 1;
+  ROLE_MOD = 2;
+  ROLE_ADMIN = 3;
+  ROLE_OWNER = 4;
+}
+
 // GetInfo
 message GetInfoRequest {
   string warehouseID = 1; // @gotags: valid:"required,minstringlength(1)"
@@ -103,11 +112,26 @@ message InternalFetchWarehousesRequest {
 message InternalFetchWarehousesResponse {
   message Nested {
     string warehouseID = 1;
-    repeated string roles = 2;
+    Roles role = 2;
   }
   repeated Nested items = 1;
+  string error = 2;
 }
 
+message InternalFetchWarehouseRoleRequest {
+  string warehouseID = 1; // @gotags: valid:"required,minstringlength(1)"
+}
+
+message InternalFetchWarehouseRoleResponse {
+  message Response {
+    Roles role = 1;
+  }
+  int32 status = 1;
+  oneof response {
+    Response data = 2;
+    string error = 3;
+  }
+}
 
 message InternalDeleteAccRequest {
   string userID = 1; // @gotags: valid:"required,minstringlength(1)"
@@ -124,5 +148,6 @@ service WarehouseService {
   rpc RemoveUserFromWarehouse (RemoveUserRequest) returns (RemoveUserResponse);
   rpc DeleteWarehouse (DeleteRequest) returns (DeleteResponse);
   rpc InternalFetchWarehouses (InternalFetchWarehousesRequest) returns (InternalFetchWarehousesResponse);
+  rpc InternalFetchWarehouseRole (InternalFetchWarehouseRoleRequest) returns (InternalFetchWarehouseRoleResponse);
   rpc InternalDeleteAcc (InternalDeleteAccRequest) returns (google.protobuf.Empty);
 }
