@@ -862,9 +862,9 @@ type ChangeRoleRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	WarehouseID string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty" valid:"required,minstringlength(1)"` // @gotags: valid:"required,minstringlength(1)"
-	UserID      string `protobuf:"bytes,2,opt,name=userID,proto3" json:"userID,omitempty" valid:"required,minstringlength(1)"`           // @gotags: valid:"required,minstringlength(1)"
-	NewRole     Roles  `protobuf:"varint,3,opt,name=newRole,proto3,enum=warehouse.Roles" json:"newRole,omitempty"`
+	WarehouseID string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty" valid:"required,minstringlength(1)"`               // @gotags: valid:"required,minstringlength(1)"
+	UserID      string `protobuf:"bytes,2,opt,name=userID,proto3" json:"userID,omitempty" valid:"required,minstringlength(1)"`                         // @gotags: valid:"required,minstringlength(1)"
+	NewRole     Roles  `protobuf:"varint,3,opt,name=newRole,proto3,enum=warehouse.Roles" json:"newRole,omitempty" valid:"-"` // @gotags: valid:"-"
 }
 
 func (x *ChangeRoleRequest) Reset() {
