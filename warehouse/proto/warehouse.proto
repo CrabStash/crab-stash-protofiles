@@ -161,6 +161,7 @@ service WarehouseService {
   rpc AddUsersToWarehouse (AddUsersRequest) returns (AddUsersResponse);
   rpc RemoveUserFromWarehouse (RemoveUserRequest) returns (RemoveUserResponse);
   rpc DeleteWarehouse (DeleteRequest) returns (DeleteResponse);
+  rpc ChangeRole (ChangeRoleRequest) returns (ChangeRoleResponse);
   rpc InternalFetchWarehouses (InternalFetchWarehousesRequest) returns (InternalFetchWarehousesResponse);
   rpc InternalFetchWarehouseRole (InternalFetchWarehouseRoleRequest) returns (InternalFetchWarehouseRoleResponse);
   rpc InternalDeleteAcc (InternalDeleteAccRequest) returns (google.protobuf.Empty);

@@ -29,6 +29,7 @@ type WarehouseServiceClient interface {
 	AddUsersToWarehouse(ctx context.Context, in *AddUsersRequest, opts ...grpc.CallOption) (*AddUsersResponse, error)
 	RemoveUserFromWarehouse(ctx context.Context, in *RemoveUserRequest, opts ...grpc.CallOption) (*RemoveUserResponse, error)
 	DeleteWarehouse(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteResponse, error)
+	ChangeRole(ctx context.Context, in *ChangeRoleRequest, opts ...grpc.CallOption) (*ChangeRoleResponse, error)
 	InternalFetchWarehouses(ctx context.Context, in *InternalFetchWarehousesRequest, opts ...grpc.CallOption) (*InternalFetchWarehousesResponse, error)
 	InternalFetchWarehouseRole(ctx context.Context, in *InternalFetchWarehouseRoleRequest, opts ...grpc.CallOption) (*InternalFetchWarehouseRoleResponse, error)
 	InternalDeleteAcc(ctx context.Context, in *InternalDeleteAccRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -96,6 +97,15 @@ func (c *warehouseServiceClient) DeleteWarehouse(ctx context.Context, in *Delete
 	return out, nil
 }
 
+func (c *warehouseServiceClient) ChangeRole(ctx context.Context, in *ChangeRoleRequest, opts ...grpc.CallOption) (*ChangeRoleResponse, error) {
+	out := new(ChangeRoleResponse)
+	err := c.cc.Invoke(ctx, "/warehouse.WarehouseService/ChangeRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *warehouseServiceClient) InternalFetchWarehouses(ctx context.Context, in *InternalFetchWarehousesRequest, opts ...grpc.CallOption) (*InternalFetchWarehousesResponse, error) {
 	out := new(InternalFetchWarehousesResponse)
 	err := c.cc.Invoke(ctx, "/warehouse.WarehouseService/InternalFetchWarehouses", in, out, opts...)
@@ -133,6 +143,7 @@ type WarehouseServiceServer interface {
 	AddUsersToWarehouse(context.Context, *AddUsersRequest) (*AddUsersResponse, error)
 	RemoveUserFromWarehouse(context.Context, *RemoveUserRequest) (*RemoveUserResponse, error)
 	DeleteWarehouse(context.Context, *DeleteRequest) (*DeleteResponse, error)
+	ChangeRole(context.Context, *ChangeRoleRequest) (*ChangeRoleResponse, error)
 	InternalFetchWarehouses(context.Context, *InternalFetchWarehousesRequest) (*InternalFetchWarehousesResponse, error)
 	InternalFetchWarehouseRole(context.Context, *InternalFetchWarehouseRoleRequest) (*InternalFetchWarehouseRoleResponse, error)
 	InternalDeleteAcc(context.Context, *InternalDeleteAccRequest) (*emptypb.Empty, error)
@@ -160,6 +171,9 @@ func (UnimplementedWarehouseServiceServer) RemoveUserFromWarehouse(context.Conte
 }
 func (UnimplementedWarehouseServiceServer) DeleteWarehouse(context.Context, *DeleteRequest) (*DeleteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteWarehouse not implemented")
+}
+func (UnimplementedWarehouseServiceServer) ChangeRole(context.Context, *ChangeRoleRequest) (*ChangeRoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ChangeRole not implemented")
 }
 func (UnimplementedWarehouseServiceServer) InternalFetchWarehouses(context.Context, *InternalFetchWarehousesRequest) (*InternalFetchWarehousesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InternalFetchWarehouses not implemented")
@@ -291,6 +305,24 @@ func _WarehouseService_DeleteWarehouse_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _WarehouseService_ChangeRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ChangeRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WarehouseServiceServer).ChangeRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/warehouse.WarehouseService/ChangeRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WarehouseServiceServer).ChangeRole(ctx, req.(*ChangeRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _WarehouseService_InternalFetchWarehouses_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(InternalFetchWarehousesRequest)
 	if err := dec(in); err != nil {
@@ -375,6 +407,10 @@ var WarehouseService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteWarehouse",
 			Handler:    _WarehouseService_DeleteWarehouse_Handler,
+		},
+		{
+			MethodName: "ChangeRole",
+			Handler:    _WarehouseService_ChangeRole_Handler,
 		},
 		{
 			MethodName: "InternalFetchWarehouses",
