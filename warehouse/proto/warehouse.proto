@@ -103,6 +103,19 @@ message DeleteResponse {
   string response = 2;
 }
 
+// ChangeRole
+
+message ChangeRoleRequest {
+  string warehouseID = 1; // @gotags: valid:"required,minstringlength(1)"
+  string userID = 2; // @gotags: valid:"required,minstringlength(1)"
+  Roles newRole = 3;
+}
+
+message ChangeRoleResponse {
+  int32 status = 1;
+  string response = 2;
+}
+
 // Internal
 
 message InternalFetchWarehousesRequest {
