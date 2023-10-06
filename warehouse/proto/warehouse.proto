@@ -117,6 +117,40 @@ message ChangeRoleResponse {
   string response = 2;
 }
 
+//ListUsers
+message ListUsersRequest{
+  string warehouseID = 1; //@gotags: valid:"required,minstringlength(1)"
+  int32 limit = 2; //@gotags: valid:"required,numeric,min(5),max(30)"
+  int32 page = 3; //@gotags: valid:"required,numeric"
+}
+
+message ListUsersResponse {
+  message pagination {
+    int32 limit = 1;
+    int32 total = 2;
+    int32 page = 3; 
+  }
+
+  message user {
+    string firstName = 1;
+    string lastName = 2; 
+    string email = 3;
+    string avatar = 4;
+    repeated string owns = 5; 
+  }
+
+  message Response {
+    pagination pagination = 1;
+    repeated user list = 2;
+  }
+
+   int32 status = 1;
+   oneof response {
+   Response data = 2;
+   string error = 3;
+  } 
+}
+
 // Internal
 
 message InternalFetchWarehousesRequest {
@@ -163,6 +197,7 @@ service WarehouseService {
   rpc RemoveUserFromWarehouse (RemoveUserRequest) returns (RemoveUserResponse);
   rpc DeleteWarehouse (DeleteRequest) returns (DeleteResponse);
   rpc ChangeRole (ChangeRoleRequest) returns (ChangeRoleResponse);
+  rpc ListUsers (ListUsersRequest) returns (ListUsersResponse);
   rpc InternalFetchWarehouses (InternalFetchWarehousesRequest) returns (InternalFetchWarehousesResponse);
   rpc InternalFetchWarehouseRole (InternalFetchWarehouseRoleRequest) returns (InternalFetchWarehouseRoleResponse);
   rpc InternalDeleteAcc (InternalDeleteAccRequest) returns (google.protobuf.Empty);
