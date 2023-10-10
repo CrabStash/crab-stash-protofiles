@@ -120,8 +120,8 @@ message ChangeRoleResponse {
 //ListUsers
 message ListUsersRequest{
   string warehouseID = 1; //@gotags: valid:"required,minstringlength(1)"
-  int32 limit = 2; //@gotags: valid:"required,numeric,min=5,max=30"
-  int32 page = 3; //@gotags: valid:"required,numeric,min=1"
+  int32 limit = 2; //@gotags: valid:"required,numeric,range(5|30)"
+  int32 page = 3; //@gotags: valid:"required,numeric"
 }
 
 message ListUsersResponse {
