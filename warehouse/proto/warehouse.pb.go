@@ -992,8 +992,8 @@ type ListUsersRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	WarehouseID string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty" valid:"required,minstringlength(1)"` //@gotags: valid:"required,minstringlength(1)"
-	Limit       int32  `protobuf:"varint,2,opt,name=limit,proto3" json:"limit,omitempty" valid:"required,numeric,min(5),max(30)"`            //@gotags: valid:"required,numeric,min(5),max(30)"
-	Page        int32  `protobuf:"varint,3,opt,name=page,proto3" json:"page,omitempty" valid:"required,numeric"`              //@gotags: valid:"required,numeric"
+	Limit       int32  `protobuf:"varint,2,opt,name=limit,proto3" json:"limit,omitempty" valid:"required,numeric,min=5,max=30"`            //@gotags: valid:"required,numeric,min=5,max=30"
+	Page        int32  `protobuf:"varint,3,opt,name=page,proto3" json:"page,omitempty" valid:"required,numeric,min=1"`              //@gotags: valid:"required,numeric,min=1"
 }
 
 func (x *ListUsersRequest) Reset() {
