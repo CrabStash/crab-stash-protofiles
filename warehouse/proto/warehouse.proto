@@ -136,12 +136,18 @@ message ListUsersResponse {
     string lastName = 2; 
     string email = 3;
     string avatar = 4;
-    repeated string owns = 5; 
+    Roles role = 5;
+    repeated string owns = 6; 
+  }
+
+  message list {
+    user user = 1;
+    Roles role = 2;
   }
 
   message Response {
     pagination pagination = 1;
-    repeated user list = 2;
+    repeated list list = 2;
   }
 
    int32 status = 1;
