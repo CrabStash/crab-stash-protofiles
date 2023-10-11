@@ -141,7 +141,7 @@ message ListUsersResponse {
 
   message list {
     user user = 1;
-    Roles role = 2;
+    Roles role = 2; //@gotags: json:"role"
   }
 
   message Response {

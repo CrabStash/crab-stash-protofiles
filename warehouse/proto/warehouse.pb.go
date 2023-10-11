@@ -1709,7 +1709,7 @@ type ListUsersResponseList struct {
 	unknownFields protoimpl.UnknownFields
 
 	User *ListUsersResponseUser `protobuf:"bytes,1,opt,name=user,proto3" json:"user,omitempty"`
-	Role Roles                  `protobuf:"varint,2,opt,name=role,proto3,enum=warehouse.Roles" json:"role,omitempty"`
+	Role Roles                  `protobuf:"varint,2,opt,name=role,proto3,enum=warehouse.Roles" json:"role"` //@gotags: json:"role"
 }
 
 func (x *ListUsersResponseList) Reset() {
