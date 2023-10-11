@@ -136,8 +136,7 @@ message ListUsersResponse {
     string lastName = 2; 
     string email = 3;
     string avatar = 4;
-    Roles role = 5;
-    repeated string owns = 6; 
+    repeated string owns = 5; 
   }
 
   message list {
