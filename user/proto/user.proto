@@ -10,8 +10,8 @@ message MeInfoRequest{
 
 message MeInfoResponse{
     message Response{
-    string firstName=1; //@gotags: valid:"alpha,minstringlength(1)"
-    string lastName=2; //@gotags: valid:"alpha,minstringlength(1)"
+    string firstName=1; //@gotags: valid:"minstringlength(1)"
+    string lastName=2; //@gotags: valid:"minstringlength(1)"
     string email=3;//@gotags: valid:"email"
     string avatar=4;//@gotags: valid:"url"
     repeated string owns=5; 
@@ -26,8 +26,8 @@ message MeInfoResponse{
 
 message UpdateUserInfoRequest{
     message Data{
-    string firstName=1; //@gotags: valid:"alpha,minstringlength(1)"
-    string lastName=2; //@gotags: valid:"alpha,minstringlength(1)"
+    string firstName=1; //@gotags: valid:"minstringlength(1)"
+    string lastName=2; //@gotags: valid:"minstringlength(1)"
     string email=3; //@gotags: valid:"email"
     string avatar=4; //@gotags: valid:"url"
     }
@@ -46,8 +46,8 @@ message GetUserInfoRequest{
 
 message GetUserInfoResponse{
     message Response{
-    string firstName=1; //@gotags: valid:"alpha,minstringlength(1)"
-    string lastName=2; //@gotags: valid:"alpha,minstringlength(1)"
+    string firstName=1; //@gotags: valid:"minstringlength(1)"
+    string lastName=2; //@gotags: valid:"minstringlength(1)"
     string email=3; //@gotags: valid:"required,email"
     string avatar=4; //@gotags: valid:"url"
     }
@@ -64,7 +64,7 @@ message InternalGetUserByEmailRequest{
 
 message InternalGetUserByEmailAuthResponse{
     string id=1; // @gotags: valid:"required,minstringlength(1)"
-    string passwd=2; // @gotags: valid:"required, alphanum"
+    string passwd=2; // @gotags: valid:"required,alphanum"
     string email=3; //@gotags: valid:"required,email"
     int32 status=4;
     string response=5;
