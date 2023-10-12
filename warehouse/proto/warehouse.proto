@@ -29,7 +29,9 @@ message GetInfoResponse {
     int64 capacity = 6;
   }
   int32 status = 1;
+  // @gotags: json:"response"
   oneof response {
+    // @gotags: json:"data"
     Response data = 2;
     string error = 3;
   }
@@ -65,7 +67,9 @@ message CreateResponse {
     string warehouseID = 1;
   }
   int32 status = 1;
+  // @gotags: json:"response"
   oneof response {
+    // @gotags: json:"data"
     Response data = 2;
     string error = 3;
   }
@@ -150,9 +154,11 @@ message ListUsersResponse {
   }
 
    int32 status = 1;
+   // @gotags: json:"response"
    oneof response {
-   Response data = 2;
-   string error = 3;
+    // @gotags: json:"data"
+    Response data = 2;
+    string error = 3;
   } 
 }
 
@@ -181,7 +187,9 @@ message InternalFetchWarehouseRoleResponse {
     Roles role = 1;
   }
   int32 status = 1;
+  // @gotags: json:"response"
   oneof response {
+    // @gotags: json:"data"
     Response data = 2;
     string error = 3;
   }

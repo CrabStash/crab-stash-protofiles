@@ -73,10 +73,12 @@ type MeInfoResponse struct {
 	unknownFields protoimpl.UnknownFields
 
 	Status int32 `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	// @gotags: json:"response"
+	//
 	// Types that are assignable to Response:
 	//	*MeInfoResponse_Data
 	//	*MeInfoResponse_Error
-	Response isMeInfoResponse_Response `protobuf_oneof:"response"`
+	Response isMeInfoResponse_Response `protobuf_oneof:"response" json:"response"`
 }
 
 func (x *MeInfoResponse) Reset() {
@@ -144,7 +146,8 @@ type isMeInfoResponse_Response interface {
 }
 
 type MeInfoResponse_Data struct {
-	Data *MeInfoResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof"`
+	// @gotags: json:"data"
+	Data *MeInfoResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
 }
 
 type MeInfoResponse_Error struct {
@@ -318,10 +321,12 @@ type GetUserInfoResponse struct {
 	unknownFields protoimpl.UnknownFields
 
 	Status int32 `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	// @gotags: json:"response"
+	//
 	// Types that are assignable to Response:
 	//	*GetUserInfoResponse_Data
 	//	*GetUserInfoResponse_Error
-	Response isGetUserInfoResponse_Response `protobuf_oneof:"response"`
+	Response isGetUserInfoResponse_Response `protobuf_oneof:"response" json:"response"`
 }
 
 func (x *GetUserInfoResponse) Reset() {
@@ -389,7 +394,8 @@ type isGetUserInfoResponse_Response interface {
 }
 
 type GetUserInfoResponse_Data struct {
-	Data *GetUserInfoResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof"`
+	// @gotags: json:"data"
+	Data *GetUserInfoResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
 }
 
 type GetUserInfoResponse_Error struct {

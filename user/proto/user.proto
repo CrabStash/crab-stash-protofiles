@@ -17,9 +17,12 @@ message MeInfoResponse{
     repeated string owns=5; 
     }
     int32 status=1;
+
+    // @gotags: json:"response"
     oneof response{
-    Response data=2;
-    string error=3;
+        // @gotags: json:"data"
+        Response data=2;
+        string error=3;
     }
     
 }
@@ -52,7 +55,9 @@ message GetUserInfoResponse{
     string avatar=4; //@gotags: valid:"url"
     }
     int32 status=1;
+    // @gotags: json:"response"
     oneof response{
+        // @gotags: json:"data"
         Response data=2;
         string error=3;
     }

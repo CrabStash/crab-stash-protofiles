@@ -82,10 +82,12 @@ type LoginResponse struct {
 	unknownFields protoimpl.UnknownFields
 
 	Status int32 `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	// @gotags: json:"response"
+	//
 	// Types that are assignable to Response:
 	//	*LoginResponse_Data
 	//	*LoginResponse_Error
-	Response isLoginResponse_Response `protobuf_oneof:"response"`
+	Response isLoginResponse_Response `protobuf_oneof:"response" json:"response"`
 }
 
 func (x *LoginResponse) Reset() {
@@ -153,7 +155,8 @@ type isLoginResponse_Response interface {
 }
 
 type LoginResponse_Data struct {
-	Data *LoginResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof"`
+	// @gotags: json:"data"
+	Data *LoginResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
 }
 
 type LoginResponse_Error struct {
@@ -345,10 +348,12 @@ type ValidateResponse struct {
 	unknownFields protoimpl.UnknownFields
 
 	Status int32 `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	// @gotags: json:"response"
+	//
 	// Types that are assignable to Response:
 	//	*ValidateResponse_Data
 	//	*ValidateResponse_Error
-	Response isValidateResponse_Response `protobuf_oneof:"response"`
+	Response isValidateResponse_Response `protobuf_oneof:"response" json:"response"`
 }
 
 func (x *ValidateResponse) Reset() {
@@ -416,7 +421,8 @@ type isValidateResponse_Response interface {
 }
 
 type ValidateResponse_Data struct {
-	Data *ValidateResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof"`
+	// @gotags: json:"data"
+	Data *ValidateResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
 }
 
 type ValidateResponse_Error struct {
@@ -481,10 +487,12 @@ type RefreshResponse struct {
 	unknownFields protoimpl.UnknownFields
 
 	Status int32 `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	// @gotags: json:"response"
+	//
 	// Types that are assignable to Response:
 	//	*RefreshResponse_Data
 	//	*RefreshResponse_Error
-	Response isRefreshResponse_Response `protobuf_oneof:"response"`
+	Response isRefreshResponse_Response `protobuf_oneof:"response" json:"response"`
 }
 
 func (x *RefreshResponse) Reset() {
@@ -552,7 +560,8 @@ type isRefreshResponse_Response interface {
 }
 
 type RefreshResponse_Data struct {
-	Data *RefreshResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof"`
+	// @gotags: json:"data"
+	Data *RefreshResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
 }
 
 type RefreshResponse_Error struct {
