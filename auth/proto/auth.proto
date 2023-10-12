@@ -16,7 +16,9 @@ message LoginResponse {
     string refresh = 2;
   }
   int32 status = 1;
+  // @gotags: json:"response"
   oneof response {
+    // @gotags: json:"data"
     Response data = 2;
     string error = 3;
   }
@@ -45,7 +47,9 @@ message ValidateResponse {
     string uuid = 1;
   }
   int32 status = 1;
+  // @gotags: json:"response"
   oneof response {
+    // @gotags: json:"data"
     Response data = 2;
     string error = 3;
   }
@@ -61,7 +65,9 @@ message RefreshResponse {
     string token = 1;
   }
   int32 status = 1;
+  // @gotags: json:"response"
   oneof response {
+    // @gotags: json:"data"
     Response data = 2;
     string error = 3;
   }

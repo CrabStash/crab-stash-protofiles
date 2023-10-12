@@ -17,6 +17,7 @@ enum Roles {
 // GetInfo
 message GetInfoRequest {
   string warehouseID = 1; // @gotags: valid:"required,minstringlength(1)"
+  string userID = 2; // @gotags: valid:"required,minstringlength(1)"
 }
 
 message GetInfoResponse {
@@ -27,9 +28,12 @@ message GetInfoResponse {
     string owner = 4;
     bool isPhysical = 5;
     int64 capacity = 6;
+    Roles role = 7;
   }
   int32 status = 1;
+  // @gotags: json:"response"
   oneof response {
+    // @gotags: json:"data"
     Response data = 2;
     string error = 3;
   }
@@ -65,7 +69,9 @@ message CreateResponse {
     string warehouseID = 1;
   }
   int32 status = 1;
+  // @gotags: json:"response"
   oneof response {
+    // @gotags: json:"data"
     Response data = 2;
     string error = 3;
   }
@@ -117,6 +123,47 @@ message ChangeRoleResponse {
   string response = 2;
 }
 
+//ListUsers
+message ListUsersRequest{
+  string warehouseID = 1; //@gotags: valid:"required,minstringlength(1)"
+  int32 limit = 2; //@gotags: valid:"required,numeric,range(5|30)"
+  int32 page = 3; //@gotags: valid:"required,numeric"
+}
+
+message ListUsersResponse {
+  message pagination {
+    int32 limit = 1;
+    int32 total = 2;
+    int32 page = 3; 
+  }
+
+  message user {
+    string firstName = 1;
+    string lastName = 2; 
+    string email = 3;
+    string avatar = 4;
+    repeated string owns = 5; 
+  }
+
+  message list {
+    user user = 1;
+    Roles role = 2; //@gotags: json:"role"
+  }
+
+  message Response {
+    pagination pagination = 1;
+    repeated list list = 2;
+  }
+
+   int32 status = 1;
+   // @gotags: json:"response"
+   oneof response {
+    // @gotags: json:"data"
+    Response data = 2;
+    string error = 3;
+  } 
+}
+
 // Internal
 
 message InternalFetchWarehousesRequest {
@@ -142,7 +189,9 @@ message InternalFetchWarehouseRoleResponse {
     Roles role = 1;
   }
   int32 status = 1;
+  // @gotags: json:"response"
   oneof response {
+    // @gotags: json:"data"
     Response data = 2;
     string error = 3;
   }
@@ -163,6 +212,7 @@ service WarehouseService {
   rpc RemoveUserFromWarehouse (RemoveUserRequest) returns (RemoveUserResponse);
   rpc DeleteWarehouse (DeleteRequest) returns (DeleteResponse);
   rpc ChangeRole (ChangeRoleRequest) returns (ChangeRoleResponse);
+  rpc ListUsers (ListUsersRequest) returns (ListUsersResponse);
   rpc InternalFetchWarehouses (InternalFetchWarehousesRequest) returns (InternalFetchWarehousesResponse);
   rpc InternalFetchWarehouseRole (InternalFetchWarehouseRoleRequest) returns (InternalFetchWarehouseRoleResponse);
   rpc InternalDeleteAcc (InternalDeleteAccRequest) returns (google.protobuf.Empty);
