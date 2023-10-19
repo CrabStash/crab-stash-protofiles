@@ -63,13 +63,15 @@ message GetUserInfoResponse{
     }
 }
 
+// internal
+
 message InternalGetUserByEmailRequest{
     string email=1;
 }
 
 message InternalGetUserByEmailAuthResponse{
     string id=1; // @gotags: valid:"required,minstringlength(1)"
-    string passwd=2; // @gotags: valid:"required,alphanum"
+    string passwd=2; // @gotags: valid:"required"
     string email=3; //@gotags: valid:"required,email"
     int32 status=4;
     string response=5;

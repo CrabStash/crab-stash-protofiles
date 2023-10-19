@@ -28,8 +28,8 @@ message LoginResponse {
 message RegisterRequest {
   string email = 1; // @gotags: valid:"email"
   string passwd = 2; // @gotags: valid:"alphanum"
-  string firstName = 3; // @gotags: valid:"alpha,minstringlength(1)"
-  string lastName = 4; // @gotags: valid:"alpha,minstringlength(1)"
+  string firstName = 3; // @gotags: valid:"minstringlength(1)"
+  string lastName = 4; // @gotags: valid:"minstringlength(1)"
 }
 
 message RegisterResponse {

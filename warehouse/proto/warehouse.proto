@@ -164,6 +164,49 @@ message ListUsersResponse {
   } 
 }
 
+// List Warehouses
+message ListWarehousesRequest{
+  string uuid = 1; //@gotags: valid:"required,minstringlength(1)"
+  int32 limit = 2; //@gotags: valid:"required,numeric,range(5|30)"
+  int32 page = 3; //@gotags: valid:"required,numeric"
+}
+
+message ListWarehousesResponse {
+  message pagination {
+    int32 limit = 1;
+    int32 total = 2;
+    int32 page = 3; 
+  }
+
+  message warehouse {
+      string name = 1;
+      string desc = 2;
+      string logo = 3;
+      string owner = 4;
+      bool isPhysical = 5;
+      int64 capacity = 6;
+      Roles role = 7;
+  }
+
+  message list {
+    warehouse warehouse = 1;
+    Roles role = 2; //@gotags: json:"role"
+  }
+
+  message Response {
+    pagination pagination = 1;
+    repeated list list = 2;
+  }
+
+   int32 status = 1;
+   // @gotags: json:"response"
+   oneof response {
+    // @gotags: json:"data"
+    Response data = 2;
+    string error = 3;
+  } 
+}
+
 // Internal
 
 message InternalFetchWarehousesRequest {
@@ -213,6 +256,7 @@ service WarehouseService {
   rpc DeleteWarehouse (DeleteRequest) returns (DeleteResponse);
   rpc ChangeRole (ChangeRoleRequest) returns (ChangeRoleResponse);
   rpc ListUsers (ListUsersRequest) returns (ListUsersResponse);
+  rpc ListWarehouses (ListWarehousesRequest) returns (ListWarehousesResponse);
   rpc InternalFetchWarehouses (InternalFetchWarehousesRequest) returns (InternalFetchWarehousesResponse);
   rpc InternalFetchWarehouseRole (InternalFetchWarehouseRoleRequest) returns (InternalFetchWarehouseRoleResponse);
   rpc InternalDeleteAcc (InternalDeleteAccRequest) returns (google.protobuf.Empty);
