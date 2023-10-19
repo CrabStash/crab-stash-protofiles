@@ -175,8 +175,8 @@ type RegisterRequest struct {
 
 	Email     string `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty" valid:"email"`         // @gotags: valid:"email"
 	Passwd    string `protobuf:"bytes,2,opt,name=passwd,proto3" json:"passwd,omitempty" valid:"alphanum"`       // @gotags: valid:"alphanum"
-	FirstName string `protobuf:"bytes,3,opt,name=firstName,proto3" json:"firstName,omitempty" valid:"alpha,minstringlength(1)"` // @gotags: valid:"alpha,minstringlength(1)"
-	LastName  string `protobuf:"bytes,4,opt,name=lastName,proto3" json:"lastName,omitempty" valid:"alpha,minstringlength(1)"`   // @gotags: valid:"alpha,minstringlength(1)"
+	FirstName string `protobuf:"bytes,3,opt,name=firstName,proto3" json:"firstName,omitempty" valid:"minstringlength(1)"` // @gotags: valid:"minstringlength(1)"
+	LastName  string `protobuf:"bytes,4,opt,name=lastName,proto3" json:"lastName,omitempty" valid:"minstringlength(1)"`   // @gotags: valid:"minstringlength(1)"
 }
 
 func (x *RegisterRequest) Reset() {

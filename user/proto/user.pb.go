@@ -459,7 +459,7 @@ type InternalGetUserByEmailAuthResponse struct {
 	unknownFields protoimpl.UnknownFields
 
 	Id       string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty" valid:"required,minstringlength(1)"`         // @gotags: valid:"required,minstringlength(1)"
-	Passwd   string `protobuf:"bytes,2,opt,name=passwd,proto3" json:"passwd,omitempty" valid:"required,alphanum"` // @gotags: valid:"required,alphanum"
+	Passwd   string `protobuf:"bytes,2,opt,name=passwd,proto3" json:"passwd,omitempty" valid:"required"` // @gotags: valid:"required"
 	Email    string `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty" valid:"required,email"`   //@gotags: valid:"required,email"
 	Status   int32  `protobuf:"varint,4,opt,name=status,proto3" json:"status,omitempty"`
 	Response string `protobuf:"bytes,5,opt,name=response,proto3" json:"response,omitempty"`
