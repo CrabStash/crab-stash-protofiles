@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package core;
+
+option go_package = "github.com/CrabStash/crab-stash-protofiles/core/proto";
+import "google/protobuf/empty.proto";
+
+message Schema {
+  bytes file_content = 1;
+}
+
+// service
+service CoreService {
+  rpc ServeCategorySchema (google.protobuf.Empty) returns (Schema);
+  rpc ServeFieldSchema (google.protobuf.Empty) returns (Schema);
+}
