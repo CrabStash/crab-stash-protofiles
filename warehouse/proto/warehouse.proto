@@ -59,7 +59,7 @@ message CreateRequest {
   string ownerID = 1; // @gotags: valid:"required"
   string name = 2; // @gotags: valid:"required,minstringlength(1)"
   string desc = 3; // @gotags: valid:"required,minstringlength(1)"
-  string logo = 4; // @gotags: valid:"url,optional"
+  string logo = 4; // @gotags: valid:"url"
   bool isPhysical = 5; // @gotags: valid:"-"
   int64 capacity = 6; // @gotags: valid:"int"
 }

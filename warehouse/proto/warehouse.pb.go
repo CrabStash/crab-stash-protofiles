@@ -376,7 +376,7 @@ type CreateRequest struct {
 	OwnerID    string `protobuf:"bytes,1,opt,name=ownerID,proto3" json:"ownerID,omitempty" valid:"required"`        // @gotags: valid:"required"
 	Name       string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty" valid:"required,minstringlength(1)"`              // @gotags: valid:"required,minstringlength(1)"
 	Desc       string `protobuf:"bytes,3,opt,name=desc,proto3" json:"desc,omitempty" valid:"required,minstringlength(1)"`              // @gotags: valid:"required,minstringlength(1)"
-	Logo       string `protobuf:"bytes,4,opt,name=logo,proto3" json:"logo,omitempty" valid:"url,optional"`              // @gotags: valid:"url,optional"
+	Logo       string `protobuf:"bytes,4,opt,name=logo,proto3" json:"logo,omitempty" valid:"url"`              // @gotags: valid:"url"
 	IsPhysical bool   `protobuf:"varint,5,opt,name=isPhysical,proto3" json:"isPhysical,omitempty" valid:"-"` // @gotags: valid:"-"
 	Capacity   int64  `protobuf:"varint,6,opt,name=capacity,proto3" json:"capacity,omitempty" valid:"int"`     // @gotags: valid:"int"
 }
