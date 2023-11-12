@@ -91,6 +91,8 @@ message ServeCategoryResponse {
 
 // service
 service CoreService {
-  rpc ServeCategorySchema (google.protobuf.Empty) returns (Schema);
-  rpc ServeFieldSchema (google.protobuf.Empty) returns (Schema);
+  rpc NewCategorySchema (google.protobuf.Empty) returns (Schema);
+  rpc NewFieldSchema (google.protobuf.Empty) returns (Schema);
+  rpc FieldsInheritance (InheritanceRequest) returns (InheritanceResponse);
+  rpc GetCategorySchema (ServeCategoryRequest) returns (ServeCategoryResponse);
 }

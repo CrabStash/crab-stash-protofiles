@@ -23,8 +23,10 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CoreServiceClient interface {
-	ServeCategorySchema(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*Schema, error)
-	ServeFieldSchema(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*Schema, error)
+	NewCategorySchema(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*Schema, error)
+	NewFieldSchema(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*Schema, error)
+	FieldsInheritance(ctx context.Context, in *InheritanceRequest, opts ...grpc.CallOption) (*InheritanceResponse, error)
+	GetCategorySchema(ctx context.Context, in *ServeCategoryRequest, opts ...grpc.CallOption) (*ServeCategoryResponse, error)
 }
 
 type coreServiceClient struct {
@@ -35,18 +37,36 @@ func NewCoreServiceClient(cc grpc.ClientConnInterface) CoreServiceClient {
 	return &coreServiceClient{cc}
 }
 
-func (c *coreServiceClient) ServeCategorySchema(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*Schema, error) {
+func (c *coreServiceClient) NewCategorySchema(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*Schema, error) {
 	out := new(Schema)
-	err := c.cc.Invoke(ctx, "/core.CoreService/ServeCategorySchema", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.CoreService/NewCategorySchema", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *coreServiceClient) ServeFieldSchema(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*Schema, error) {
+func (c *coreServiceClient) NewFieldSchema(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*Schema, error) {
 	out := new(Schema)
-	err := c.cc.Invoke(ctx, "/core.CoreService/ServeFieldSchema", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.CoreService/NewFieldSchema", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreServiceClient) FieldsInheritance(ctx context.Context, in *InheritanceRequest, opts ...grpc.CallOption) (*InheritanceResponse, error) {
+	out := new(InheritanceResponse)
+	err := c.cc.Invoke(ctx, "/core.CoreService/FieldsInheritance", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreServiceClient) GetCategorySchema(ctx context.Context, in *ServeCategoryRequest, opts ...grpc.CallOption) (*ServeCategoryResponse, error) {
+	out := new(ServeCategoryResponse)
+	err := c.cc.Invoke(ctx, "/core.CoreService/GetCategorySchema", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -57,8 +77,10 @@ func (c *coreServiceClient) ServeFieldSchema(ctx context.Context, in *emptypb.Em
 // All implementations must embed UnimplementedCoreServiceServer
 // for forward compatibility
 type CoreServiceServer interface {
-	ServeCategorySchema(context.Context, *emptypb.Empty) (*Schema, error)
-	ServeFieldSchema(context.Context, *emptypb.Empty) (*Schema, error)
+	NewCategorySchema(context.Context, *emptypb.Empty) (*Schema, error)
+	NewFieldSchema(context.Context, *emptypb.Empty) (*Schema, error)
+	FieldsInheritance(context.Context, *InheritanceRequest) (*InheritanceResponse, error)
+	GetCategorySchema(context.Context, *ServeCategoryRequest) (*ServeCategoryResponse, error)
 	mustEmbedUnimplementedCoreServiceServer()
 }
 
@@ -66,11 +88,17 @@ type CoreServiceServer interface {
 type UnimplementedCoreServiceServer struct {
 }
 
-func (UnimplementedCoreServiceServer) ServeCategorySchema(context.Context, *emptypb.Empty) (*Schema, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ServeCategorySchema not implemented")
+func (UnimplementedCoreServiceServer) NewCategorySchema(context.Context, *emptypb.Empty) (*Schema, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method NewCategorySchema not implemented")
 }
-func (UnimplementedCoreServiceServer) ServeFieldSchema(context.Context, *emptypb.Empty) (*Schema, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ServeFieldSchema not implemented")
+func (UnimplementedCoreServiceServer) NewFieldSchema(context.Context, *emptypb.Empty) (*Schema, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method NewFieldSchema not implemented")
+}
+func (UnimplementedCoreServiceServer) FieldsInheritance(context.Context, *InheritanceRequest) (*InheritanceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FieldsInheritance not implemented")
+}
+func (UnimplementedCoreServiceServer) GetCategorySchema(context.Context, *ServeCategoryRequest) (*ServeCategoryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCategorySchema not implemented")
 }
 func (UnimplementedCoreServiceServer) mustEmbedUnimplementedCoreServiceServer() {}
 
@@ -85,38 +113,74 @@ func RegisterCoreServiceServer(s grpc.ServiceRegistrar, srv CoreServiceServer) {
 	s.RegisterService(&CoreService_ServiceDesc, srv)
 }
 
-func _CoreService_ServeCategorySchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _CoreService_NewCategorySchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(emptypb.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CoreServiceServer).ServeCategorySchema(ctx, in)
+		return srv.(CoreServiceServer).NewCategorySchema(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.CoreService/ServeCategorySchema",
+		FullMethod: "/core.CoreService/NewCategorySchema",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServiceServer).ServeCategorySchema(ctx, req.(*emptypb.Empty))
+		return srv.(CoreServiceServer).NewCategorySchema(ctx, req.(*emptypb.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _CoreService_ServeFieldSchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _CoreService_NewFieldSchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(emptypb.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CoreServiceServer).ServeFieldSchema(ctx, in)
+		return srv.(CoreServiceServer).NewFieldSchema(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.CoreService/ServeFieldSchema",
+		FullMethod: "/core.CoreService/NewFieldSchema",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServiceServer).ServeFieldSchema(ctx, req.(*emptypb.Empty))
+		return srv.(CoreServiceServer).NewFieldSchema(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CoreService_FieldsInheritance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InheritanceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServiceServer).FieldsInheritance(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.CoreService/FieldsInheritance",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServiceServer).FieldsInheritance(ctx, req.(*InheritanceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CoreService_GetCategorySchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ServeCategoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServiceServer).GetCategorySchema(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.CoreService/GetCategorySchema",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServiceServer).GetCategorySchema(ctx, req.(*ServeCategoryRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -129,12 +193,20 @@ var CoreService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*CoreServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "ServeCategorySchema",
-			Handler:    _CoreService_ServeCategorySchema_Handler,
+			MethodName: "NewCategorySchema",
+			Handler:    _CoreService_NewCategorySchema_Handler,
 		},
 		{
-			MethodName: "ServeFieldSchema",
-			Handler:    _CoreService_ServeFieldSchema_Handler,
+			MethodName: "NewFieldSchema",
+			Handler:    _CoreService_NewFieldSchema_Handler,
+		},
+		{
+			MethodName: "FieldsInheritance",
+			Handler:    _CoreService_FieldsInheritance_Handler,
+		},
+		{
+			MethodName: "GetCategorySchema",
+			Handler:    _CoreService_GetCategorySchema_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
