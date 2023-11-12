@@ -26,8 +26,8 @@ type LoginRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Email  string `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`   // @gotags: valid:"email"
-	Passwd string `protobuf:"bytes,2,opt,name=passwd,proto3" json:"passwd,omitempty"` // @gotags: valid:"required"
+	Email  string `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty" valid:"email"`   // @gotags: valid:"email"
+	Passwd string `protobuf:"bytes,2,opt,name=passwd,proto3" json:"passwd,omitempty" valid:"minstringlength(8)"` // @gotags: valid:"minstringlength(8)"
 }
 
 func (x *LoginRequest) Reset() {
@@ -87,7 +87,7 @@ type LoginResponse struct {
 	// Types that are assignable to Response:
 	//	*LoginResponse_Data
 	//	*LoginResponse_Error
-	Response isLoginResponse_Response `protobuf_oneof:"response"`
+	Response isLoginResponse_Response `protobuf_oneof:"response" json:"response"`
 }
 
 func (x *LoginResponse) Reset() {
@@ -156,7 +156,7 @@ type isLoginResponse_Response interface {
 
 type LoginResponse_Data struct {
 	// @gotags: json:"data"
-	Data *LoginResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof"`
+	Data *LoginResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
 }
 
 type LoginResponse_Error struct {
@@ -173,10 +173,10 @@ type RegisterRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Email     string `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`         // @gotags: valid:"email"
-	Passwd    string `protobuf:"bytes,2,opt,name=passwd,proto3" json:"passwd,omitempty"`       // @gotags: valid:"alphanum"
-	FirstName string `protobuf:"bytes,3,opt,name=firstName,proto3" json:"firstName,omitempty"` // @gotags: valid:"minstringlength(1)"
-	LastName  string `protobuf:"bytes,4,opt,name=lastName,proto3" json:"lastName,omitempty"`   // @gotags: valid:"minstringlength(1)"
+	Email     string `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty" valid:"email"`         // @gotags: valid:"email"
+	Passwd    string `protobuf:"bytes,2,opt,name=passwd,proto3" json:"passwd,omitempty" valid:"minstringlength(8)"`       // @gotags: valid:"minstringlength(8)"
+	FirstName string `protobuf:"bytes,3,opt,name=firstName,proto3" json:"firstName,omitempty" valid:"minstringlength(1)"` // @gotags: valid:"minstringlength(1)"
+	LastName  string `protobuf:"bytes,4,opt,name=lastName,proto3" json:"lastName,omitempty" valid:"minstringlength(1)"`   // @gotags: valid:"minstringlength(1)"
 }
 
 func (x *RegisterRequest) Reset() {
@@ -300,7 +300,7 @@ type ValidateRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Token string `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"` // @gotags: valid:"required"
+	Token string `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty" valid:"required"` // @gotags: valid:"required"
 }
 
 func (x *ValidateRequest) Reset() {
@@ -353,7 +353,7 @@ type ValidateResponse struct {
 	// Types that are assignable to Response:
 	//	*ValidateResponse_Data
 	//	*ValidateResponse_Error
-	Response isValidateResponse_Response `protobuf_oneof:"response"`
+	Response isValidateResponse_Response `protobuf_oneof:"response" json:"response"`
 }
 
 func (x *ValidateResponse) Reset() {
@@ -422,7 +422,7 @@ type isValidateResponse_Response interface {
 
 type ValidateResponse_Data struct {
 	// @gotags: json:"data"
-	Data *ValidateResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof"`
+	Data *ValidateResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
 }
 
 type ValidateResponse_Error struct {
@@ -439,7 +439,7 @@ type RefreshRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Token string `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"` // @gotags: valid:"required"
+	Token string `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty" valid:"required"` // @gotags: valid:"required"
 }
 
 func (x *RefreshRequest) Reset() {
@@ -492,7 +492,7 @@ type RefreshResponse struct {
 	// Types that are assignable to Response:
 	//	*RefreshResponse_Data
 	//	*RefreshResponse_Error
-	Response isRefreshResponse_Response `protobuf_oneof:"response"`
+	Response isRefreshResponse_Response `protobuf_oneof:"response" json:"response"`
 }
 
 func (x *RefreshResponse) Reset() {
@@ -561,7 +561,7 @@ type isRefreshResponse_Response interface {
 
 type RefreshResponse_Data struct {
 	// @gotags: json:"data"
-	Data *RefreshResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof"`
+	Data *RefreshResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
 }
 
 type RefreshResponse_Error struct {
@@ -578,8 +578,8 @@ type LogoutRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Token   string `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`     // @gotags: valid:"email"
-	Refresh string `protobuf:"bytes,2,opt,name=refresh,proto3" json:"refresh,omitempty"` // @gotags: valid:"email"
+	Token   string `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty" valid:"email"`     // @gotags: valid:"email"
+	Refresh string `protobuf:"bytes,2,opt,name=refresh,proto3" json:"refresh,omitempty" valid:"email"` // @gotags: valid:"email"
 }
 
 func (x *LogoutRequest) Reset() {

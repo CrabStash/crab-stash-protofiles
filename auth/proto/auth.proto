@@ -7,7 +7,7 @@ option go_package = "github.com/CrabStash/crab-stash-protofiles/auth/proto";
 // Login
 message LoginRequest {
   string email = 1; // @gotags: valid:"email"
-  string passwd = 2; // @gotags: valid:"required"
+  string passwd = 2; // @gotags: valid:"minstringlength(8)"
 }
 
 message LoginResponse {
@@ -27,7 +27,7 @@ message LoginResponse {
 // Register
 message RegisterRequest {
   string email = 1; // @gotags: valid:"email"
-  string passwd = 2; // @gotags: valid:"alphanum"
+  string passwd = 2; // @gotags: valid:"minstringlength(8)"
   string firstName = 3; // @gotags: valid:"minstringlength(1)"
   string lastName = 4; // @gotags: valid:"minstringlength(1)"
 }
