@@ -23,10 +23,31 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CoreServiceClient interface {
+	// creation
+	CreateField(ctx context.Context, in *FieldRequest, opts ...grpc.CallOption) (*GenericCreateResponse, error)
+	CreateCategory(ctx context.Context, in *CategoryRequest, opts ...grpc.CallOption) (*GenericCreateResponse, error)
+	CreateEntity(ctx context.Context, in *EntityRequest, opts ...grpc.CallOption) (*GenericCreateResponse, error)
+	// editing
+	EditField(ctx context.Context, in *FieldRequest, opts ...grpc.CallOption) (*GenericEditDeleteResponse, error)
+	EditCategory(ctx context.Context, in *CategoryRequest, opts ...grpc.CallOption) (*GenericEditDeleteResponse, error)
+	EditEntity(ctx context.Context, in *EntityRequest, opts ...grpc.CallOption) (*GenericEditDeleteResponse, error)
+	// deleting
+	DeleteField(ctx context.Context, in *GenericFetchRequest, opts ...grpc.CallOption) (*GenericEditDeleteResponse, error)
+	DeleteEntity(ctx context.Context, in *GenericFetchRequest, opts ...grpc.CallOption) (*GenericEditDeleteResponse, error)
+	DeleteCategory(ctx context.Context, in *GenericFetchRequest, opts ...grpc.CallOption) (*GenericEditDeleteResponse, error)
+	// fetching
 	NewCategorySchema(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*Schema, error)
 	NewFieldSchema(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*Schema, error)
-	FieldsInheritance(ctx context.Context, in *InheritanceRequest, opts ...grpc.CallOption) (*InheritanceResponse, error)
-	GetCategorySchema(ctx context.Context, in *ServeCategoryRequest, opts ...grpc.CallOption) (*ServeCategoryResponse, error)
+	GetCategorySchema(ctx context.Context, in *GenericFetchRequest, opts ...grpc.CallOption) (*GenericFetchResponse, error)
+	GetFieldSchema(ctx context.Context, in *GenericFetchRequest, opts ...grpc.CallOption) (*GenericFetchResponse, error)
+	GetEntitySchema(ctx context.Context, in *GenericFetchRequest, opts ...grpc.CallOption) (*GenericFetchResponse, error)
+	// listing
+	// rpc ListAllFields () returns ();
+	// rpc ListCategories () returns ();
+	// rpc ListEntities () returns ();
+	//misc
+	FieldsInheritance(ctx context.Context, in *GenericFetchRequest, opts ...grpc.CallOption) (*InheritanceResponse, error)
+	CoreMiddleware(ctx context.Context, in *GenericFetchRequest, opts ...grpc.CallOption) (*CoreMiddlewareResponse, error)
 }
 
 type coreServiceClient struct {
@@ -35,6 +56,87 @@ type coreServiceClient struct {
 
 func NewCoreServiceClient(cc grpc.ClientConnInterface) CoreServiceClient {
 	return &coreServiceClient{cc}
+}
+
+func (c *coreServiceClient) CreateField(ctx context.Context, in *FieldRequest, opts ...grpc.CallOption) (*GenericCreateResponse, error) {
+	out := new(GenericCreateResponse)
+	err := c.cc.Invoke(ctx, "/core.CoreService/CreateField", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreServiceClient) CreateCategory(ctx context.Context, in *CategoryRequest, opts ...grpc.CallOption) (*GenericCreateResponse, error) {
+	out := new(GenericCreateResponse)
+	err := c.cc.Invoke(ctx, "/core.CoreService/CreateCategory", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreServiceClient) CreateEntity(ctx context.Context, in *EntityRequest, opts ...grpc.CallOption) (*GenericCreateResponse, error) {
+	out := new(GenericCreateResponse)
+	err := c.cc.Invoke(ctx, "/core.CoreService/CreateEntity", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreServiceClient) EditField(ctx context.Context, in *FieldRequest, opts ...grpc.CallOption) (*GenericEditDeleteResponse, error) {
+	out := new(GenericEditDeleteResponse)
+	err := c.cc.Invoke(ctx, "/core.CoreService/EditField", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreServiceClient) EditCategory(ctx context.Context, in *CategoryRequest, opts ...grpc.CallOption) (*GenericEditDeleteResponse, error) {
+	out := new(GenericEditDeleteResponse)
+	err := c.cc.Invoke(ctx, "/core.CoreService/EditCategory", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreServiceClient) EditEntity(ctx context.Context, in *EntityRequest, opts ...grpc.CallOption) (*GenericEditDeleteResponse, error) {
+	out := new(GenericEditDeleteResponse)
+	err := c.cc.Invoke(ctx, "/core.CoreService/EditEntity", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreServiceClient) DeleteField(ctx context.Context, in *GenericFetchRequest, opts ...grpc.CallOption) (*GenericEditDeleteResponse, error) {
+	out := new(GenericEditDeleteResponse)
+	err := c.cc.Invoke(ctx, "/core.CoreService/DeleteField", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreServiceClient) DeleteEntity(ctx context.Context, in *GenericFetchRequest, opts ...grpc.CallOption) (*GenericEditDeleteResponse, error) {
+	out := new(GenericEditDeleteResponse)
+	err := c.cc.Invoke(ctx, "/core.CoreService/DeleteEntity", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreServiceClient) DeleteCategory(ctx context.Context, in *GenericFetchRequest, opts ...grpc.CallOption) (*GenericEditDeleteResponse, error) {
+	out := new(GenericEditDeleteResponse)
+	err := c.cc.Invoke(ctx, "/core.CoreService/DeleteCategory", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *coreServiceClient) NewCategorySchema(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*Schema, error) {
@@ -55,7 +157,34 @@ func (c *coreServiceClient) NewFieldSchema(ctx context.Context, in *emptypb.Empt
 	return out, nil
 }
 
-func (c *coreServiceClient) FieldsInheritance(ctx context.Context, in *InheritanceRequest, opts ...grpc.CallOption) (*InheritanceResponse, error) {
+func (c *coreServiceClient) GetCategorySchema(ctx context.Context, in *GenericFetchRequest, opts ...grpc.CallOption) (*GenericFetchResponse, error) {
+	out := new(GenericFetchResponse)
+	err := c.cc.Invoke(ctx, "/core.CoreService/GetCategorySchema", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreServiceClient) GetFieldSchema(ctx context.Context, in *GenericFetchRequest, opts ...grpc.CallOption) (*GenericFetchResponse, error) {
+	out := new(GenericFetchResponse)
+	err := c.cc.Invoke(ctx, "/core.CoreService/GetFieldSchema", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreServiceClient) GetEntitySchema(ctx context.Context, in *GenericFetchRequest, opts ...grpc.CallOption) (*GenericFetchResponse, error) {
+	out := new(GenericFetchResponse)
+	err := c.cc.Invoke(ctx, "/core.CoreService/GetEntitySchema", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreServiceClient) FieldsInheritance(ctx context.Context, in *GenericFetchRequest, opts ...grpc.CallOption) (*InheritanceResponse, error) {
 	out := new(InheritanceResponse)
 	err := c.cc.Invoke(ctx, "/core.CoreService/FieldsInheritance", in, out, opts...)
 	if err != nil {
@@ -64,9 +193,9 @@ func (c *coreServiceClient) FieldsInheritance(ctx context.Context, in *Inheritan
 	return out, nil
 }
 
-func (c *coreServiceClient) GetCategorySchema(ctx context.Context, in *ServeCategoryRequest, opts ...grpc.CallOption) (*ServeCategoryResponse, error) {
-	out := new(ServeCategoryResponse)
-	err := c.cc.Invoke(ctx, "/core.CoreService/GetCategorySchema", in, out, opts...)
+func (c *coreServiceClient) CoreMiddleware(ctx context.Context, in *GenericFetchRequest, opts ...grpc.CallOption) (*CoreMiddlewareResponse, error) {
+	out := new(CoreMiddlewareResponse)
+	err := c.cc.Invoke(ctx, "/core.CoreService/CoreMiddleware", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -77,10 +206,31 @@ func (c *coreServiceClient) GetCategorySchema(ctx context.Context, in *ServeCate
 // All implementations must embed UnimplementedCoreServiceServer
 // for forward compatibility
 type CoreServiceServer interface {
+	// creation
+	CreateField(context.Context, *FieldRequest) (*GenericCreateResponse, error)
+	CreateCategory(context.Context, *CategoryRequest) (*GenericCreateResponse, error)
+	CreateEntity(context.Context, *EntityRequest) (*GenericCreateResponse, error)
+	// editing
+	EditField(context.Context, *FieldRequest) (*GenericEditDeleteResponse, error)
+	EditCategory(context.Context, *CategoryRequest) (*GenericEditDeleteResponse, error)
+	EditEntity(context.Context, *EntityRequest) (*GenericEditDeleteResponse, error)
+	// deleting
+	DeleteField(context.Context, *GenericFetchRequest) (*GenericEditDeleteResponse, error)
+	DeleteEntity(context.Context, *GenericFetchRequest) (*GenericEditDeleteResponse, error)
+	DeleteCategory(context.Context, *GenericFetchRequest) (*GenericEditDeleteResponse, error)
+	// fetching
 	NewCategorySchema(context.Context, *emptypb.Empty) (*Schema, error)
 	NewFieldSchema(context.Context, *emptypb.Empty) (*Schema, error)
-	FieldsInheritance(context.Context, *InheritanceRequest) (*InheritanceResponse, error)
-	GetCategorySchema(context.Context, *ServeCategoryRequest) (*ServeCategoryResponse, error)
+	GetCategorySchema(context.Context, *GenericFetchRequest) (*GenericFetchResponse, error)
+	GetFieldSchema(context.Context, *GenericFetchRequest) (*GenericFetchResponse, error)
+	GetEntitySchema(context.Context, *GenericFetchRequest) (*GenericFetchResponse, error)
+	// listing
+	// rpc ListAllFields () returns ();
+	// rpc ListCategories () returns ();
+	// rpc ListEntities () returns ();
+	//misc
+	FieldsInheritance(context.Context, *GenericFetchRequest) (*InheritanceResponse, error)
+	CoreMiddleware(context.Context, *GenericFetchRequest) (*CoreMiddlewareResponse, error)
 	mustEmbedUnimplementedCoreServiceServer()
 }
 
@@ -88,17 +238,53 @@ type CoreServiceServer interface {
 type UnimplementedCoreServiceServer struct {
 }
 
+func (UnimplementedCoreServiceServer) CreateField(context.Context, *FieldRequest) (*GenericCreateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateField not implemented")
+}
+func (UnimplementedCoreServiceServer) CreateCategory(context.Context, *CategoryRequest) (*GenericCreateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateCategory not implemented")
+}
+func (UnimplementedCoreServiceServer) CreateEntity(context.Context, *EntityRequest) (*GenericCreateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateEntity not implemented")
+}
+func (UnimplementedCoreServiceServer) EditField(context.Context, *FieldRequest) (*GenericEditDeleteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EditField not implemented")
+}
+func (UnimplementedCoreServiceServer) EditCategory(context.Context, *CategoryRequest) (*GenericEditDeleteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EditCategory not implemented")
+}
+func (UnimplementedCoreServiceServer) EditEntity(context.Context, *EntityRequest) (*GenericEditDeleteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EditEntity not implemented")
+}
+func (UnimplementedCoreServiceServer) DeleteField(context.Context, *GenericFetchRequest) (*GenericEditDeleteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteField not implemented")
+}
+func (UnimplementedCoreServiceServer) DeleteEntity(context.Context, *GenericFetchRequest) (*GenericEditDeleteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteEntity not implemented")
+}
+func (UnimplementedCoreServiceServer) DeleteCategory(context.Context, *GenericFetchRequest) (*GenericEditDeleteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteCategory not implemented")
+}
 func (UnimplementedCoreServiceServer) NewCategorySchema(context.Context, *emptypb.Empty) (*Schema, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method NewCategorySchema not implemented")
 }
 func (UnimplementedCoreServiceServer) NewFieldSchema(context.Context, *emptypb.Empty) (*Schema, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method NewFieldSchema not implemented")
 }
-func (UnimplementedCoreServiceServer) FieldsInheritance(context.Context, *InheritanceRequest) (*InheritanceResponse, error) {
+func (UnimplementedCoreServiceServer) GetCategorySchema(context.Context, *GenericFetchRequest) (*GenericFetchResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCategorySchema not implemented")
+}
+func (UnimplementedCoreServiceServer) GetFieldSchema(context.Context, *GenericFetchRequest) (*GenericFetchResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetFieldSchema not implemented")
+}
+func (UnimplementedCoreServiceServer) GetEntitySchema(context.Context, *GenericFetchRequest) (*GenericFetchResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetEntitySchema not implemented")
+}
+func (UnimplementedCoreServiceServer) FieldsInheritance(context.Context, *GenericFetchRequest) (*InheritanceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FieldsInheritance not implemented")
 }
-func (UnimplementedCoreServiceServer) GetCategorySchema(context.Context, *ServeCategoryRequest) (*ServeCategoryResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetCategorySchema not implemented")
+func (UnimplementedCoreServiceServer) CoreMiddleware(context.Context, *GenericFetchRequest) (*CoreMiddlewareResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CoreMiddleware not implemented")
 }
 func (UnimplementedCoreServiceServer) mustEmbedUnimplementedCoreServiceServer() {}
 
@@ -111,6 +297,168 @@ type UnsafeCoreServiceServer interface {
 
 func RegisterCoreServiceServer(s grpc.ServiceRegistrar, srv CoreServiceServer) {
 	s.RegisterService(&CoreService_ServiceDesc, srv)
+}
+
+func _CoreService_CreateField_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FieldRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServiceServer).CreateField(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.CoreService/CreateField",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServiceServer).CreateField(ctx, req.(*FieldRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CoreService_CreateCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CategoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServiceServer).CreateCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.CoreService/CreateCategory",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServiceServer).CreateCategory(ctx, req.(*CategoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CoreService_CreateEntity_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EntityRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServiceServer).CreateEntity(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.CoreService/CreateEntity",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServiceServer).CreateEntity(ctx, req.(*EntityRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CoreService_EditField_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FieldRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServiceServer).EditField(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.CoreService/EditField",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServiceServer).EditField(ctx, req.(*FieldRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CoreService_EditCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CategoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServiceServer).EditCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.CoreService/EditCategory",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServiceServer).EditCategory(ctx, req.(*CategoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CoreService_EditEntity_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EntityRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServiceServer).EditEntity(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.CoreService/EditEntity",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServiceServer).EditEntity(ctx, req.(*EntityRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CoreService_DeleteField_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GenericFetchRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServiceServer).DeleteField(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.CoreService/DeleteField",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServiceServer).DeleteField(ctx, req.(*GenericFetchRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CoreService_DeleteEntity_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GenericFetchRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServiceServer).DeleteEntity(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.CoreService/DeleteEntity",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServiceServer).DeleteEntity(ctx, req.(*GenericFetchRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CoreService_DeleteCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GenericFetchRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServiceServer).DeleteCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.CoreService/DeleteCategory",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServiceServer).DeleteCategory(ctx, req.(*GenericFetchRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _CoreService_NewCategorySchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -149,26 +497,8 @@ func _CoreService_NewFieldSchema_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
-func _CoreService_FieldsInheritance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(InheritanceRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServiceServer).FieldsInheritance(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.CoreService/FieldsInheritance",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServiceServer).FieldsInheritance(ctx, req.(*InheritanceRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _CoreService_GetCategorySchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ServeCategoryRequest)
+	in := new(GenericFetchRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -180,7 +510,79 @@ func _CoreService_GetCategorySchema_Handler(srv interface{}, ctx context.Context
 		FullMethod: "/core.CoreService/GetCategorySchema",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServiceServer).GetCategorySchema(ctx, req.(*ServeCategoryRequest))
+		return srv.(CoreServiceServer).GetCategorySchema(ctx, req.(*GenericFetchRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CoreService_GetFieldSchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GenericFetchRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServiceServer).GetFieldSchema(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.CoreService/GetFieldSchema",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServiceServer).GetFieldSchema(ctx, req.(*GenericFetchRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CoreService_GetEntitySchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GenericFetchRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServiceServer).GetEntitySchema(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.CoreService/GetEntitySchema",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServiceServer).GetEntitySchema(ctx, req.(*GenericFetchRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CoreService_FieldsInheritance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GenericFetchRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServiceServer).FieldsInheritance(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.CoreService/FieldsInheritance",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServiceServer).FieldsInheritance(ctx, req.(*GenericFetchRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CoreService_CoreMiddleware_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GenericFetchRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServiceServer).CoreMiddleware(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.CoreService/CoreMiddleware",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServiceServer).CoreMiddleware(ctx, req.(*GenericFetchRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -193,6 +595,42 @@ var CoreService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*CoreServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
+			MethodName: "CreateField",
+			Handler:    _CoreService_CreateField_Handler,
+		},
+		{
+			MethodName: "CreateCategory",
+			Handler:    _CoreService_CreateCategory_Handler,
+		},
+		{
+			MethodName: "CreateEntity",
+			Handler:    _CoreService_CreateEntity_Handler,
+		},
+		{
+			MethodName: "EditField",
+			Handler:    _CoreService_EditField_Handler,
+		},
+		{
+			MethodName: "EditCategory",
+			Handler:    _CoreService_EditCategory_Handler,
+		},
+		{
+			MethodName: "EditEntity",
+			Handler:    _CoreService_EditEntity_Handler,
+		},
+		{
+			MethodName: "DeleteField",
+			Handler:    _CoreService_DeleteField_Handler,
+		},
+		{
+			MethodName: "DeleteEntity",
+			Handler:    _CoreService_DeleteEntity_Handler,
+		},
+		{
+			MethodName: "DeleteCategory",
+			Handler:    _CoreService_DeleteCategory_Handler,
+		},
+		{
 			MethodName: "NewCategorySchema",
 			Handler:    _CoreService_NewCategorySchema_Handler,
 		},
@@ -201,12 +639,24 @@ var CoreService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _CoreService_NewFieldSchema_Handler,
 		},
 		{
+			MethodName: "GetCategorySchema",
+			Handler:    _CoreService_GetCategorySchema_Handler,
+		},
+		{
+			MethodName: "GetFieldSchema",
+			Handler:    _CoreService_GetFieldSchema_Handler,
+		},
+		{
+			MethodName: "GetEntitySchema",
+			Handler:    _CoreService_GetEntitySchema_Handler,
+		},
+		{
 			MethodName: "FieldsInheritance",
 			Handler:    _CoreService_FieldsInheritance_Handler,
 		},
 		{
-			MethodName: "GetCategorySchema",
-			Handler:    _CoreService_GetCategorySchema_Handler,
+			MethodName: "CoreMiddleware",
+			Handler:    _CoreService_CoreMiddleware_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
