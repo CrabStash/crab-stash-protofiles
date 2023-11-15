@@ -94,8 +94,9 @@ message GenericEditDeleteResponse {
 }
 
 message GenericFetchRequest {
-  string warehouseID = 1;
-  string entityID = 2;
+  string warehouseID = 1; //@gotags: valid:"required"
+  string entityID = 2; //@gotags: valid:"required"
+  string type = 3; //@gotags: valid:"required"
 }
 
 message GenericFetchResponse {
