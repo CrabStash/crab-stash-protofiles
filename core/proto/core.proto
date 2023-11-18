@@ -55,9 +55,8 @@ message InheritanceResponse {
 
 
 // Creation Edition
-message FieldRequest {
-  string warehouseID = 1;
-  Field formData = 2;
+message FieldRequest {  
+  Field formData = 1;
 }
 
 message CategoryRequest {
@@ -67,12 +66,10 @@ message CategoryRequest {
     repeated string parents = 3;
     repeated string properties = 4;
   }
-  string warehouseID = 1;
   Payload formData = 2;
 }
 
 message EntityRequest {
-  string warehouseID = 1;
   map<string, google.protobuf.Any> formData = 2;
 }
 
