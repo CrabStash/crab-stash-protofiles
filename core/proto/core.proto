@@ -14,6 +14,13 @@ message Field {
   string help = 3;
 }
 
+message Category {
+  string title = 1;
+  string description = 2;
+  repeated string parents = 3;
+  repeated string properties = 4;
+}
+
 message GenericSchema {
   string title = 1;
   string description = 2;
@@ -54,27 +61,36 @@ message InheritanceResponse {
 }
 
 
-// Creation Edition
-message FieldRequest {  
-  string warehouseID = 1;
-  Field formData = 2;
+// Create
+message CreateFieldRequest {  
+  string warehouseID = 1; //@gotags: valid:"required"
+  Field formData = 2; //@gotags: valid:"required"
 }
 
-message CategoryRequest {
-  message Payload {
-    string title = 1;
-    string description = 2;
-    repeated string parents = 3;
-    repeated string properties = 4;
-  }
-  string warehouseID = 1;
-  Payload formData = 2;
+message CreateCategoryRequest {
+  string warehouseID = 1; //@gotags: valid:"required"
+  Category formData = 2; //@gotags: valid:"required"
 }
 
-message EntityRequest {
-  string warehouseID = 1;
-  string entityID = 2;
-  map<string, google.protobuf.Any> formData = 3;
+message CreateEntityRequest {
+  string categoryID = 1; //@gotags: valid:"required"
+  map<string, google.protobuf.Any> formData = 2; //@gotags: valid:"required"
+}
+
+// Edit
+message EditFieldRequest {  
+  string fieldID = 1; //@gotags: valid:"required"
+  Field formData = 2; //@gotags: valid:"required"
+}
+
+message EditCategoryRequest {
+  string categoryID = 1; //@gotags: valid:"required"
+  Category formData = 2; //@gotags: valid:"required"
+}
+
+message EditEntityRequest {
+  string entityID = 1; //@gotags: valid:"required"
+  map<string, google.protobuf.Any> formData = 2; //@gotags: valid:"required"
 }
 
 // generics
@@ -94,16 +110,68 @@ message GenericEditDeleteResponse {
   string response = 2;
 }
 
-message GenericFetchRequest {
-  string warehouseID = 1; //@gotags: valid:"required"
-  string entityID = 2; //@gotags: valid:"required"
+message CoreMiddlewareRequest {
+  string in = 1; //@gotags: valid:"required"
+  string out = 2; //@gotags: valid:"required"
   string type = 3; //@gotags: valid:"required"
 }
 
-message GenericFetchResponse {
+message GenericFetchRequest {
+  string warehouseID = 1; //@gotags: valid:"required"
+  string entityID = 2; //@gotags: valid:"required"
+}
+
+message GetEntityDataRequest {
+  string warehouseID = 1; //@gotags: valid:"required"
+  string entityID = 2; //@gotags: valid:"required"
+  string categoryID = 3; //@gotags: valid:"required"
+}
+
+message CategorySchemaResponse {
   message Response {
     GenericSchema schema = 1;
-    map<string, google.protobuf.Any> formData = 2;
+  }
+
+  int32 status = 1;
+  //@gotags: json:"response"
+  oneof response {
+    //@gotags: json:"data"
+    Response data = 2;
+    string error = 3; 
+  }
+}
+
+message GetCategoryDataResponse {
+  message Response {
+    Category formData = 1;
+  }
+
+  int32 status = 1;
+  //@gotags: json:"response"
+  oneof response {
+    //@gotags: json:"data"
+    Response data = 2;
+    string error = 3; 
+  }
+}
+
+message GetFieldDataResponse {
+  message Response {
+    Field formData = 1;
+  }
+
+  int32 status = 1;
+  //@gotags: json:"response"
+  oneof response {
+    //@gotags: json:"data"
+    Response data = 2;
+    string error = 3; 
+  }
+}
+
+message GetEntityDataResponse {
+  message Response {
+    map<string, google.protobuf.Any> formData = 1;
   }
 
   int32 status = 1;
@@ -119,13 +187,13 @@ message GenericFetchResponse {
 // service
 service CoreService {
   // creation
-    rpc CreateField (FieldRequest) returns (GenericCreateResponse);
-    rpc CreateCategory (CategoryRequest) returns (GenericCreateResponse);
-    rpc CreateEntity (EntityRequest) returns (GenericCreateResponse);
+    rpc CreateField (CreateFieldRequest) returns (GenericCreateResponse);
+    rpc CreateCategory (CreateCategoryRequest) returns (GenericCreateResponse);
+    rpc CreateEntity (CreateEntityRequest) returns (GenericCreateResponse);
   // editing
-    rpc EditField (FieldRequest) returns (GenericEditDeleteResponse);
-    rpc EditCategory (CategoryRequest) returns (GenericEditDeleteResponse);
-    rpc EditEntity (EntityRequest) returns (GenericEditDeleteResponse);
+    rpc EditField (EditFieldRequest) returns (GenericEditDeleteResponse);
+    rpc EditCategory (EditCategoryRequest) returns (GenericEditDeleteResponse);
+    rpc EditEntity (EditEntityRequest) returns (GenericEditDeleteResponse);
   // deleting
     rpc DeleteField (GenericFetchRequest) returns (GenericEditDeleteResponse);
     rpc DeleteEntity (GenericFetchRequest) returns (GenericEditDeleteResponse);
@@ -133,14 +201,15 @@ service CoreService {
   // fetching
     rpc NewCategorySchema (google.protobuf.Empty) returns (Schema);
     rpc NewFieldSchema (google.protobuf.Empty) returns (Schema);
-    rpc GetCategorySchema (GenericFetchRequest) returns (GenericFetchResponse);
-    rpc GetFieldSchema (GenericFetchRequest) returns (GenericFetchResponse);
-    rpc GetEntitySchema (GenericFetchRequest) returns (GenericFetchResponse);
+    rpc GetCategorySchema (GenericFetchRequest) returns (CategorySchemaResponse);
+    rpc GetCategoryData (GenericFetchRequest) returns (GetCategoryDataResponse);
+    rpc GetFieldData (GenericFetchRequest) returns (GetFieldDataResponse);
+    rpc GetEntityData (GetEntityDataRequest) returns (GetEntityDataResponse);
   // listing
     // rpc ListAllFields () returns ();
     // rpc ListCategories () returns ();
     // rpc ListEntities () returns ();
   //misc
     rpc FieldsInheritance (GenericFetchRequest) returns (InheritanceResponse);
-    rpc CoreMiddleware (GenericFetchRequest) returns (CoreMiddlewareResponse);
+    rpc CoreMiddleware (CoreMiddlewareRequest) returns (CoreMiddlewareResponse);
 }
