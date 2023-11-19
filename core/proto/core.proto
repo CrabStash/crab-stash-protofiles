@@ -9,23 +9,23 @@ import "google/protobuf/any.proto";
 // basic definitions
 
 message Field {
-  string title = 1;
-  string type = 2;
-  string help = 3;
+  string title = 1; //@gotags: valid:"required"
+  string type = 2; //@gotags: valid:"required"
+  string help = 3; //@gotags: valid:"required"
 }
 
 message Category {
-  string title = 1;
-  string description = 2;
-  repeated string parents = 3;
-  repeated string properties = 4;
+  string title = 1; //@gotags: valid:"required"
+  string description = 2; //@gotags: valid:"required"
+  repeated string parents = 3; //@gotags: valid:"required"
+  repeated string properties = 4; //@gotags: valid:"required"
 }
 
 message GenericSchema {
-  string title = 1;
-  string description = 2;
-  string type = 3;
-  map<string, Field> properties = 4;
+  string title = 1; //@gotags: valid:"required"
+  string description = 2; //@gotags: valid:"required"
+  string type = 3; //@gotags: valid:"required"
+  map<string, Field> properties = 4; //@gotags: valid:"required"
 }
 
 

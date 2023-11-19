@@ -27,9 +27,9 @@ type Field struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Title string `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
-	Type  string `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
-	Help  string `protobuf:"bytes,3,opt,name=help,proto3" json:"help,omitempty"`
+	Title string `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty" valid:"required"` //@gotags: valid:"required"
+	Type  string `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty" valid:"required"`   //@gotags: valid:"required"
+	Help  string `protobuf:"bytes,3,opt,name=help,proto3" json:"help,omitempty" valid:"required"`   //@gotags: valid:"required"
 }
 
 func (x *Field) Reset() {
@@ -90,10 +90,10 @@ type Category struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Title       string   `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
-	Description string   `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
-	Parents     []string `protobuf:"bytes,3,rep,name=parents,proto3" json:"parents,omitempty"`
-	Properties  []string `protobuf:"bytes,4,rep,name=properties,proto3" json:"properties,omitempty"`
+	Title       string   `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty" valid:"required"`             //@gotags: valid:"required"
+	Description string   `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty" valid:"required"` //@gotags: valid:"required"
+	Parents     []string `protobuf:"bytes,3,rep,name=parents,proto3" json:"parents,omitempty" valid:"required"`         //@gotags: valid:"required"
+	Properties  []string `protobuf:"bytes,4,rep,name=properties,proto3" json:"properties,omitempty" valid:"required"`   //@gotags: valid:"required"
 }
 
 func (x *Category) Reset() {
@@ -161,10 +161,10 @@ type GenericSchema struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Title       string            `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
-	Description string            `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
-	Type        string            `protobuf:"bytes,3,opt,name=type,proto3" json:"type,omitempty"`
-	Properties  map[string]*Field `protobuf:"bytes,4,rep,name=properties,proto3" json:"properties,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Title       string            `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty" valid:"required"`                                                                                                   //@gotags: valid:"required"
+	Description string            `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty" valid:"required"`                                                                                       //@gotags: valid:"required"
+	Type        string            `protobuf:"bytes,3,opt,name=type,proto3" json:"type,omitempty" valid:"required"`                                                                                                     //@gotags: valid:"required"
+	Properties  map[string]*Field `protobuf:"bytes,4,rep,name=properties,proto3" json:"properties,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3" valid:"required"` //@gotags: valid:"required"
 }
 
 func (x *GenericSchema) Reset() {
