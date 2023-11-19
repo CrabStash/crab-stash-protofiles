@@ -121,12 +121,6 @@ message GenericFetchRequest {
   string entityID = 2; //@gotags: valid:"required"
 }
 
-message GetEntityDataRequest {
-  string warehouseID = 1; //@gotags: valid:"required"
-  string entityID = 2; //@gotags: valid:"required"
-  string categoryID = 3; //@gotags: valid:"required"
-}
-
 message CategorySchemaResponse {
   message Response {
     GenericSchema schema = 1;
@@ -204,7 +198,7 @@ service CoreService {
     rpc GetCategorySchema (GenericFetchRequest) returns (CategorySchemaResponse);
     rpc GetCategoryData (GenericFetchRequest) returns (GetCategoryDataResponse);
     rpc GetFieldData (GenericFetchRequest) returns (GetFieldDataResponse);
-    rpc GetEntityData (GetEntityDataRequest) returns (GetEntityDataResponse);
+    rpc GetEntityData (GenericFetchRequest) returns (GetEntityDataResponse);
   // listing
     // rpc ListAllFields () returns ();
     // rpc ListCategories () returns ();

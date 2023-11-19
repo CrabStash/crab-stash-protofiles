@@ -41,7 +41,7 @@ type CoreServiceClient interface {
 	GetCategorySchema(ctx context.Context, in *GenericFetchRequest, opts ...grpc.CallOption) (*CategorySchemaResponse, error)
 	GetCategoryData(ctx context.Context, in *GenericFetchRequest, opts ...grpc.CallOption) (*GetCategoryDataResponse, error)
 	GetFieldData(ctx context.Context, in *GenericFetchRequest, opts ...grpc.CallOption) (*GetFieldDataResponse, error)
-	GetEntityData(ctx context.Context, in *GetEntityDataRequest, opts ...grpc.CallOption) (*GetEntityDataResponse, error)
+	GetEntityData(ctx context.Context, in *GenericFetchRequest, opts ...grpc.CallOption) (*GetEntityDataResponse, error)
 	// listing
 	// rpc ListAllFields () returns ();
 	// rpc ListCategories () returns ();
@@ -185,7 +185,7 @@ func (c *coreServiceClient) GetFieldData(ctx context.Context, in *GenericFetchRe
 	return out, nil
 }
 
-func (c *coreServiceClient) GetEntityData(ctx context.Context, in *GetEntityDataRequest, opts ...grpc.CallOption) (*GetEntityDataResponse, error) {
+func (c *coreServiceClient) GetEntityData(ctx context.Context, in *GenericFetchRequest, opts ...grpc.CallOption) (*GetEntityDataResponse, error) {
 	out := new(GetEntityDataResponse)
 	err := c.cc.Invoke(ctx, "/core.CoreService/GetEntityData", in, out, opts...)
 	if err != nil {
@@ -234,7 +234,7 @@ type CoreServiceServer interface {
 	GetCategorySchema(context.Context, *GenericFetchRequest) (*CategorySchemaResponse, error)
 	GetCategoryData(context.Context, *GenericFetchRequest) (*GetCategoryDataResponse, error)
 	GetFieldData(context.Context, *GenericFetchRequest) (*GetFieldDataResponse, error)
-	GetEntityData(context.Context, *GetEntityDataRequest) (*GetEntityDataResponse, error)
+	GetEntityData(context.Context, *GenericFetchRequest) (*GetEntityDataResponse, error)
 	// listing
 	// rpc ListAllFields () returns ();
 	// rpc ListCategories () returns ();
@@ -291,7 +291,7 @@ func (UnimplementedCoreServiceServer) GetCategoryData(context.Context, *GenericF
 func (UnimplementedCoreServiceServer) GetFieldData(context.Context, *GenericFetchRequest) (*GetFieldDataResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFieldData not implemented")
 }
-func (UnimplementedCoreServiceServer) GetEntityData(context.Context, *GetEntityDataRequest) (*GetEntityDataResponse, error) {
+func (UnimplementedCoreServiceServer) GetEntityData(context.Context, *GenericFetchRequest) (*GetEntityDataResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetEntityData not implemented")
 }
 func (UnimplementedCoreServiceServer) FieldsInheritance(context.Context, *GenericFetchRequest) (*InheritanceResponse, error) {
@@ -566,7 +566,7 @@ func _CoreService_GetFieldData_Handler(srv interface{}, ctx context.Context, dec
 }
 
 func _CoreService_GetEntityData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetEntityDataRequest)
+	in := new(GenericFetchRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -578,7 +578,7 @@ func _CoreService_GetEntityData_Handler(srv interface{}, ctx context.Context, de
 		FullMethod: "/core.CoreService/GetEntityData",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServiceServer).GetEntityData(ctx, req.(*GetEntityDataRequest))
+		return srv.(CoreServiceServer).GetEntityData(ctx, req.(*GenericFetchRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
