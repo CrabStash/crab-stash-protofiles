@@ -80,7 +80,7 @@ message CreateResponse {
 // AddUserToWarehouse
 message AddUsersRequest {
   string warehouseID = 1; // @gotags: valid:"required,minstringlength(1)"
-  string email = 2; // @gotags: valid:"required,minstringlength(1)"
+  string email = 2; // @gotags: valid:"required,email"
 }
 
 message AddUsersResponse {

@@ -197,10 +197,16 @@ message GetEntityDataResponse {
 // Listing 
 
 message PaginatedFetchRequest{
-  string id = 1; //@gotags: valid:"required,minstringlength(1)"
+  string id = 1; //@gotags: valid:"optional,minstringlength(1)"
   int32 limit = 2; //@gotags: valid:"required,numeric,range(5|30)"
   int32 page = 3; //@gotags: valid:"required,numeric"
   string warehouseID = 4; //@gotags: valid:"required,minstringlength(1)"
+}
+
+message PaginatedFieldFetchRequest{
+  int32 limit = 1; //@gotags: valid:"required,numeric,range(5|30)"
+  int32 page = 2; //@gotags: valid:"required,numeric"
+  string warehouseID = 3; //@gotags: valid:"required,minstringlength(1)"
 }
 
 message PaginatedCategoriesFetchResponse {
@@ -291,7 +297,7 @@ service CoreService {
     rpc GetFieldData (GenericFetchRequest) returns (GetFieldDataResponse);
     rpc GetEntityData (GenericFetchRequest) returns (GetEntityDataResponse);
   // listing
-    rpc ListFields (PaginatedFetchRequest) returns (PaginatedFieldsFetchResponse);
+    rpc ListFields (PaginatedFieldFetchRequest) returns (PaginatedFieldsFetchResponse);
     rpc ListCategories (PaginatedFetchRequest) returns (PaginatedCategoriesFetchResponse);
     rpc ListEntities (PaginatedFetchRequest) returns (PaginatedEntititesFetchResponse);
   //misc

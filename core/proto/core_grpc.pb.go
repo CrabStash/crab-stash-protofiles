@@ -43,7 +43,7 @@ type CoreServiceClient interface {
 	GetFieldData(ctx context.Context, in *GenericFetchRequest, opts ...grpc.CallOption) (*GetFieldDataResponse, error)
 	GetEntityData(ctx context.Context, in *GenericFetchRequest, opts ...grpc.CallOption) (*GetEntityDataResponse, error)
 	// listing
-	ListFields(ctx context.Context, in *PaginatedFetchRequest, opts ...grpc.CallOption) (*PaginatedFieldsFetchResponse, error)
+	ListFields(ctx context.Context, in *PaginatedFieldFetchRequest, opts ...grpc.CallOption) (*PaginatedFieldsFetchResponse, error)
 	ListCategories(ctx context.Context, in *PaginatedFetchRequest, opts ...grpc.CallOption) (*PaginatedCategoriesFetchResponse, error)
 	ListEntities(ctx context.Context, in *PaginatedFetchRequest, opts ...grpc.CallOption) (*PaginatedEntititesFetchResponse, error)
 	//misc
@@ -194,7 +194,7 @@ func (c *coreServiceClient) GetEntityData(ctx context.Context, in *GenericFetchR
 	return out, nil
 }
 
-func (c *coreServiceClient) ListFields(ctx context.Context, in *PaginatedFetchRequest, opts ...grpc.CallOption) (*PaginatedFieldsFetchResponse, error) {
+func (c *coreServiceClient) ListFields(ctx context.Context, in *PaginatedFieldFetchRequest, opts ...grpc.CallOption) (*PaginatedFieldsFetchResponse, error) {
 	out := new(PaginatedFieldsFetchResponse)
 	err := c.cc.Invoke(ctx, "/core.CoreService/ListFields", in, out, opts...)
 	if err != nil {
@@ -263,7 +263,7 @@ type CoreServiceServer interface {
 	GetFieldData(context.Context, *GenericFetchRequest) (*GetFieldDataResponse, error)
 	GetEntityData(context.Context, *GenericFetchRequest) (*GetEntityDataResponse, error)
 	// listing
-	ListFields(context.Context, *PaginatedFetchRequest) (*PaginatedFieldsFetchResponse, error)
+	ListFields(context.Context, *PaginatedFieldFetchRequest) (*PaginatedFieldsFetchResponse, error)
 	ListCategories(context.Context, *PaginatedFetchRequest) (*PaginatedCategoriesFetchResponse, error)
 	ListEntities(context.Context, *PaginatedFetchRequest) (*PaginatedEntititesFetchResponse, error)
 	//misc
@@ -321,7 +321,7 @@ func (UnimplementedCoreServiceServer) GetFieldData(context.Context, *GenericFetc
 func (UnimplementedCoreServiceServer) GetEntityData(context.Context, *GenericFetchRequest) (*GetEntityDataResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetEntityData not implemented")
 }
-func (UnimplementedCoreServiceServer) ListFields(context.Context, *PaginatedFetchRequest) (*PaginatedFieldsFetchResponse, error) {
+func (UnimplementedCoreServiceServer) ListFields(context.Context, *PaginatedFieldFetchRequest) (*PaginatedFieldsFetchResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListFields not implemented")
 }
 func (UnimplementedCoreServiceServer) ListCategories(context.Context, *PaginatedFetchRequest) (*PaginatedCategoriesFetchResponse, error) {
@@ -620,7 +620,7 @@ func _CoreService_GetEntityData_Handler(srv interface{}, ctx context.Context, de
 }
 
 func _CoreService_ListFields_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PaginatedFetchRequest)
+	in := new(PaginatedFieldFetchRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -632,7 +632,7 @@ func _CoreService_ListFields_Handler(srv interface{}, ctx context.Context, dec f
 		FullMethod: "/core.CoreService/ListFields",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServiceServer).ListFields(ctx, req.(*PaginatedFetchRequest))
+		return srv.(CoreServiceServer).ListFields(ctx, req.(*PaginatedFieldFetchRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

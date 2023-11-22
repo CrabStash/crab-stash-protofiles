@@ -553,7 +553,7 @@ type AddUsersRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	WarehouseID string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty" valid:"required,minstringlength(1)"` // @gotags: valid:"required,minstringlength(1)"
-	Email       string `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty" valid:"required,minstringlength(1)"`             // @gotags: valid:"required,minstringlength(1)"
+	Email       string `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty" valid:"required,email"`             // @gotags: valid:"required,email"
 }
 
 func (x *AddUsersRequest) Reset() {
