@@ -91,7 +91,7 @@ message CreateCategoryRequest {
 
 message CreateEntityRequest {
   string categoryID = 1; //@gotags: valid:"required"
-  map<string, google.protobuf.Struct> formData = 2; //@gotags: valid:"required"
+  google.protobuf.Struct formData = 2; //@gotags: valid:"required"
 }
 
 // Edit
@@ -107,7 +107,7 @@ message EditCategoryRequest {
 
 message EditEntityRequest {
   string entityID = 1; //@gotags: valid:"required"
-  map<string, google.protobuf.Struct> formData = 2; //@gotags: valid:"required"
+  google.protobuf.Struct formData = 2; //@gotags: valid:"required"
 }
 
 // generics
@@ -182,7 +182,7 @@ message GetFieldDataResponse {
 
 message GetEntityDataResponse {
   message Response {
-    map<string, google.protobuf.Struct> formData = 1;
+    google.protobuf.Struct formData = 1;
   }
 
   int32 status = 1;
