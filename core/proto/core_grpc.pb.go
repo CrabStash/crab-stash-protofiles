@@ -44,8 +44,8 @@ type CoreServiceClient interface {
 	GetEntityData(ctx context.Context, in *GenericFetchRequest, opts ...grpc.CallOption) (*GetEntityDataResponse, error)
 	// listing
 	ListFields(ctx context.Context, in *PaginatedFieldFetchRequest, opts ...grpc.CallOption) (*PaginatedFieldsFetchResponse, error)
-	ListCategories(ctx context.Context, in *PaginatedFetchRequest, opts ...grpc.CallOption) (*PaginatedCategoriesFetchResponse, error)
-	ListEntities(ctx context.Context, in *PaginatedFetchRequest, opts ...grpc.CallOption) (*PaginatedEntititesFetchResponse, error)
+	ListCategories(ctx context.Context, in *PaginatedCategoriesFetchRequest, opts ...grpc.CallOption) (*PaginatedCategoriesFetchResponse, error)
+	ListEntities(ctx context.Context, in *PaginatedEntitiesFetchRequest, opts ...grpc.CallOption) (*PaginatedEntititesFetchResponse, error)
 	//misc
 	FieldsInheritance(ctx context.Context, in *GenericFetchRequest, opts ...grpc.CallOption) (*InheritanceResponse, error)
 	CoreMiddleware(ctx context.Context, in *CoreMiddlewareRequest, opts ...grpc.CallOption) (*CoreMiddlewareResponse, error)
@@ -203,7 +203,7 @@ func (c *coreServiceClient) ListFields(ctx context.Context, in *PaginatedFieldFe
 	return out, nil
 }
 
-func (c *coreServiceClient) ListCategories(ctx context.Context, in *PaginatedFetchRequest, opts ...grpc.CallOption) (*PaginatedCategoriesFetchResponse, error) {
+func (c *coreServiceClient) ListCategories(ctx context.Context, in *PaginatedCategoriesFetchRequest, opts ...grpc.CallOption) (*PaginatedCategoriesFetchResponse, error) {
 	out := new(PaginatedCategoriesFetchResponse)
 	err := c.cc.Invoke(ctx, "/core.CoreService/ListCategories", in, out, opts...)
 	if err != nil {
@@ -212,7 +212,7 @@ func (c *coreServiceClient) ListCategories(ctx context.Context, in *PaginatedFet
 	return out, nil
 }
 
-func (c *coreServiceClient) ListEntities(ctx context.Context, in *PaginatedFetchRequest, opts ...grpc.CallOption) (*PaginatedEntititesFetchResponse, error) {
+func (c *coreServiceClient) ListEntities(ctx context.Context, in *PaginatedEntitiesFetchRequest, opts ...grpc.CallOption) (*PaginatedEntititesFetchResponse, error) {
 	out := new(PaginatedEntititesFetchResponse)
 	err := c.cc.Invoke(ctx, "/core.CoreService/ListEntities", in, out, opts...)
 	if err != nil {
@@ -264,8 +264,8 @@ type CoreServiceServer interface {
 	GetEntityData(context.Context, *GenericFetchRequest) (*GetEntityDataResponse, error)
 	// listing
 	ListFields(context.Context, *PaginatedFieldFetchRequest) (*PaginatedFieldsFetchResponse, error)
-	ListCategories(context.Context, *PaginatedFetchRequest) (*PaginatedCategoriesFetchResponse, error)
-	ListEntities(context.Context, *PaginatedFetchRequest) (*PaginatedEntititesFetchResponse, error)
+	ListCategories(context.Context, *PaginatedCategoriesFetchRequest) (*PaginatedCategoriesFetchResponse, error)
+	ListEntities(context.Context, *PaginatedEntitiesFetchRequest) (*PaginatedEntititesFetchResponse, error)
 	//misc
 	FieldsInheritance(context.Context, *GenericFetchRequest) (*InheritanceResponse, error)
 	CoreMiddleware(context.Context, *CoreMiddlewareRequest) (*CoreMiddlewareResponse, error)
@@ -324,10 +324,10 @@ func (UnimplementedCoreServiceServer) GetEntityData(context.Context, *GenericFet
 func (UnimplementedCoreServiceServer) ListFields(context.Context, *PaginatedFieldFetchRequest) (*PaginatedFieldsFetchResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListFields not implemented")
 }
-func (UnimplementedCoreServiceServer) ListCategories(context.Context, *PaginatedFetchRequest) (*PaginatedCategoriesFetchResponse, error) {
+func (UnimplementedCoreServiceServer) ListCategories(context.Context, *PaginatedCategoriesFetchRequest) (*PaginatedCategoriesFetchResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListCategories not implemented")
 }
-func (UnimplementedCoreServiceServer) ListEntities(context.Context, *PaginatedFetchRequest) (*PaginatedEntititesFetchResponse, error) {
+func (UnimplementedCoreServiceServer) ListEntities(context.Context, *PaginatedEntitiesFetchRequest) (*PaginatedEntititesFetchResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListEntities not implemented")
 }
 func (UnimplementedCoreServiceServer) FieldsInheritance(context.Context, *GenericFetchRequest) (*InheritanceResponse, error) {
@@ -638,7 +638,7 @@ func _CoreService_ListFields_Handler(srv interface{}, ctx context.Context, dec f
 }
 
 func _CoreService_ListCategories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PaginatedFetchRequest)
+	in := new(PaginatedCategoriesFetchRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -650,13 +650,13 @@ func _CoreService_ListCategories_Handler(srv interface{}, ctx context.Context, d
 		FullMethod: "/core.CoreService/ListCategories",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServiceServer).ListCategories(ctx, req.(*PaginatedFetchRequest))
+		return srv.(CoreServiceServer).ListCategories(ctx, req.(*PaginatedCategoriesFetchRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _CoreService_ListEntities_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PaginatedFetchRequest)
+	in := new(PaginatedEntitiesFetchRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -668,7 +668,7 @@ func _CoreService_ListEntities_Handler(srv interface{}, ctx context.Context, dec
 		FullMethod: "/core.CoreService/ListEntities",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServiceServer).ListEntities(ctx, req.(*PaginatedFetchRequest))
+		return srv.(CoreServiceServer).ListEntities(ctx, req.(*PaginatedEntitiesFetchRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
