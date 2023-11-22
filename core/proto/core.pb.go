@@ -710,8 +710,8 @@ type CreateEntityRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	CategoryID string           `protobuf:"bytes,1,opt,name=categoryID,proto3" json:"categoryID,omitempty" valid:"required"` //@gotags: valid:"required"
-	FormData   *structpb.Struct `protobuf:"bytes,2,opt,name=formData,proto3" json:"formData,omitempty" valid:"required"`     //@gotags: valid:"required"
+	CategoryID string           `protobuf:"bytes,1,opt,name=categoryID,proto3" json:"categoryID,omitempty"`
+	FormData   *structpb.Struct `protobuf:"bytes,2,opt,name=formData,proto3" json:"formData,omitempty"`
 }
 
 func (x *CreateEntityRequest) Reset() {
@@ -876,7 +876,7 @@ type EditEntityRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	EntityID string           `protobuf:"bytes,1,opt,name=entityID,proto3" json:"entityID,omitempty" valid:"required"` //@gotags: valid:"required"
+	EntityID string           `protobuf:"bytes,1,opt,name=entityID,proto3" json:"entityID,omitempty"`
 	FormData *structpb.Struct `protobuf:"bytes,2,opt,name=formData,proto3" json:"formData,omitempty" valid:"required"` //@gotags: valid:"required"
 }
 

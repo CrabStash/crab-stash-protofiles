@@ -90,8 +90,8 @@ message CreateCategoryRequest {
 }
 
 message CreateEntityRequest {
-  string categoryID = 1; //@gotags: valid:"required"
-  google.protobuf.Struct formData = 2; //@gotags: valid:"required"
+  string categoryID = 1;
+  google.protobuf.Struct formData = 2;
 }
 
 // Edit
@@ -106,7 +106,7 @@ message EditCategoryRequest {
 }
 
 message EditEntityRequest {
-  string entityID = 1; //@gotags: valid:"required"
+  string entityID = 1;
   google.protobuf.Struct formData = 2; //@gotags: valid:"required"
 }
 
