@@ -4,7 +4,7 @@ package core;
 
 option go_package = "github.com/CrabStash/crab-stash-protofiles/core/proto";
 import "google/protobuf/empty.proto";
-import "google/protobuf/any.proto";
+import "google/protobuf/struct.proto";
 
 // basic definitions
 
@@ -17,7 +17,7 @@ message Field {
 message Category {
   string title = 1; //@gotags: valid:"required"
   string description = 2; //@gotags: valid:"required"
-  repeated string parents = 3; //@gotags: valid:"required"
+  repeated string parents = 3; //@gotags: valid:"optional"
   repeated string properties = 4; //@gotags: valid:"required"
 }
 
@@ -91,7 +91,7 @@ message CreateCategoryRequest {
 
 message CreateEntityRequest {
   string categoryID = 1; //@gotags: valid:"required"
-  map<string, google.protobuf.Any> formData = 2; //@gotags: valid:"required"
+  map<string, google.protobuf.Struct> formData = 2; //@gotags: valid:"required"
 }
 
 // Edit
@@ -107,7 +107,7 @@ message EditCategoryRequest {
 
 message EditEntityRequest {
   string entityID = 1; //@gotags: valid:"required"
-  map<string, google.protobuf.Any> formData = 2; //@gotags: valid:"required"
+  map<string, google.protobuf.Struct> formData = 2; //@gotags: valid:"required"
 }
 
 // generics
@@ -182,7 +182,7 @@ message GetFieldDataResponse {
 
 message GetEntityDataResponse {
   message Response {
-    map<string, google.protobuf.Any> formData = 1;
+    map<string, google.protobuf.Struct> formData = 1;
   }
 
   int32 status = 1;
@@ -205,7 +205,7 @@ message PaginatedEntitiesFetchRequest{
 
 message PaginatedCategoriesFetchRequest{
   string id = 1; //@gotags: valid:"optional,minstringlength(1)"
-  string warehouseID = 4; //@gotags: valid:"required,minstringlength(1)"
+  string warehouseID = 2; //@gotags: valid:"required,minstringlength(1)"
 }
 
 message PaginatedFieldFetchRequest{
