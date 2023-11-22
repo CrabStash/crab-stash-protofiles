@@ -28,6 +28,23 @@ message GenericSchema {
   map<string, Field> properties = 4; //@gotags: valid:"required"
 }
 
+message PaginatedEntities {
+  string name = 1;
+  string description = 2;
+}
+
+message PaginatedCategories {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+}
+
+message PaginatedFields {
+  string title = 1;
+  string type = 2;
+  string id = 3;
+}
+
 
 // Services
 
@@ -177,6 +194,80 @@ message GetEntityDataResponse {
   }
 }
 
+// Listing 
+
+message PaginatedFetchRequest{
+  string id = 1; //@gotags: valid:"required,minstringlength(1)"
+  int32 limit = 2; //@gotags: valid:"required,numeric,range(5|30)"
+  int32 page = 3; //@gotags: valid:"required,numeric"
+  string warehouseID = 4; //@gotags: valid:"required,minstringlength(1)"
+}
+
+message PaginatedCategoriesFetchResponse {
+  message pagination {
+    int32 limit = 1;
+    int32 total = 2;
+    int32 page = 3; 
+  }
+  
+
+  message Response {
+    pagination pagination = 1;
+    repeated PaginatedCategories list = 2;
+  }
+
+   int32 status = 1;
+   // @gotags: json:"response"
+   oneof response {
+    // @gotags: json:"data"
+    Response data = 2;
+    string error = 3;
+  } 
+}
+
+message PaginatedFieldsFetchResponse {
+  message pagination {
+    int32 limit = 1;
+    int32 total = 2;
+    int32 page = 3; 
+  }
+  
+
+  message Response {
+    pagination pagination = 1;
+    repeated PaginatedFields list = 2;
+  }
+
+   int32 status = 1;
+   // @gotags: json:"response"
+   oneof response {
+    // @gotags: json:"data"
+    Response data = 2;
+    string error = 3;
+  } 
+}
+message PaginatedEntititesFetchResponse {
+  message pagination {
+    int32 limit = 1;
+    int32 total = 2;
+    int32 page = 3; 
+  }
+  
+
+  message Response {
+    pagination pagination = 1;
+    repeated PaginatedEntities list = 2;
+  }
+
+   int32 status = 1;
+   // @gotags: json:"response"
+   oneof response {
+    // @gotags: json:"data"
+    Response data = 2;
+    string error = 3;
+  } 
+}
+
 
 // service
 service CoreService {
@@ -200,9 +291,9 @@ service CoreService {
     rpc GetFieldData (GenericFetchRequest) returns (GetFieldDataResponse);
     rpc GetEntityData (GenericFetchRequest) returns (GetEntityDataResponse);
   // listing
-    // rpc ListAllFields () returns ();
-    // rpc ListCategories () returns ();
-    // rpc ListEntities () returns ();
+    rpc ListFields (PaginatedFetchRequest) returns (PaginatedFieldsFetchResponse);
+    rpc ListCategories (PaginatedFetchRequest) returns (PaginatedCategoriesFetchResponse);
+    rpc ListEntities (PaginatedFetchRequest) returns (PaginatedEntititesFetchResponse);
   //misc
     rpc FieldsInheritance (GenericFetchRequest) returns (InheritanceResponse);
     rpc CoreMiddleware (CoreMiddlewareRequest) returns (CoreMiddlewareResponse);
