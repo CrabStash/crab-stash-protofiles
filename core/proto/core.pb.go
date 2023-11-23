@@ -933,10 +933,12 @@ type GenericCreateResponse struct {
 	unknownFields protoimpl.UnknownFields
 
 	Status int32 `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	// @gotags: json:"response"
+	//
 	// Types that are assignable to Response:
 	//	*GenericCreateResponse_Data
 	//	*GenericCreateResponse_Error
-	Response isGenericCreateResponse_Response `protobuf_oneof:"response"`
+	Response isGenericCreateResponse_Response `protobuf_oneof:"response" json:"response"`
 }
 
 func (x *GenericCreateResponse) Reset() {
@@ -1004,7 +1006,8 @@ type isGenericCreateResponse_Response interface {
 }
 
 type GenericCreateResponse_Data struct {
-	Data *GenericCreateResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof"`
+	// @gotags: json:"data"
+	Data *GenericCreateResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
 }
 
 type GenericCreateResponse_Error struct {

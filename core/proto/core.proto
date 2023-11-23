@@ -116,7 +116,9 @@ message GenericCreateResponse {
     string id = 1;
   }
   int32 status = 1;
+  // @gotags: json:"response"
   oneof response {
+    // @gotags: json:"data"
     Response data = 2;
     string error = 3;
   }
