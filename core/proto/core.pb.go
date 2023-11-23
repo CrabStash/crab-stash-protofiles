@@ -10,6 +10,7 @@ import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
+	structpb "google.golang.org/protobuf/types/known/structpb"
 	reflect "reflect"
 	sync "sync"
 )
@@ -20,6 +21,392 @@ const (
 	// Verify that runtime/protoimpl is sufficiently up-to-date.
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
+
+type Field struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Title string `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty" valid:"required"` //@gotags: valid:"required"
+	Type  string `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty" valid:"required"`   //@gotags: valid:"required"
+	Help  string `protobuf:"bytes,3,opt,name=help,proto3" json:"help,omitempty" valid:"required"`   //@gotags: valid:"required"
+}
+
+func (x *Field) Reset() {
+	*x = Field{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[0]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Field) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Field) ProtoMessage() {}
+
+func (x *Field) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[0]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Field.ProtoReflect.Descriptor instead.
+func (*Field) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *Field) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *Field) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *Field) GetHelp() string {
+	if x != nil {
+		return x.Help
+	}
+	return ""
+}
+
+type Category struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Title       string   `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty" valid:"required"`             //@gotags: valid:"required"
+	Description string   `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty" valid:"required"` //@gotags: valid:"required"
+	Parents     []string `protobuf:"bytes,3,rep,name=parents,proto3" json:"parents,omitempty" valid:"optional"`         //@gotags: valid:"optional"
+	Properties  []string `protobuf:"bytes,4,rep,name=properties,proto3" json:"properties,omitempty" valid:"required"`   //@gotags: valid:"required"
+}
+
+func (x *Category) Reset() {
+	*x = Category{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Category) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Category) ProtoMessage() {}
+
+func (x *Category) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Category.ProtoReflect.Descriptor instead.
+func (*Category) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *Category) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *Category) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *Category) GetParents() []string {
+	if x != nil {
+		return x.Parents
+	}
+	return nil
+}
+
+func (x *Category) GetProperties() []string {
+	if x != nil {
+		return x.Properties
+	}
+	return nil
+}
+
+type GenericSchema struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Title       string            `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty" valid:"required"`                                                                                                   //@gotags: valid:"required"
+	Description string            `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty" valid:"required"`                                                                                       //@gotags: valid:"required"
+	Type        string            `protobuf:"bytes,3,opt,name=type,proto3" json:"type,omitempty" valid:"required"`                                                                                                     //@gotags: valid:"required"
+	Properties  map[string]*Field `protobuf:"bytes,4,rep,name=properties,proto3" json:"properties,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3" valid:"required"` //@gotags: valid:"required"
+}
+
+func (x *GenericSchema) Reset() {
+	*x = GenericSchema{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GenericSchema) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GenericSchema) ProtoMessage() {}
+
+func (x *GenericSchema) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GenericSchema.ProtoReflect.Descriptor instead.
+func (*GenericSchema) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *GenericSchema) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *GenericSchema) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *GenericSchema) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *GenericSchema) GetProperties() map[string]*Field {
+	if x != nil {
+		return x.Properties
+	}
+	return nil
+}
+
+type PaginatedEntities struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Name        string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Description string `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+}
+
+func (x *PaginatedEntities) Reset() {
+	*x = PaginatedEntities{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PaginatedEntities) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PaginatedEntities) ProtoMessage() {}
+
+func (x *PaginatedEntities) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PaginatedEntities.ProtoReflect.Descriptor instead.
+func (*PaginatedEntities) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *PaginatedEntities) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *PaginatedEntities) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+type PaginatedCategories struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id          string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Title       string `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
+	Description string `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+}
+
+func (x *PaginatedCategories) Reset() {
+	*x = PaginatedCategories{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PaginatedCategories) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PaginatedCategories) ProtoMessage() {}
+
+func (x *PaginatedCategories) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PaginatedCategories.ProtoReflect.Descriptor instead.
+func (*PaginatedCategories) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *PaginatedCategories) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *PaginatedCategories) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *PaginatedCategories) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+type PaginatedFields struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Title string `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
+	Type  string `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
+	Id    string `protobuf:"bytes,3,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *PaginatedFields) Reset() {
+	*x = PaginatedFields{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PaginatedFields) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PaginatedFields) ProtoMessage() {}
+
+func (x *PaginatedFields) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PaginatedFields.ProtoReflect.Descriptor instead.
+func (*PaginatedFields) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *PaginatedFields) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *PaginatedFields) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *PaginatedFields) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
 
 type Schema struct {
 	state         protoimpl.MessageState
@@ -32,7 +419,7 @@ type Schema struct {
 func (x *Schema) Reset() {
 	*x = Schema{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_core_proto_msgTypes[0]
+		mi := &file_core_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -45,7 +432,7 @@ func (x *Schema) String() string {
 func (*Schema) ProtoMessage() {}
 
 func (x *Schema) ProtoReflect() protoreflect.Message {
-	mi := &file_core_proto_msgTypes[0]
+	mi := &file_core_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -58,7 +445,7 @@ func (x *Schema) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Schema.ProtoReflect.Descriptor instead.
 func (*Schema) Descriptor() ([]byte, []int) {
-	return file_core_proto_rawDescGZIP(), []int{0}
+	return file_core_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *Schema) GetFileContent() []byte {
@@ -68,28 +455,2567 @@ func (x *Schema) GetFileContent() []byte {
 	return nil
 }
 
+type CoreMiddlewareResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	DoesItBelong bool `protobuf:"varint,1,opt,name=doesItBelong,proto3" json:"doesItBelong,omitempty"`
+}
+
+func (x *CoreMiddlewareResponse) Reset() {
+	*x = CoreMiddlewareResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CoreMiddlewareResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CoreMiddlewareResponse) ProtoMessage() {}
+
+func (x *CoreMiddlewareResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CoreMiddlewareResponse.ProtoReflect.Descriptor instead.
+func (*CoreMiddlewareResponse) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *CoreMiddlewareResponse) GetDoesItBelong() bool {
+	if x != nil {
+		return x.DoesItBelong
+	}
+	return false
+}
+
+// misc
+type InheritanceResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status int32 `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	//@gotags: json:"response"
+	//
+	// Types that are assignable to Response:
+	//	*InheritanceResponse_Data
+	//	*InheritanceResponse_Error
+	Response isInheritanceResponse_Response `protobuf_oneof:"response" json:"response"`
+}
+
+func (x *InheritanceResponse) Reset() {
+	*x = InheritanceResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *InheritanceResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InheritanceResponse) ProtoMessage() {}
+
+func (x *InheritanceResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InheritanceResponse.ProtoReflect.Descriptor instead.
+func (*InheritanceResponse) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *InheritanceResponse) GetStatus() int32 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
+func (m *InheritanceResponse) GetResponse() isInheritanceResponse_Response {
+	if m != nil {
+		return m.Response
+	}
+	return nil
+}
+
+func (x *InheritanceResponse) GetData() *InheritanceResponse_Response {
+	if x, ok := x.GetResponse().(*InheritanceResponse_Data); ok {
+		return x.Data
+	}
+	return nil
+}
+
+func (x *InheritanceResponse) GetError() string {
+	if x, ok := x.GetResponse().(*InheritanceResponse_Error); ok {
+		return x.Error
+	}
+	return ""
+}
+
+type isInheritanceResponse_Response interface {
+	isInheritanceResponse_Response()
+}
+
+type InheritanceResponse_Data struct {
+	//@gotags: json:"data"
+	Data *InheritanceResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
+}
+
+type InheritanceResponse_Error struct {
+	Error string `protobuf:"bytes,3,opt,name=error,proto3,oneof"`
+}
+
+func (*InheritanceResponse_Data) isInheritanceResponse_Response() {}
+
+func (*InheritanceResponse_Error) isInheritanceResponse_Response() {}
+
+// Create
+type CreateFieldRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	WarehouseID string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty" valid:"required"` //@gotags: valid:"required"
+	FormData    *Field `protobuf:"bytes,2,opt,name=formData,proto3" json:"formData,omitempty" valid:"required"`       //@gotags: valid:"required"
+}
+
+func (x *CreateFieldRequest) Reset() {
+	*x = CreateFieldRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateFieldRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateFieldRequest) ProtoMessage() {}
+
+func (x *CreateFieldRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateFieldRequest.ProtoReflect.Descriptor instead.
+func (*CreateFieldRequest) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *CreateFieldRequest) GetWarehouseID() string {
+	if x != nil {
+		return x.WarehouseID
+	}
+	return ""
+}
+
+func (x *CreateFieldRequest) GetFormData() *Field {
+	if x != nil {
+		return x.FormData
+	}
+	return nil
+}
+
+type CreateCategoryRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	WarehouseID string    `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty" valid:"required"` //@gotags: valid:"required"
+	FormData    *Category `protobuf:"bytes,2,opt,name=formData,proto3" json:"formData,omitempty" valid:"required"`       //@gotags: valid:"required"
+}
+
+func (x *CreateCategoryRequest) Reset() {
+	*x = CreateCategoryRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[10]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateCategoryRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateCategoryRequest) ProtoMessage() {}
+
+func (x *CreateCategoryRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[10]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateCategoryRequest.ProtoReflect.Descriptor instead.
+func (*CreateCategoryRequest) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *CreateCategoryRequest) GetWarehouseID() string {
+	if x != nil {
+		return x.WarehouseID
+	}
+	return ""
+}
+
+func (x *CreateCategoryRequest) GetFormData() *Category {
+	if x != nil {
+		return x.FormData
+	}
+	return nil
+}
+
+type CreateEntityRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	CategoryID string           `protobuf:"bytes,1,opt,name=categoryID,proto3" json:"categoryID,omitempty"`
+	FormData   *structpb.Struct `protobuf:"bytes,2,opt,name=formData,proto3" json:"formData,omitempty"`
+}
+
+func (x *CreateEntityRequest) Reset() {
+	*x = CreateEntityRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[11]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateEntityRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateEntityRequest) ProtoMessage() {}
+
+func (x *CreateEntityRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[11]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateEntityRequest.ProtoReflect.Descriptor instead.
+func (*CreateEntityRequest) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *CreateEntityRequest) GetCategoryID() string {
+	if x != nil {
+		return x.CategoryID
+	}
+	return ""
+}
+
+func (x *CreateEntityRequest) GetFormData() *structpb.Struct {
+	if x != nil {
+		return x.FormData
+	}
+	return nil
+}
+
+// Edit
+type EditFieldRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	FieldID  string `protobuf:"bytes,1,opt,name=fieldID,proto3" json:"fieldID,omitempty" valid:"required"`   //@gotags: valid:"required"
+	FormData *Field `protobuf:"bytes,2,opt,name=formData,proto3" json:"formData,omitempty" valid:"required"` //@gotags: valid:"required"
+}
+
+func (x *EditFieldRequest) Reset() {
+	*x = EditFieldRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[12]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EditFieldRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EditFieldRequest) ProtoMessage() {}
+
+func (x *EditFieldRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[12]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EditFieldRequest.ProtoReflect.Descriptor instead.
+func (*EditFieldRequest) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *EditFieldRequest) GetFieldID() string {
+	if x != nil {
+		return x.FieldID
+	}
+	return ""
+}
+
+func (x *EditFieldRequest) GetFormData() *Field {
+	if x != nil {
+		return x.FormData
+	}
+	return nil
+}
+
+type EditCategoryRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	CategoryID string    `protobuf:"bytes,1,opt,name=categoryID,proto3" json:"categoryID,omitempty" valid:"required"` //@gotags: valid:"required"
+	FormData   *Category `protobuf:"bytes,2,opt,name=formData,proto3" json:"formData,omitempty" valid:"required"`     //@gotags: valid:"required"
+}
+
+func (x *EditCategoryRequest) Reset() {
+	*x = EditCategoryRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[13]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EditCategoryRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EditCategoryRequest) ProtoMessage() {}
+
+func (x *EditCategoryRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[13]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EditCategoryRequest.ProtoReflect.Descriptor instead.
+func (*EditCategoryRequest) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *EditCategoryRequest) GetCategoryID() string {
+	if x != nil {
+		return x.CategoryID
+	}
+	return ""
+}
+
+func (x *EditCategoryRequest) GetFormData() *Category {
+	if x != nil {
+		return x.FormData
+	}
+	return nil
+}
+
+type EditEntityRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	EntityID string           `protobuf:"bytes,1,opt,name=entityID,proto3" json:"entityID,omitempty"`
+	FormData *structpb.Struct `protobuf:"bytes,2,opt,name=formData,proto3" json:"formData,omitempty" valid:"required"` //@gotags: valid:"required"
+}
+
+func (x *EditEntityRequest) Reset() {
+	*x = EditEntityRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[14]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EditEntityRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EditEntityRequest) ProtoMessage() {}
+
+func (x *EditEntityRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[14]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EditEntityRequest.ProtoReflect.Descriptor instead.
+func (*EditEntityRequest) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *EditEntityRequest) GetEntityID() string {
+	if x != nil {
+		return x.EntityID
+	}
+	return ""
+}
+
+func (x *EditEntityRequest) GetFormData() *structpb.Struct {
+	if x != nil {
+		return x.FormData
+	}
+	return nil
+}
+
+// generics
+type GenericCreateResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status int32 `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	// @gotags: json:"response"
+	//
+	// Types that are assignable to Response:
+	//	*GenericCreateResponse_Data
+	//	*GenericCreateResponse_Error
+	Response isGenericCreateResponse_Response `protobuf_oneof:"response" json:"response"`
+}
+
+func (x *GenericCreateResponse) Reset() {
+	*x = GenericCreateResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[15]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GenericCreateResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GenericCreateResponse) ProtoMessage() {}
+
+func (x *GenericCreateResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[15]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GenericCreateResponse.ProtoReflect.Descriptor instead.
+func (*GenericCreateResponse) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *GenericCreateResponse) GetStatus() int32 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
+func (m *GenericCreateResponse) GetResponse() isGenericCreateResponse_Response {
+	if m != nil {
+		return m.Response
+	}
+	return nil
+}
+
+func (x *GenericCreateResponse) GetData() *GenericCreateResponse_Response {
+	if x, ok := x.GetResponse().(*GenericCreateResponse_Data); ok {
+		return x.Data
+	}
+	return nil
+}
+
+func (x *GenericCreateResponse) GetError() string {
+	if x, ok := x.GetResponse().(*GenericCreateResponse_Error); ok {
+		return x.Error
+	}
+	return ""
+}
+
+type isGenericCreateResponse_Response interface {
+	isGenericCreateResponse_Response()
+}
+
+type GenericCreateResponse_Data struct {
+	// @gotags: json:"data"
+	Data *GenericCreateResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
+}
+
+type GenericCreateResponse_Error struct {
+	Error string `protobuf:"bytes,3,opt,name=error,proto3,oneof"`
+}
+
+func (*GenericCreateResponse_Data) isGenericCreateResponse_Response() {}
+
+func (*GenericCreateResponse_Error) isGenericCreateResponse_Response() {}
+
+type GenericEditDeleteResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status   int32  `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	Response string `protobuf:"bytes,2,opt,name=response,proto3" json:"response,omitempty"`
+}
+
+func (x *GenericEditDeleteResponse) Reset() {
+	*x = GenericEditDeleteResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[16]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GenericEditDeleteResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GenericEditDeleteResponse) ProtoMessage() {}
+
+func (x *GenericEditDeleteResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[16]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GenericEditDeleteResponse.ProtoReflect.Descriptor instead.
+func (*GenericEditDeleteResponse) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *GenericEditDeleteResponse) GetStatus() int32 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
+func (x *GenericEditDeleteResponse) GetResponse() string {
+	if x != nil {
+		return x.Response
+	}
+	return ""
+}
+
+type CoreMiddlewareRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	In   string `protobuf:"bytes,1,opt,name=in,proto3" json:"in,omitempty" valid:"required"`     //@gotags: valid:"required"
+	Out  string `protobuf:"bytes,2,opt,name=out,proto3" json:"out,omitempty" valid:"required"`   //@gotags: valid:"required"
+	Type string `protobuf:"bytes,3,opt,name=type,proto3" json:"type,omitempty" valid:"required"` //@gotags: valid:"required"
+}
+
+func (x *CoreMiddlewareRequest) Reset() {
+	*x = CoreMiddlewareRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[17]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CoreMiddlewareRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CoreMiddlewareRequest) ProtoMessage() {}
+
+func (x *CoreMiddlewareRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[17]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CoreMiddlewareRequest.ProtoReflect.Descriptor instead.
+func (*CoreMiddlewareRequest) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *CoreMiddlewareRequest) GetIn() string {
+	if x != nil {
+		return x.In
+	}
+	return ""
+}
+
+func (x *CoreMiddlewareRequest) GetOut() string {
+	if x != nil {
+		return x.Out
+	}
+	return ""
+}
+
+func (x *CoreMiddlewareRequest) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+type GenericFetchRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	WarehouseID string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty" valid:"required"` //@gotags: valid:"required"
+	EntityID    string `protobuf:"bytes,2,opt,name=entityID,proto3" json:"entityID,omitempty" valid:"required"`       //@gotags: valid:"required"
+}
+
+func (x *GenericFetchRequest) Reset() {
+	*x = GenericFetchRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[18]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GenericFetchRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GenericFetchRequest) ProtoMessage() {}
+
+func (x *GenericFetchRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[18]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GenericFetchRequest.ProtoReflect.Descriptor instead.
+func (*GenericFetchRequest) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *GenericFetchRequest) GetWarehouseID() string {
+	if x != nil {
+		return x.WarehouseID
+	}
+	return ""
+}
+
+func (x *GenericFetchRequest) GetEntityID() string {
+	if x != nil {
+		return x.EntityID
+	}
+	return ""
+}
+
+type CategorySchemaResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status int32 `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	//@gotags: json:"response"
+	//
+	// Types that are assignable to Response:
+	//	*CategorySchemaResponse_Data
+	//	*CategorySchemaResponse_Error
+	Response isCategorySchemaResponse_Response `protobuf_oneof:"response" json:"response"`
+}
+
+func (x *CategorySchemaResponse) Reset() {
+	*x = CategorySchemaResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[19]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CategorySchemaResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CategorySchemaResponse) ProtoMessage() {}
+
+func (x *CategorySchemaResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[19]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CategorySchemaResponse.ProtoReflect.Descriptor instead.
+func (*CategorySchemaResponse) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *CategorySchemaResponse) GetStatus() int32 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
+func (m *CategorySchemaResponse) GetResponse() isCategorySchemaResponse_Response {
+	if m != nil {
+		return m.Response
+	}
+	return nil
+}
+
+func (x *CategorySchemaResponse) GetData() *CategorySchemaResponse_Response {
+	if x, ok := x.GetResponse().(*CategorySchemaResponse_Data); ok {
+		return x.Data
+	}
+	return nil
+}
+
+func (x *CategorySchemaResponse) GetError() string {
+	if x, ok := x.GetResponse().(*CategorySchemaResponse_Error); ok {
+		return x.Error
+	}
+	return ""
+}
+
+type isCategorySchemaResponse_Response interface {
+	isCategorySchemaResponse_Response()
+}
+
+type CategorySchemaResponse_Data struct {
+	//@gotags: json:"data"
+	Data *CategorySchemaResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
+}
+
+type CategorySchemaResponse_Error struct {
+	Error string `protobuf:"bytes,3,opt,name=error,proto3,oneof"`
+}
+
+func (*CategorySchemaResponse_Data) isCategorySchemaResponse_Response() {}
+
+func (*CategorySchemaResponse_Error) isCategorySchemaResponse_Response() {}
+
+type GetCategoryDataResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status int32 `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	//@gotags: json:"response"
+	//
+	// Types that are assignable to Response:
+	//	*GetCategoryDataResponse_Data
+	//	*GetCategoryDataResponse_Error
+	Response isGetCategoryDataResponse_Response `protobuf_oneof:"response" json:"response"`
+}
+
+func (x *GetCategoryDataResponse) Reset() {
+	*x = GetCategoryDataResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[20]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetCategoryDataResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetCategoryDataResponse) ProtoMessage() {}
+
+func (x *GetCategoryDataResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[20]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetCategoryDataResponse.ProtoReflect.Descriptor instead.
+func (*GetCategoryDataResponse) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *GetCategoryDataResponse) GetStatus() int32 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
+func (m *GetCategoryDataResponse) GetResponse() isGetCategoryDataResponse_Response {
+	if m != nil {
+		return m.Response
+	}
+	return nil
+}
+
+func (x *GetCategoryDataResponse) GetData() *GetCategoryDataResponse_Response {
+	if x, ok := x.GetResponse().(*GetCategoryDataResponse_Data); ok {
+		return x.Data
+	}
+	return nil
+}
+
+func (x *GetCategoryDataResponse) GetError() string {
+	if x, ok := x.GetResponse().(*GetCategoryDataResponse_Error); ok {
+		return x.Error
+	}
+	return ""
+}
+
+type isGetCategoryDataResponse_Response interface {
+	isGetCategoryDataResponse_Response()
+}
+
+type GetCategoryDataResponse_Data struct {
+	//@gotags: json:"data"
+	Data *GetCategoryDataResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
+}
+
+type GetCategoryDataResponse_Error struct {
+	Error string `protobuf:"bytes,3,opt,name=error,proto3,oneof"`
+}
+
+func (*GetCategoryDataResponse_Data) isGetCategoryDataResponse_Response() {}
+
+func (*GetCategoryDataResponse_Error) isGetCategoryDataResponse_Response() {}
+
+type GetFieldDataResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status int32 `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	//@gotags: json:"response"
+	//
+	// Types that are assignable to Response:
+	//	*GetFieldDataResponse_Data
+	//	*GetFieldDataResponse_Error
+	Response isGetFieldDataResponse_Response `protobuf_oneof:"response" json:"response"`
+}
+
+func (x *GetFieldDataResponse) Reset() {
+	*x = GetFieldDataResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[21]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetFieldDataResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetFieldDataResponse) ProtoMessage() {}
+
+func (x *GetFieldDataResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[21]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetFieldDataResponse.ProtoReflect.Descriptor instead.
+func (*GetFieldDataResponse) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *GetFieldDataResponse) GetStatus() int32 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
+func (m *GetFieldDataResponse) GetResponse() isGetFieldDataResponse_Response {
+	if m != nil {
+		return m.Response
+	}
+	return nil
+}
+
+func (x *GetFieldDataResponse) GetData() *GetFieldDataResponse_Response {
+	if x, ok := x.GetResponse().(*GetFieldDataResponse_Data); ok {
+		return x.Data
+	}
+	return nil
+}
+
+func (x *GetFieldDataResponse) GetError() string {
+	if x, ok := x.GetResponse().(*GetFieldDataResponse_Error); ok {
+		return x.Error
+	}
+	return ""
+}
+
+type isGetFieldDataResponse_Response interface {
+	isGetFieldDataResponse_Response()
+}
+
+type GetFieldDataResponse_Data struct {
+	//@gotags: json:"data"
+	Data *GetFieldDataResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
+}
+
+type GetFieldDataResponse_Error struct {
+	Error string `protobuf:"bytes,3,opt,name=error,proto3,oneof"`
+}
+
+func (*GetFieldDataResponse_Data) isGetFieldDataResponse_Response() {}
+
+func (*GetFieldDataResponse_Error) isGetFieldDataResponse_Response() {}
+
+type GetEntityDataResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status int32 `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	//@gotags: json:"response"
+	//
+	// Types that are assignable to Response:
+	//	*GetEntityDataResponse_Data
+	//	*GetEntityDataResponse_Error
+	Response isGetEntityDataResponse_Response `protobuf_oneof:"response" json:"response"`
+}
+
+func (x *GetEntityDataResponse) Reset() {
+	*x = GetEntityDataResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[22]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetEntityDataResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetEntityDataResponse) ProtoMessage() {}
+
+func (x *GetEntityDataResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[22]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetEntityDataResponse.ProtoReflect.Descriptor instead.
+func (*GetEntityDataResponse) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *GetEntityDataResponse) GetStatus() int32 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
+func (m *GetEntityDataResponse) GetResponse() isGetEntityDataResponse_Response {
+	if m != nil {
+		return m.Response
+	}
+	return nil
+}
+
+func (x *GetEntityDataResponse) GetData() *GetEntityDataResponse_Response {
+	if x, ok := x.GetResponse().(*GetEntityDataResponse_Data); ok {
+		return x.Data
+	}
+	return nil
+}
+
+func (x *GetEntityDataResponse) GetError() string {
+	if x, ok := x.GetResponse().(*GetEntityDataResponse_Error); ok {
+		return x.Error
+	}
+	return ""
+}
+
+type isGetEntityDataResponse_Response interface {
+	isGetEntityDataResponse_Response()
+}
+
+type GetEntityDataResponse_Data struct {
+	//@gotags: json:"data"
+	Data *GetEntityDataResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
+}
+
+type GetEntityDataResponse_Error struct {
+	Error string `protobuf:"bytes,3,opt,name=error,proto3,oneof"`
+}
+
+func (*GetEntityDataResponse_Data) isGetEntityDataResponse_Response() {}
+
+func (*GetEntityDataResponse_Error) isGetEntityDataResponse_Response() {}
+
+type PaginatedEntitiesFetchRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id          string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty" valid:"optional,minstringlength(1)"`                   //@gotags: valid:"optional,minstringlength(1)"
+	Limit       int32  `protobuf:"varint,2,opt,name=limit,proto3" json:"limit,omitempty" valid:"required,numeric,range(5|30)"`            //@gotags: valid:"required,numeric,range(5|30)"
+	Page        int32  `protobuf:"varint,3,opt,name=page,proto3" json:"page,omitempty" valid:"required,numeric"`              //@gotags: valid:"required,numeric"
+	WarehouseID string `protobuf:"bytes,4,opt,name=warehouseID,proto3" json:"warehouseID,omitempty" valid:"required,minstringlength(1)"` //@gotags: valid:"required,minstringlength(1)"
+}
+
+func (x *PaginatedEntitiesFetchRequest) Reset() {
+	*x = PaginatedEntitiesFetchRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[23]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PaginatedEntitiesFetchRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PaginatedEntitiesFetchRequest) ProtoMessage() {}
+
+func (x *PaginatedEntitiesFetchRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[23]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PaginatedEntitiesFetchRequest.ProtoReflect.Descriptor instead.
+func (*PaginatedEntitiesFetchRequest) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *PaginatedEntitiesFetchRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *PaginatedEntitiesFetchRequest) GetLimit() int32 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+func (x *PaginatedEntitiesFetchRequest) GetPage() int32 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *PaginatedEntitiesFetchRequest) GetWarehouseID() string {
+	if x != nil {
+		return x.WarehouseID
+	}
+	return ""
+}
+
+type PaginatedCategoriesFetchRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id          string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty" valid:"optional,minstringlength(1)"`                   //@gotags: valid:"optional,minstringlength(1)"
+	WarehouseID string `protobuf:"bytes,2,opt,name=warehouseID,proto3" json:"warehouseID,omitempty" valid:"required,minstringlength(1)"` //@gotags: valid:"required,minstringlength(1)"
+}
+
+func (x *PaginatedCategoriesFetchRequest) Reset() {
+	*x = PaginatedCategoriesFetchRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[24]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PaginatedCategoriesFetchRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PaginatedCategoriesFetchRequest) ProtoMessage() {}
+
+func (x *PaginatedCategoriesFetchRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[24]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PaginatedCategoriesFetchRequest.ProtoReflect.Descriptor instead.
+func (*PaginatedCategoriesFetchRequest) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{24}
+}
+
+func (x *PaginatedCategoriesFetchRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *PaginatedCategoriesFetchRequest) GetWarehouseID() string {
+	if x != nil {
+		return x.WarehouseID
+	}
+	return ""
+}
+
+type PaginatedFieldFetchRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Limit       int32  `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty" valid:"required,numeric,range(5|30)"`            //@gotags: valid:"required,numeric,range(5|30)"
+	Page        int32  `protobuf:"varint,2,opt,name=page,proto3" json:"page,omitempty" valid:"required,numeric"`              //@gotags: valid:"required,numeric"
+	WarehouseID string `protobuf:"bytes,3,opt,name=warehouseID,proto3" json:"warehouseID,omitempty" valid:"required,minstringlength(1)"` //@gotags: valid:"required,minstringlength(1)"
+}
+
+func (x *PaginatedFieldFetchRequest) Reset() {
+	*x = PaginatedFieldFetchRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[25]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PaginatedFieldFetchRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PaginatedFieldFetchRequest) ProtoMessage() {}
+
+func (x *PaginatedFieldFetchRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[25]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PaginatedFieldFetchRequest.ProtoReflect.Descriptor instead.
+func (*PaginatedFieldFetchRequest) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{25}
+}
+
+func (x *PaginatedFieldFetchRequest) GetLimit() int32 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+func (x *PaginatedFieldFetchRequest) GetPage() int32 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *PaginatedFieldFetchRequest) GetWarehouseID() string {
+	if x != nil {
+		return x.WarehouseID
+	}
+	return ""
+}
+
+type PaginatedCategoriesFetchResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status int32 `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	// @gotags: json:"response"
+	//
+	// Types that are assignable to Response:
+	//	*PaginatedCategoriesFetchResponse_Data
+	//	*PaginatedCategoriesFetchResponse_Error
+	Response isPaginatedCategoriesFetchResponse_Response `protobuf_oneof:"response" json:"response"`
+}
+
+func (x *PaginatedCategoriesFetchResponse) Reset() {
+	*x = PaginatedCategoriesFetchResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[26]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PaginatedCategoriesFetchResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PaginatedCategoriesFetchResponse) ProtoMessage() {}
+
+func (x *PaginatedCategoriesFetchResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[26]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PaginatedCategoriesFetchResponse.ProtoReflect.Descriptor instead.
+func (*PaginatedCategoriesFetchResponse) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{26}
+}
+
+func (x *PaginatedCategoriesFetchResponse) GetStatus() int32 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
+func (m *PaginatedCategoriesFetchResponse) GetResponse() isPaginatedCategoriesFetchResponse_Response {
+	if m != nil {
+		return m.Response
+	}
+	return nil
+}
+
+func (x *PaginatedCategoriesFetchResponse) GetData() *PaginatedCategoriesFetchResponse_Response {
+	if x, ok := x.GetResponse().(*PaginatedCategoriesFetchResponse_Data); ok {
+		return x.Data
+	}
+	return nil
+}
+
+func (x *PaginatedCategoriesFetchResponse) GetError() string {
+	if x, ok := x.GetResponse().(*PaginatedCategoriesFetchResponse_Error); ok {
+		return x.Error
+	}
+	return ""
+}
+
+type isPaginatedCategoriesFetchResponse_Response interface {
+	isPaginatedCategoriesFetchResponse_Response()
+}
+
+type PaginatedCategoriesFetchResponse_Data struct {
+	// @gotags: json:"data"
+	Data *PaginatedCategoriesFetchResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
+}
+
+type PaginatedCategoriesFetchResponse_Error struct {
+	Error string `protobuf:"bytes,3,opt,name=error,proto3,oneof"`
+}
+
+func (*PaginatedCategoriesFetchResponse_Data) isPaginatedCategoriesFetchResponse_Response() {}
+
+func (*PaginatedCategoriesFetchResponse_Error) isPaginatedCategoriesFetchResponse_Response() {}
+
+type PaginatedFieldsFetchResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status int32 `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	// @gotags: json:"response"
+	//
+	// Types that are assignable to Response:
+	//	*PaginatedFieldsFetchResponse_Data
+	//	*PaginatedFieldsFetchResponse_Error
+	Response isPaginatedFieldsFetchResponse_Response `protobuf_oneof:"response" json:"response"`
+}
+
+func (x *PaginatedFieldsFetchResponse) Reset() {
+	*x = PaginatedFieldsFetchResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[27]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PaginatedFieldsFetchResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PaginatedFieldsFetchResponse) ProtoMessage() {}
+
+func (x *PaginatedFieldsFetchResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[27]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PaginatedFieldsFetchResponse.ProtoReflect.Descriptor instead.
+func (*PaginatedFieldsFetchResponse) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{27}
+}
+
+func (x *PaginatedFieldsFetchResponse) GetStatus() int32 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
+func (m *PaginatedFieldsFetchResponse) GetResponse() isPaginatedFieldsFetchResponse_Response {
+	if m != nil {
+		return m.Response
+	}
+	return nil
+}
+
+func (x *PaginatedFieldsFetchResponse) GetData() *PaginatedFieldsFetchResponse_Response {
+	if x, ok := x.GetResponse().(*PaginatedFieldsFetchResponse_Data); ok {
+		return x.Data
+	}
+	return nil
+}
+
+func (x *PaginatedFieldsFetchResponse) GetError() string {
+	if x, ok := x.GetResponse().(*PaginatedFieldsFetchResponse_Error); ok {
+		return x.Error
+	}
+	return ""
+}
+
+type isPaginatedFieldsFetchResponse_Response interface {
+	isPaginatedFieldsFetchResponse_Response()
+}
+
+type PaginatedFieldsFetchResponse_Data struct {
+	// @gotags: json:"data"
+	Data *PaginatedFieldsFetchResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
+}
+
+type PaginatedFieldsFetchResponse_Error struct {
+	Error string `protobuf:"bytes,3,opt,name=error,proto3,oneof"`
+}
+
+func (*PaginatedFieldsFetchResponse_Data) isPaginatedFieldsFetchResponse_Response() {}
+
+func (*PaginatedFieldsFetchResponse_Error) isPaginatedFieldsFetchResponse_Response() {}
+
+type PaginatedEntititesFetchResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status int32 `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	// @gotags: json:"response"
+	//
+	// Types that are assignable to Response:
+	//	*PaginatedEntititesFetchResponse_Data
+	//	*PaginatedEntititesFetchResponse_Error
+	Response isPaginatedEntititesFetchResponse_Response `protobuf_oneof:"response" json:"response"`
+}
+
+func (x *PaginatedEntititesFetchResponse) Reset() {
+	*x = PaginatedEntititesFetchResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[28]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PaginatedEntititesFetchResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PaginatedEntititesFetchResponse) ProtoMessage() {}
+
+func (x *PaginatedEntititesFetchResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[28]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PaginatedEntititesFetchResponse.ProtoReflect.Descriptor instead.
+func (*PaginatedEntititesFetchResponse) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{28}
+}
+
+func (x *PaginatedEntititesFetchResponse) GetStatus() int32 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
+func (m *PaginatedEntititesFetchResponse) GetResponse() isPaginatedEntititesFetchResponse_Response {
+	if m != nil {
+		return m.Response
+	}
+	return nil
+}
+
+func (x *PaginatedEntititesFetchResponse) GetData() *PaginatedEntititesFetchResponse_Response {
+	if x, ok := x.GetResponse().(*PaginatedEntititesFetchResponse_Data); ok {
+		return x.Data
+	}
+	return nil
+}
+
+func (x *PaginatedEntititesFetchResponse) GetError() string {
+	if x, ok := x.GetResponse().(*PaginatedEntititesFetchResponse_Error); ok {
+		return x.Error
+	}
+	return ""
+}
+
+type isPaginatedEntititesFetchResponse_Response interface {
+	isPaginatedEntititesFetchResponse_Response()
+}
+
+type PaginatedEntititesFetchResponse_Data struct {
+	// @gotags: json:"data"
+	Data *PaginatedEntititesFetchResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
+}
+
+type PaginatedEntititesFetchResponse_Error struct {
+	Error string `protobuf:"bytes,3,opt,name=error,proto3,oneof"`
+}
+
+func (*PaginatedEntititesFetchResponse_Data) isPaginatedEntititesFetchResponse_Response() {}
+
+func (*PaginatedEntititesFetchResponse_Error) isPaginatedEntititesFetchResponse_Response() {}
+
+type InheritanceResponse_Parent struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	FieldNames []string `protobuf:"bytes,1,rep,name=fieldNames,proto3" json:"fieldNames,omitempty"`
+	Id         string   `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	Name       string   `protobuf:"bytes,3,opt,name=name,proto3" json:"title"` //@gotags: json:"title"
+}
+
+func (x *InheritanceResponse_Parent) Reset() {
+	*x = InheritanceResponse_Parent{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[30]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *InheritanceResponse_Parent) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InheritanceResponse_Parent) ProtoMessage() {}
+
+func (x *InheritanceResponse_Parent) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[30]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InheritanceResponse_Parent.ProtoReflect.Descriptor instead.
+func (*InheritanceResponse_Parent) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{8, 0}
+}
+
+func (x *InheritanceResponse_Parent) GetFieldNames() []string {
+	if x != nil {
+		return x.FieldNames
+	}
+	return nil
+}
+
+func (x *InheritanceResponse_Parent) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *InheritanceResponse_Parent) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+type InheritanceResponse_Response struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Parents []*InheritanceResponse_Parent `protobuf:"bytes,1,rep,name=parents,proto3" json:"parents,omitempty"`
+}
+
+func (x *InheritanceResponse_Response) Reset() {
+	*x = InheritanceResponse_Response{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[31]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *InheritanceResponse_Response) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InheritanceResponse_Response) ProtoMessage() {}
+
+func (x *InheritanceResponse_Response) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[31]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InheritanceResponse_Response.ProtoReflect.Descriptor instead.
+func (*InheritanceResponse_Response) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{8, 1}
+}
+
+func (x *InheritanceResponse_Response) GetParents() []*InheritanceResponse_Parent {
+	if x != nil {
+		return x.Parents
+	}
+	return nil
+}
+
+type GenericCreateResponse_Response struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *GenericCreateResponse_Response) Reset() {
+	*x = GenericCreateResponse_Response{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[32]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GenericCreateResponse_Response) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GenericCreateResponse_Response) ProtoMessage() {}
+
+func (x *GenericCreateResponse_Response) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[32]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GenericCreateResponse_Response.ProtoReflect.Descriptor instead.
+func (*GenericCreateResponse_Response) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{15, 0}
+}
+
+func (x *GenericCreateResponse_Response) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+type CategorySchemaResponse_Response struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Schema *GenericSchema `protobuf:"bytes,1,opt,name=schema,proto3" json:"schema,omitempty"`
+}
+
+func (x *CategorySchemaResponse_Response) Reset() {
+	*x = CategorySchemaResponse_Response{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[33]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CategorySchemaResponse_Response) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CategorySchemaResponse_Response) ProtoMessage() {}
+
+func (x *CategorySchemaResponse_Response) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[33]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CategorySchemaResponse_Response.ProtoReflect.Descriptor instead.
+func (*CategorySchemaResponse_Response) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{19, 0}
+}
+
+func (x *CategorySchemaResponse_Response) GetSchema() *GenericSchema {
+	if x != nil {
+		return x.Schema
+	}
+	return nil
+}
+
+type GetCategoryDataResponse_Response struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	FormData *Category `protobuf:"bytes,1,opt,name=formData,proto3" json:"formData,omitempty"`
+}
+
+func (x *GetCategoryDataResponse_Response) Reset() {
+	*x = GetCategoryDataResponse_Response{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[34]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetCategoryDataResponse_Response) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetCategoryDataResponse_Response) ProtoMessage() {}
+
+func (x *GetCategoryDataResponse_Response) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[34]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetCategoryDataResponse_Response.ProtoReflect.Descriptor instead.
+func (*GetCategoryDataResponse_Response) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{20, 0}
+}
+
+func (x *GetCategoryDataResponse_Response) GetFormData() *Category {
+	if x != nil {
+		return x.FormData
+	}
+	return nil
+}
+
+type GetFieldDataResponse_Response struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	FormData *Field `protobuf:"bytes,1,opt,name=formData,proto3" json:"formData,omitempty"`
+}
+
+func (x *GetFieldDataResponse_Response) Reset() {
+	*x = GetFieldDataResponse_Response{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[35]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetFieldDataResponse_Response) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetFieldDataResponse_Response) ProtoMessage() {}
+
+func (x *GetFieldDataResponse_Response) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[35]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetFieldDataResponse_Response.ProtoReflect.Descriptor instead.
+func (*GetFieldDataResponse_Response) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{21, 0}
+}
+
+func (x *GetFieldDataResponse_Response) GetFormData() *Field {
+	if x != nil {
+		return x.FormData
+	}
+	return nil
+}
+
+type GetEntityDataResponse_Response struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	FormData *structpb.Struct `protobuf:"bytes,1,opt,name=formData,proto3" json:"formData,omitempty"`
+}
+
+func (x *GetEntityDataResponse_Response) Reset() {
+	*x = GetEntityDataResponse_Response{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[36]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetEntityDataResponse_Response) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetEntityDataResponse_Response) ProtoMessage() {}
+
+func (x *GetEntityDataResponse_Response) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[36]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetEntityDataResponse_Response.ProtoReflect.Descriptor instead.
+func (*GetEntityDataResponse_Response) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{22, 0}
+}
+
+func (x *GetEntityDataResponse_Response) GetFormData() *structpb.Struct {
+	if x != nil {
+		return x.FormData
+	}
+	return nil
+}
+
+type PaginatedCategoriesFetchResponse_Response struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	List []*PaginatedCategories `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`
+}
+
+func (x *PaginatedCategoriesFetchResponse_Response) Reset() {
+	*x = PaginatedCategoriesFetchResponse_Response{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[37]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PaginatedCategoriesFetchResponse_Response) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PaginatedCategoriesFetchResponse_Response) ProtoMessage() {}
+
+func (x *PaginatedCategoriesFetchResponse_Response) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[37]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PaginatedCategoriesFetchResponse_Response.ProtoReflect.Descriptor instead.
+func (*PaginatedCategoriesFetchResponse_Response) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{26, 0}
+}
+
+func (x *PaginatedCategoriesFetchResponse_Response) GetList() []*PaginatedCategories {
+	if x != nil {
+		return x.List
+	}
+	return nil
+}
+
+type PaginatedFieldsFetchResponsePagination struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Limit int32 `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty"`
+	Total int32 `protobuf:"varint,2,opt,name=total,proto3" json:"total,omitempty"`
+	Page  int32 `protobuf:"varint,3,opt,name=page,proto3" json:"page,omitempty"`
+}
+
+func (x *PaginatedFieldsFetchResponsePagination) Reset() {
+	*x = PaginatedFieldsFetchResponsePagination{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[38]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PaginatedFieldsFetchResponsePagination) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PaginatedFieldsFetchResponsePagination) ProtoMessage() {}
+
+func (x *PaginatedFieldsFetchResponsePagination) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[38]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PaginatedFieldsFetchResponsePagination.ProtoReflect.Descriptor instead.
+func (*PaginatedFieldsFetchResponsePagination) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{27, 0}
+}
+
+func (x *PaginatedFieldsFetchResponsePagination) GetLimit() int32 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+func (x *PaginatedFieldsFetchResponsePagination) GetTotal() int32 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+func (x *PaginatedFieldsFetchResponsePagination) GetPage() int32 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+type PaginatedFieldsFetchResponse_Response struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Pagination *PaginatedFieldsFetchResponsePagination `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	List       []*PaginatedFields                      `protobuf:"bytes,2,rep,name=list,proto3" json:"list,omitempty"`
+}
+
+func (x *PaginatedFieldsFetchResponse_Response) Reset() {
+	*x = PaginatedFieldsFetchResponse_Response{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[39]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PaginatedFieldsFetchResponse_Response) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PaginatedFieldsFetchResponse_Response) ProtoMessage() {}
+
+func (x *PaginatedFieldsFetchResponse_Response) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[39]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PaginatedFieldsFetchResponse_Response.ProtoReflect.Descriptor instead.
+func (*PaginatedFieldsFetchResponse_Response) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{27, 1}
+}
+
+func (x *PaginatedFieldsFetchResponse_Response) GetPagination() *PaginatedFieldsFetchResponsePagination {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
+func (x *PaginatedFieldsFetchResponse_Response) GetList() []*PaginatedFields {
+	if x != nil {
+		return x.List
+	}
+	return nil
+}
+
+type PaginatedEntititesFetchResponsePagination struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Limit int32 `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty"`
+	Total int32 `protobuf:"varint,2,opt,name=total,proto3" json:"total,omitempty"`
+	Page  int32 `protobuf:"varint,3,opt,name=page,proto3" json:"page,omitempty"`
+}
+
+func (x *PaginatedEntititesFetchResponsePagination) Reset() {
+	*x = PaginatedEntititesFetchResponsePagination{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[40]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PaginatedEntititesFetchResponsePagination) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PaginatedEntititesFetchResponsePagination) ProtoMessage() {}
+
+func (x *PaginatedEntititesFetchResponsePagination) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[40]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PaginatedEntititesFetchResponsePagination.ProtoReflect.Descriptor instead.
+func (*PaginatedEntititesFetchResponsePagination) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{28, 0}
+}
+
+func (x *PaginatedEntititesFetchResponsePagination) GetLimit() int32 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+func (x *PaginatedEntititesFetchResponsePagination) GetTotal() int32 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+func (x *PaginatedEntititesFetchResponsePagination) GetPage() int32 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+type PaginatedEntititesFetchResponse_Response struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Pagination *PaginatedEntititesFetchResponsePagination `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	List       []*PaginatedEntities                       `protobuf:"bytes,2,rep,name=list,proto3" json:"list,omitempty"`
+}
+
+func (x *PaginatedEntititesFetchResponse_Response) Reset() {
+	*x = PaginatedEntititesFetchResponse_Response{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_core_proto_msgTypes[41]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PaginatedEntititesFetchResponse_Response) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PaginatedEntititesFetchResponse_Response) ProtoMessage() {}
+
+func (x *PaginatedEntititesFetchResponse_Response) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[41]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PaginatedEntititesFetchResponse_Response.ProtoReflect.Descriptor instead.
+func (*PaginatedEntititesFetchResponse_Response) Descriptor() ([]byte, []int) {
+	return file_core_proto_rawDescGZIP(), []int{28, 1}
+}
+
+func (x *PaginatedEntititesFetchResponse_Response) GetPagination() *PaginatedEntititesFetchResponsePagination {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
+func (x *PaginatedEntititesFetchResponse_Response) GetList() []*PaginatedEntities {
+	if x != nil {
+		return x.List
+	}
+	return nil
+}
+
 var File_core_proto protoreflect.FileDescriptor
 
 var file_core_proto_rawDesc = []byte{
 	0x0a, 0x0a, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x04, 0x63, 0x6f,
 	0x72, 0x65, 0x1a, 0x1b, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x62, 0x75, 0x66, 0x2f, 0x65, 0x6d, 0x70, 0x74, 0x79, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22,
-	0x2b, 0x0a, 0x06, 0x53, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x12, 0x21, 0x0a, 0x0c, 0x66, 0x69, 0x6c,
-	0x65, 0x5f, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0c, 0x52,
-	0x0b, 0x66, 0x69, 0x6c, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x32, 0x84, 0x01, 0x0a,
-	0x0b, 0x43, 0x6f, 0x72, 0x65, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x3b, 0x0a, 0x13,
-	0x53, 0x65, 0x72, 0x76, 0x65, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x53, 0x63, 0x68,
+	0x62, 0x75, 0x66, 0x2f, 0x65, 0x6d, 0x70, 0x74, 0x79, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a,
+	0x1c, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66,
+	0x2f, 0x73, 0x74, 0x72, 0x75, 0x63, 0x74, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x45, 0x0a,
+	0x05, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x12, 0x12, 0x0a, 0x04,
+	0x74, 0x79, 0x70, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x74, 0x79, 0x70, 0x65,
+	0x12, 0x12, 0x0a, 0x04, 0x68, 0x65, 0x6c, 0x70, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04,
+	0x68, 0x65, 0x6c, 0x70, 0x22, 0x7c, 0x0a, 0x08, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79,
+	0x12, 0x14, 0x0a, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x12, 0x20, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69,
+	0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x64, 0x65, 0x73,
+	0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x18, 0x0a, 0x07, 0x70, 0x61, 0x72, 0x65,
+	0x6e, 0x74, 0x73, 0x18, 0x03, 0x20, 0x03, 0x28, 0x09, 0x52, 0x07, 0x70, 0x61, 0x72, 0x65, 0x6e,
+	0x74, 0x73, 0x12, 0x1e, 0x0a, 0x0a, 0x70, 0x72, 0x6f, 0x70, 0x65, 0x72, 0x74, 0x69, 0x65, 0x73,
+	0x18, 0x04, 0x20, 0x03, 0x28, 0x09, 0x52, 0x0a, 0x70, 0x72, 0x6f, 0x70, 0x65, 0x72, 0x74, 0x69,
+	0x65, 0x73, 0x22, 0xec, 0x01, 0x0a, 0x0d, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x53, 0x63,
+	0x68, 0x65, 0x6d, 0x61, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x12, 0x20, 0x0a, 0x0b, 0x64, 0x65,
+	0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x12, 0x0a, 0x04,
+	0x74, 0x79, 0x70, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x74, 0x79, 0x70, 0x65,
+	0x12, 0x43, 0x0a, 0x0a, 0x70, 0x72, 0x6f, 0x70, 0x65, 0x72, 0x74, 0x69, 0x65, 0x73, 0x18, 0x04,
+	0x20, 0x03, 0x28, 0x0b, 0x32, 0x23, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x47, 0x65, 0x6e, 0x65,
+	0x72, 0x69, 0x63, 0x53, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x2e, 0x50, 0x72, 0x6f, 0x70, 0x65, 0x72,
+	0x74, 0x69, 0x65, 0x73, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x52, 0x0a, 0x70, 0x72, 0x6f, 0x70, 0x65,
+	0x72, 0x74, 0x69, 0x65, 0x73, 0x1a, 0x4a, 0x0a, 0x0f, 0x50, 0x72, 0x6f, 0x70, 0x65, 0x72, 0x74,
+	0x69, 0x65, 0x73, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x21, 0x0a, 0x05, 0x76, 0x61,
+	0x6c, 0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0b, 0x2e, 0x63, 0x6f, 0x72, 0x65,
+	0x2e, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x3a, 0x02, 0x38,
+	0x01, 0x22, 0x49, 0x0a, 0x11, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x65, 0x64, 0x45, 0x6e,
+	0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x20, 0x0a, 0x0b, 0x64, 0x65,
+	0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x5d, 0x0a, 0x13,
+	0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x65, 0x64, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72,
+	0x69, 0x65, 0x73, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x02, 0x69, 0x64, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x12, 0x20, 0x0a, 0x0b, 0x64, 0x65, 0x73,
+	0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b,
+	0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x4b, 0x0a, 0x0f, 0x50,
+	0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x65, 0x64, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x73, 0x12, 0x14,
+	0x0a, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74,
+	0x69, 0x74, 0x6c, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x74, 0x79, 0x70, 0x65, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x04, 0x74, 0x79, 0x70, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x03,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0x2b, 0x0a, 0x06, 0x53, 0x63, 0x68, 0x65,
+	0x6d, 0x61, 0x12, 0x21, 0x0a, 0x0c, 0x66, 0x69, 0x6c, 0x65, 0x5f, 0x63, 0x6f, 0x6e, 0x74, 0x65,
+	0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x0b, 0x66, 0x69, 0x6c, 0x65, 0x43, 0x6f,
+	0x6e, 0x74, 0x65, 0x6e, 0x74, 0x22, 0x3c, 0x0a, 0x16, 0x43, 0x6f, 0x72, 0x65, 0x4d, 0x69, 0x64,
+	0x64, 0x6c, 0x65, 0x77, 0x61, 0x72, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+	0x22, 0x0a, 0x0c, 0x64, 0x6f, 0x65, 0x73, 0x49, 0x74, 0x42, 0x65, 0x6c, 0x6f, 0x6e, 0x67, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x0c, 0x64, 0x6f, 0x65, 0x73, 0x49, 0x74, 0x42, 0x65, 0x6c,
+	0x6f, 0x6e, 0x67, 0x22, 0xa1, 0x02, 0x0a, 0x13, 0x49, 0x6e, 0x68, 0x65, 0x72, 0x69, 0x74, 0x61,
+	0x6e, 0x63, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x73,
+	0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06, 0x73, 0x74, 0x61,
+	0x74, 0x75, 0x73, 0x12, 0x38, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x0b, 0x32, 0x22, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x49, 0x6e, 0x68, 0x65, 0x72, 0x69, 0x74,
+	0x61, 0x6e, 0x63, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x48, 0x00, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x12, 0x16, 0x0a,
+	0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52, 0x05,
+	0x65, 0x72, 0x72, 0x6f, 0x72, 0x1a, 0x4c, 0x0a, 0x06, 0x50, 0x61, 0x72, 0x65, 0x6e, 0x74, 0x12,
+	0x1e, 0x0a, 0x0a, 0x66, 0x69, 0x65, 0x6c, 0x64, 0x4e, 0x61, 0x6d, 0x65, 0x73, 0x18, 0x01, 0x20,
+	0x03, 0x28, 0x09, 0x52, 0x0a, 0x66, 0x69, 0x65, 0x6c, 0x64, 0x4e, 0x61, 0x6d, 0x65, 0x73, 0x12,
+	0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12,
+	0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e,
+	0x61, 0x6d, 0x65, 0x1a, 0x46, 0x0a, 0x08, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+	0x3a, 0x0a, 0x07, 0x70, 0x61, 0x72, 0x65, 0x6e, 0x74, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b,
+	0x32, 0x20, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x49, 0x6e, 0x68, 0x65, 0x72, 0x69, 0x74, 0x61,
+	0x6e, 0x63, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x50, 0x61, 0x72, 0x65,
+	0x6e, 0x74, 0x52, 0x07, 0x70, 0x61, 0x72, 0x65, 0x6e, 0x74, 0x73, 0x42, 0x0a, 0x0a, 0x08, 0x72,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x5f, 0x0a, 0x12, 0x43, 0x72, 0x65, 0x61, 0x74,
+	0x65, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x20, 0x0a,
+	0x0b, 0x77, 0x61, 0x72, 0x65, 0x68, 0x6f, 0x75, 0x73, 0x65, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x0b, 0x77, 0x61, 0x72, 0x65, 0x68, 0x6f, 0x75, 0x73, 0x65, 0x49, 0x44, 0x12,
+	0x27, 0x0a, 0x08, 0x66, 0x6f, 0x72, 0x6d, 0x44, 0x61, 0x74, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x0b, 0x32, 0x0b, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x52, 0x08,
+	0x66, 0x6f, 0x72, 0x6d, 0x44, 0x61, 0x74, 0x61, 0x22, 0x65, 0x0a, 0x15, 0x43, 0x72, 0x65, 0x61,
+	0x74, 0x65, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x12, 0x20, 0x0a, 0x0b, 0x77, 0x61, 0x72, 0x65, 0x68, 0x6f, 0x75, 0x73, 0x65, 0x49, 0x44,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x77, 0x61, 0x72, 0x65, 0x68, 0x6f, 0x75, 0x73,
+	0x65, 0x49, 0x44, 0x12, 0x2a, 0x0a, 0x08, 0x66, 0x6f, 0x72, 0x6d, 0x44, 0x61, 0x74, 0x61, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0e, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x43, 0x61, 0x74,
+	0x65, 0x67, 0x6f, 0x72, 0x79, 0x52, 0x08, 0x66, 0x6f, 0x72, 0x6d, 0x44, 0x61, 0x74, 0x61, 0x22,
+	0x6a, 0x0a, 0x13, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x45, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1e, 0x0a, 0x0a, 0x63, 0x61, 0x74, 0x65, 0x67, 0x6f,
+	0x72, 0x79, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0a, 0x63, 0x61, 0x74, 0x65,
+	0x67, 0x6f, 0x72, 0x79, 0x49, 0x44, 0x12, 0x33, 0x0a, 0x08, 0x66, 0x6f, 0x72, 0x6d, 0x44, 0x61,
+	0x74, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c,
+	0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x53, 0x74, 0x72, 0x75, 0x63,
+	0x74, 0x52, 0x08, 0x66, 0x6f, 0x72, 0x6d, 0x44, 0x61, 0x74, 0x61, 0x22, 0x55, 0x0a, 0x10, 0x45,
+	0x64, 0x69, 0x74, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
+	0x18, 0x0a, 0x07, 0x66, 0x69, 0x65, 0x6c, 0x64, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x07, 0x66, 0x69, 0x65, 0x6c, 0x64, 0x49, 0x44, 0x12, 0x27, 0x0a, 0x08, 0x66, 0x6f, 0x72,
+	0x6d, 0x44, 0x61, 0x74, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0b, 0x2e, 0x63, 0x6f,
+	0x72, 0x65, 0x2e, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x52, 0x08, 0x66, 0x6f, 0x72, 0x6d, 0x44, 0x61,
+	0x74, 0x61, 0x22, 0x61, 0x0a, 0x13, 0x45, 0x64, 0x69, 0x74, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f,
+	0x72, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1e, 0x0a, 0x0a, 0x63, 0x61, 0x74,
+	0x65, 0x67, 0x6f, 0x72, 0x79, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0a, 0x63,
+	0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x49, 0x44, 0x12, 0x2a, 0x0a, 0x08, 0x66, 0x6f, 0x72,
+	0x6d, 0x44, 0x61, 0x74, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0e, 0x2e, 0x63, 0x6f,
+	0x72, 0x65, 0x2e, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x52, 0x08, 0x66, 0x6f, 0x72,
+	0x6d, 0x44, 0x61, 0x74, 0x61, 0x22, 0x64, 0x0a, 0x11, 0x45, 0x64, 0x69, 0x74, 0x45, 0x6e, 0x74,
+	0x69, 0x74, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1a, 0x0a, 0x08, 0x65, 0x6e,
+	0x74, 0x69, 0x74, 0x79, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x65, 0x6e,
+	0x74, 0x69, 0x74, 0x79, 0x49, 0x44, 0x12, 0x33, 0x0a, 0x08, 0x66, 0x6f, 0x72, 0x6d, 0x44, 0x61,
+	0x74, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c,
+	0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x53, 0x74, 0x72, 0x75, 0x63,
+	0x74, 0x52, 0x08, 0x66, 0x6f, 0x72, 0x6d, 0x44, 0x61, 0x74, 0x61, 0x22, 0xab, 0x01, 0x0a, 0x15,
+	0x47, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x3a, 0x0a,
+	0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x24, 0x2e, 0x63, 0x6f,
+	0x72, 0x65, 0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x48, 0x00, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x12, 0x16, 0x0a, 0x05, 0x65, 0x72, 0x72,
+	0x6f, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f,
+	0x72, 0x1a, 0x1a, 0x0a, 0x08, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a,
+	0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x42, 0x0a, 0x0a,
+	0x08, 0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x4f, 0x0a, 0x19, 0x47, 0x65, 0x6e,
+	0x65, 0x72, 0x69, 0x63, 0x45, 0x64, 0x69, 0x74, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x1a,
+	0x0a, 0x08, 0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x08, 0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x4d, 0x0a, 0x15, 0x43, 0x6f,
+	0x72, 0x65, 0x4d, 0x69, 0x64, 0x64, 0x6c, 0x65, 0x77, 0x61, 0x72, 0x65, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x02, 0x69, 0x6e, 0x12, 0x10, 0x0a, 0x03, 0x6f, 0x75, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x03, 0x6f, 0x75, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x74, 0x79, 0x70, 0x65, 0x18, 0x03, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x04, 0x74, 0x79, 0x70, 0x65, 0x22, 0x53, 0x0a, 0x13, 0x47, 0x65, 0x6e,
+	0x65, 0x72, 0x69, 0x63, 0x46, 0x65, 0x74, 0x63, 0x68, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x12, 0x20, 0x0a, 0x0b, 0x77, 0x61, 0x72, 0x65, 0x68, 0x6f, 0x75, 0x73, 0x65, 0x49, 0x44, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x77, 0x61, 0x72, 0x65, 0x68, 0x6f, 0x75, 0x73, 0x65,
+	0x49, 0x44, 0x12, 0x1a, 0x0a, 0x08, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x49, 0x44, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x49, 0x44, 0x22, 0xca,
+	0x01, 0x0a, 0x16, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x53, 0x63, 0x68, 0x65, 0x6d,
+	0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x74, 0x61,
+	0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75,
+	0x73, 0x12, 0x3b, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x25, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x53,
+	0x63, 0x68, 0x65, 0x6d, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x48, 0x00, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x12, 0x16,
+	0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52,
+	0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x1a, 0x37, 0x0a, 0x08, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x12, 0x2b, 0x0a, 0x06, 0x73, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x13, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69,
+	0x63, 0x53, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x52, 0x06, 0x73, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x42,
+	0x0a, 0x0a, 0x08, 0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0xcb, 0x01, 0x0a, 0x17,
+	0x47, 0x65, 0x74, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x44, 0x61, 0x74, 0x61, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75,
+	0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12,
+	0x3c, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x26, 0x2e,
+	0x63, 0x6f, 0x72, 0x65, 0x2e, 0x47, 0x65, 0x74, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79,
+	0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x48, 0x00, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x12, 0x16, 0x0a,
+	0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52, 0x05,
+	0x65, 0x72, 0x72, 0x6f, 0x72, 0x1a, 0x36, 0x0a, 0x08, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x12, 0x2a, 0x0a, 0x08, 0x66, 0x6f, 0x72, 0x6d, 0x44, 0x61, 0x74, 0x61, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x0e, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x43, 0x61, 0x74, 0x65, 0x67,
+	0x6f, 0x72, 0x79, 0x52, 0x08, 0x66, 0x6f, 0x72, 0x6d, 0x44, 0x61, 0x74, 0x61, 0x42, 0x0a, 0x0a,
+	0x08, 0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0xc2, 0x01, 0x0a, 0x14, 0x47, 0x65,
+	0x74, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x05, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x39, 0x0a, 0x04, 0x64, 0x61,
+	0x74, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x23, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e,
+	0x47, 0x65, 0x74, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x48, 0x00, 0x52,
+	0x04, 0x64, 0x61, 0x74, 0x61, 0x12, 0x16, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x03,
+	0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x1a, 0x33, 0x0a,
+	0x08, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x27, 0x0a, 0x08, 0x66, 0x6f, 0x72,
+	0x6d, 0x44, 0x61, 0x74, 0x61, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0b, 0x2e, 0x63, 0x6f,
+	0x72, 0x65, 0x2e, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x52, 0x08, 0x66, 0x6f, 0x72, 0x6d, 0x44, 0x61,
+	0x74, 0x61, 0x42, 0x0a, 0x0a, 0x08, 0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0xd0,
+	0x01, 0x0a, 0x15, 0x47, 0x65, 0x74, 0x45, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x44, 0x61, 0x74, 0x61,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74,
+	0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73,
+	0x12, 0x3a, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x24,
+	0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x47, 0x65, 0x74, 0x45, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x44,
+	0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x48, 0x00, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x12, 0x16, 0x0a, 0x05,
+	0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52, 0x05, 0x65,
+	0x72, 0x72, 0x6f, 0x72, 0x1a, 0x3f, 0x0a, 0x08, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x12, 0x33, 0x0a, 0x08, 0x66, 0x6f, 0x72, 0x6d, 0x44, 0x61, 0x74, 0x61, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x17, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x62, 0x75, 0x66, 0x2e, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x52, 0x08, 0x66, 0x6f, 0x72,
+	0x6d, 0x44, 0x61, 0x74, 0x61, 0x42, 0x0a, 0x0a, 0x08, 0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x22, 0x7b, 0x0a, 0x1d, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x65, 0x64, 0x45, 0x6e,
+	0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x46, 0x65, 0x74, 0x63, 0x68, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02,
+	0x69, 0x64, 0x12, 0x14, 0x0a, 0x05, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x05, 0x52, 0x05, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x70, 0x61, 0x67, 0x65,
+	0x18, 0x03, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x70, 0x61, 0x67, 0x65, 0x12, 0x20, 0x0a, 0x0b,
+	0x77, 0x61, 0x72, 0x65, 0x68, 0x6f, 0x75, 0x73, 0x65, 0x49, 0x44, 0x18, 0x04, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x0b, 0x77, 0x61, 0x72, 0x65, 0x68, 0x6f, 0x75, 0x73, 0x65, 0x49, 0x44, 0x22, 0x53,
+	0x0a, 0x1f, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x65, 0x64, 0x43, 0x61, 0x74, 0x65, 0x67,
+	0x6f, 0x72, 0x69, 0x65, 0x73, 0x46, 0x65, 0x74, 0x63, 0x68, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69,
+	0x64, 0x12, 0x20, 0x0a, 0x0b, 0x77, 0x61, 0x72, 0x65, 0x68, 0x6f, 0x75, 0x73, 0x65, 0x49, 0x44,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x77, 0x61, 0x72, 0x65, 0x68, 0x6f, 0x75, 0x73,
+	0x65, 0x49, 0x44, 0x22, 0x68, 0x0a, 0x1a, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x65, 0x64,
+	0x46, 0x69, 0x65, 0x6c, 0x64, 0x46, 0x65, 0x74, 0x63, 0x68, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x12, 0x14, 0x0a, 0x05, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05,
+	0x52, 0x05, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x70, 0x61, 0x67, 0x65, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x70, 0x61, 0x67, 0x65, 0x12, 0x20, 0x0a, 0x0b, 0x77,
+	0x61, 0x72, 0x65, 0x68, 0x6f, 0x75, 0x73, 0x65, 0x49, 0x44, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x0b, 0x77, 0x61, 0x72, 0x65, 0x68, 0x6f, 0x75, 0x73, 0x65, 0x49, 0x44, 0x22, 0xe0, 0x01,
+	0x0a, 0x20, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x65, 0x64, 0x43, 0x61, 0x74, 0x65, 0x67,
+	0x6f, 0x72, 0x69, 0x65, 0x73, 0x46, 0x65, 0x74, 0x63, 0x68, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x05, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x45, 0x0a, 0x04, 0x64, 0x61,
+	0x74, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2f, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e,
+	0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x65, 0x64, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72,
+	0x69, 0x65, 0x73, 0x46, 0x65, 0x74, 0x63, 0x68, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x2e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x48, 0x00, 0x52, 0x04, 0x64, 0x61, 0x74,
+	0x61, 0x12, 0x16, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09,
+	0x48, 0x00, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x1a, 0x39, 0x0a, 0x08, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2d, 0x0a, 0x04, 0x6c, 0x69, 0x73, 0x74, 0x18, 0x01, 0x20,
+	0x03, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x50, 0x61, 0x67, 0x69, 0x6e,
+	0x61, 0x74, 0x65, 0x64, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x69, 0x65, 0x73, 0x52, 0x04,
+	0x6c, 0x69, 0x73, 0x74, 0x42, 0x0a, 0x0a, 0x08, 0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x22, 0xf2, 0x02, 0x0a, 0x1c, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x65, 0x64, 0x46, 0x69,
+	0x65, 0x6c, 0x64, 0x73, 0x46, 0x65, 0x74, 0x63, 0x68, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x05, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x41, 0x0a, 0x04, 0x64, 0x61, 0x74,
+	0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2b, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x50,
+	0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x65, 0x64, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x73, 0x46, 0x65,
+	0x74, 0x63, 0x68, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x48, 0x00, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x12, 0x16, 0x0a, 0x05,
+	0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52, 0x05, 0x65,
+	0x72, 0x72, 0x6f, 0x72, 0x1a, 0x4c, 0x0a, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x12, 0x14, 0x0a, 0x05, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x05, 0x52, 0x05, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x74, 0x61,
+	0x6c, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x12, 0x12,
+	0x0a, 0x04, 0x70, 0x61, 0x67, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x70, 0x61,
+	0x67, 0x65, 0x1a, 0x84, 0x01, 0x0a, 0x08, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+	0x4d, 0x0a, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x2d, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x50, 0x61, 0x67, 0x69, 0x6e,
+	0x61, 0x74, 0x65, 0x64, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x73, 0x46, 0x65, 0x74, 0x63, 0x68, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x52, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x29,
+	0x0a, 0x04, 0x6c, 0x69, 0x73, 0x74, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x15, 0x2e, 0x63,
+	0x6f, 0x72, 0x65, 0x2e, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x65, 0x64, 0x46, 0x69, 0x65,
+	0x6c, 0x64, 0x73, 0x52, 0x04, 0x6c, 0x69, 0x73, 0x74, 0x42, 0x0a, 0x0a, 0x08, 0x72, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0xfd, 0x02, 0x0a, 0x1f, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61,
+	0x74, 0x65, 0x64, 0x45, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x74, 0x65, 0x73, 0x46, 0x65, 0x74, 0x63,
+	0x68, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x74, 0x61,
+	0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75,
+	0x73, 0x12, 0x44, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x2e, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x65, 0x64,
+	0x45, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x74, 0x65, 0x73, 0x46, 0x65, 0x74, 0x63, 0x68, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x48,
+	0x00, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x12, 0x16, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72,
+	0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x1a,
+	0x4c, 0x0a, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x14, 0x0a,
+	0x05, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x6c, 0x69,
+	0x6d, 0x69, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x05, 0x52, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x12, 0x12, 0x0a, 0x04, 0x70, 0x61, 0x67,
+	0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x70, 0x61, 0x67, 0x65, 0x1a, 0x89, 0x01,
+	0x0a, 0x08, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x50, 0x0a, 0x0a, 0x70, 0x61,
+	0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x30,
+	0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x65, 0x64, 0x45,
+	0x6e, 0x74, 0x69, 0x74, 0x69, 0x74, 0x65, 0x73, 0x46, 0x65, 0x74, 0x63, 0x68, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x52, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x2b, 0x0a, 0x04,
+	0x6c, 0x69, 0x73, 0x74, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x63, 0x6f, 0x72,
+	0x65, 0x2e, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x65, 0x64, 0x45, 0x6e, 0x74, 0x69, 0x74,
+	0x69, 0x65, 0x73, 0x52, 0x04, 0x6c, 0x69, 0x73, 0x74, 0x42, 0x0a, 0x0a, 0x08, 0x72, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x32, 0xed, 0x0b, 0x0a, 0x0b, 0x43, 0x6f, 0x72, 0x65, 0x53, 0x65,
+	0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x44, 0x0a, 0x0b, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x46,
+	0x69, 0x65, 0x6c, 0x64, 0x12, 0x18, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x43, 0x72, 0x65, 0x61,
+	0x74, 0x65, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1b,
+	0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x43, 0x72, 0x65,
+	0x61, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x4a, 0x0a, 0x0e, 0x43,
+	0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x12, 0x1b, 0x2e,
+	0x63, 0x6f, 0x72, 0x65, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x61, 0x74, 0x65, 0x67,
+	0x6f, 0x72, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1b, 0x2e, 0x63, 0x6f, 0x72,
+	0x65, 0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x46, 0x0a, 0x0c, 0x43, 0x72, 0x65, 0x61, 0x74,
+	0x65, 0x45, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x12, 0x19, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x43,
+	0x72, 0x65, 0x61, 0x74, 0x65, 0x45, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x1a, 0x1b, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69,
+	0x63, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+	0x44, 0x0a, 0x09, 0x45, 0x64, 0x69, 0x74, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x12, 0x16, 0x2e, 0x63,
+	0x6f, 0x72, 0x65, 0x2e, 0x45, 0x64, 0x69, 0x74, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x1a, 0x1f, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x47, 0x65, 0x6e, 0x65,
+	0x72, 0x69, 0x63, 0x45, 0x64, 0x69, 0x74, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x4a, 0x0a, 0x0c, 0x45, 0x64, 0x69, 0x74, 0x43, 0x61, 0x74,
+	0x65, 0x67, 0x6f, 0x72, 0x79, 0x12, 0x19, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x45, 0x64, 0x69,
+	0x74, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x1a, 0x1f, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x45,
+	0x64, 0x69, 0x74, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x12, 0x46, 0x0a, 0x0a, 0x45, 0x64, 0x69, 0x74, 0x45, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x12,
+	0x17, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x45, 0x64, 0x69, 0x74, 0x45, 0x6e, 0x74, 0x69, 0x74,
+	0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1f, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e,
+	0x47, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x45, 0x64, 0x69, 0x74, 0x44, 0x65, 0x6c, 0x65, 0x74,
+	0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x49, 0x0a, 0x0b, 0x44, 0x65, 0x6c,
+	0x65, 0x74, 0x65, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x12, 0x19, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e,
+	0x47, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x46, 0x65, 0x74, 0x63, 0x68, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x1f, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72,
+	0x69, 0x63, 0x45, 0x64, 0x69, 0x74, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x4a, 0x0a, 0x0c, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x45, 0x6e,
+	0x74, 0x69, 0x74, 0x79, 0x12, 0x19, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x47, 0x65, 0x6e, 0x65,
+	0x72, 0x69, 0x63, 0x46, 0x65, 0x74, 0x63, 0x68, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
+	0x1f, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x45, 0x64,
+	0x69, 0x74, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x12, 0x4c, 0x0a, 0x0e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f,
+	0x72, 0x79, 0x12, 0x19, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69,
+	0x63, 0x46, 0x65, 0x74, 0x63, 0x68, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1f, 0x2e,
+	0x63, 0x6f, 0x72, 0x65, 0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x45, 0x64, 0x69, 0x74,
+	0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x39,
+	0x0a, 0x11, 0x4e, 0x65, 0x77, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x53, 0x63, 0x68,
 	0x65, 0x6d, 0x61, 0x12, 0x16, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f,
 	0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a, 0x0c, 0x2e, 0x63, 0x6f,
-	0x72, 0x65, 0x2e, 0x53, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x12, 0x38, 0x0a, 0x10, 0x53, 0x65, 0x72,
-	0x76, 0x65, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x53, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x12, 0x16, 0x2e,
-	0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e,
-	0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a, 0x0c, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x53, 0x63, 0x68,
-	0x65, 0x6d, 0x61, 0x42, 0x37, 0x5a, 0x35, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f,
-	0x6d, 0x2f, 0x43, 0x72, 0x61, 0x62, 0x53, 0x74, 0x61, 0x73, 0x68, 0x2f, 0x63, 0x72, 0x61, 0x62,
-	0x2d, 0x73, 0x74, 0x61, 0x73, 0x68, 0x2d, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x66, 0x69, 0x6c, 0x65,
-	0x73, 0x2f, 0x63, 0x6f, 0x72, 0x65, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x06, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x33,
+	0x72, 0x65, 0x2e, 0x53, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x12, 0x36, 0x0a, 0x0e, 0x4e, 0x65, 0x77,
+	0x46, 0x69, 0x65, 0x6c, 0x64, 0x53, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x12, 0x16, 0x2e, 0x67, 0x6f,
+	0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x45, 0x6d,
+	0x70, 0x74, 0x79, 0x1a, 0x0c, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x53, 0x63, 0x68, 0x65, 0x6d,
+	0x61, 0x12, 0x4c, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79,
+	0x53, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x12, 0x19, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x47, 0x65,
+	0x6e, 0x65, 0x72, 0x69, 0x63, 0x46, 0x65, 0x74, 0x63, 0x68, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x1a, 0x1c, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72,
+	0x79, 0x53, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+	0x4b, 0x0a, 0x0f, 0x47, 0x65, 0x74, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x44, 0x61,
+	0x74, 0x61, 0x12, 0x19, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69,
+	0x63, 0x46, 0x65, 0x74, 0x63, 0x68, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1d, 0x2e,
+	0x63, 0x6f, 0x72, 0x65, 0x2e, 0x47, 0x65, 0x74, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79,
+	0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x45, 0x0a, 0x0c,
+	0x47, 0x65, 0x74, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x44, 0x61, 0x74, 0x61, 0x12, 0x19, 0x2e, 0x63,
+	0x6f, 0x72, 0x65, 0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x46, 0x65, 0x74, 0x63, 0x68,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1a, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x47,
+	0x65, 0x74, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x12, 0x47, 0x0a, 0x0d, 0x47, 0x65, 0x74, 0x45, 0x6e, 0x74, 0x69, 0x74, 0x79,
+	0x44, 0x61, 0x74, 0x61, 0x12, 0x19, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x47, 0x65, 0x6e, 0x65,
+	0x72, 0x69, 0x63, 0x46, 0x65, 0x74, 0x63, 0x68, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
+	0x1b, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x47, 0x65, 0x74, 0x45, 0x6e, 0x74, 0x69, 0x74, 0x79,
+	0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x52, 0x0a, 0x0a,
+	0x4c, 0x69, 0x73, 0x74, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x73, 0x12, 0x20, 0x2e, 0x63, 0x6f, 0x72,
+	0x65, 0x2e, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x65, 0x64, 0x46, 0x69, 0x65, 0x6c, 0x64,
+	0x46, 0x65, 0x74, 0x63, 0x68, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x22, 0x2e, 0x63,
+	0x6f, 0x72, 0x65, 0x2e, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x65, 0x64, 0x46, 0x69, 0x65,
+	0x6c, 0x64, 0x73, 0x46, 0x65, 0x74, 0x63, 0x68, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x12, 0x5f, 0x0a, 0x0e, 0x4c, 0x69, 0x73, 0x74, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x69,
+	0x65, 0x73, 0x12, 0x25, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61,
+	0x74, 0x65, 0x64, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x69, 0x65, 0x73, 0x46, 0x65, 0x74,
+	0x63, 0x68, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x26, 0x2e, 0x63, 0x6f, 0x72, 0x65,
+	0x2e, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x65, 0x64, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f,
+	0x72, 0x69, 0x65, 0x73, 0x46, 0x65, 0x74, 0x63, 0x68, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x12, 0x5a, 0x0a, 0x0c, 0x4c, 0x69, 0x73, 0x74, 0x45, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65,
+	0x73, 0x12, 0x23, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74,
+	0x65, 0x64, 0x45, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x46, 0x65, 0x74, 0x63, 0x68, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x25, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x50, 0x61,
+	0x67, 0x69, 0x6e, 0x61, 0x74, 0x65, 0x64, 0x45, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x74, 0x65, 0x73,
+	0x46, 0x65, 0x74, 0x63, 0x68, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x49, 0x0a,
+	0x11, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x73, 0x49, 0x6e, 0x68, 0x65, 0x72, 0x69, 0x74, 0x61, 0x6e,
+	0x63, 0x65, 0x12, 0x19, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69,
+	0x63, 0x46, 0x65, 0x74, 0x63, 0x68, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x19, 0x2e,
+	0x63, 0x6f, 0x72, 0x65, 0x2e, 0x49, 0x6e, 0x68, 0x65, 0x72, 0x69, 0x74, 0x61, 0x6e, 0x63, 0x65,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x4b, 0x0a, 0x0e, 0x43, 0x6f, 0x72, 0x65,
+	0x4d, 0x69, 0x64, 0x64, 0x6c, 0x65, 0x77, 0x61, 0x72, 0x65, 0x12, 0x1b, 0x2e, 0x63, 0x6f, 0x72,
+	0x65, 0x2e, 0x43, 0x6f, 0x72, 0x65, 0x4d, 0x69, 0x64, 0x64, 0x6c, 0x65, 0x77, 0x61, 0x72, 0x65,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1c, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x43,
+	0x6f, 0x72, 0x65, 0x4d, 0x69, 0x64, 0x64, 0x6c, 0x65, 0x77, 0x61, 0x72, 0x65, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x37, 0x5a, 0x35, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e,
+	0x63, 0x6f, 0x6d, 0x2f, 0x43, 0x72, 0x61, 0x62, 0x53, 0x74, 0x61, 0x73, 0x68, 0x2f, 0x63, 0x72,
+	0x61, 0x62, 0x2d, 0x73, 0x74, 0x61, 0x73, 0x68, 0x2d, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x66, 0x69,
+	0x6c, 0x65, 0x73, 0x2f, 0x63, 0x6f, 0x72, 0x65, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x06,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -104,21 +3030,126 @@ func file_core_proto_rawDescGZIP() []byte {
 	return file_core_proto_rawDescData
 }
 
-var file_core_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_core_proto_msgTypes = make([]protoimpl.MessageInfo, 42)
 var file_core_proto_goTypes = []interface{}{
-	(*Schema)(nil),        // 0: core.Schema
-	(*emptypb.Empty)(nil), // 1: google.protobuf.Empty
+	(*Field)(nil),                                     // 0: core.Field
+	(*Category)(nil),                                  // 1: core.Category
+	(*GenericSchema)(nil),                             // 2: core.GenericSchema
+	(*PaginatedEntities)(nil),                         // 3: core.PaginatedEntities
+	(*PaginatedCategories)(nil),                       // 4: core.PaginatedCategories
+	(*PaginatedFields)(nil),                           // 5: core.PaginatedFields
+	(*Schema)(nil),                                    // 6: core.Schema
+	(*CoreMiddlewareResponse)(nil),                    // 7: core.CoreMiddlewareResponse
+	(*InheritanceResponse)(nil),                       // 8: core.InheritanceResponse
+	(*CreateFieldRequest)(nil),                        // 9: core.CreateFieldRequest
+	(*CreateCategoryRequest)(nil),                     // 10: core.CreateCategoryRequest
+	(*CreateEntityRequest)(nil),                       // 11: core.CreateEntityRequest
+	(*EditFieldRequest)(nil),                          // 12: core.EditFieldRequest
+	(*EditCategoryRequest)(nil),                       // 13: core.EditCategoryRequest
+	(*EditEntityRequest)(nil),                         // 14: core.EditEntityRequest
+	(*GenericCreateResponse)(nil),                     // 15: core.GenericCreateResponse
+	(*GenericEditDeleteResponse)(nil),                 // 16: core.GenericEditDeleteResponse
+	(*CoreMiddlewareRequest)(nil),                     // 17: core.CoreMiddlewareRequest
+	(*GenericFetchRequest)(nil),                       // 18: core.GenericFetchRequest
+	(*CategorySchemaResponse)(nil),                    // 19: core.CategorySchemaResponse
+	(*GetCategoryDataResponse)(nil),                   // 20: core.GetCategoryDataResponse
+	(*GetFieldDataResponse)(nil),                      // 21: core.GetFieldDataResponse
+	(*GetEntityDataResponse)(nil),                     // 22: core.GetEntityDataResponse
+	(*PaginatedEntitiesFetchRequest)(nil),             // 23: core.PaginatedEntitiesFetchRequest
+	(*PaginatedCategoriesFetchRequest)(nil),           // 24: core.PaginatedCategoriesFetchRequest
+	(*PaginatedFieldFetchRequest)(nil),                // 25: core.PaginatedFieldFetchRequest
+	(*PaginatedCategoriesFetchResponse)(nil),          // 26: core.PaginatedCategoriesFetchResponse
+	(*PaginatedFieldsFetchResponse)(nil),              // 27: core.PaginatedFieldsFetchResponse
+	(*PaginatedEntititesFetchResponse)(nil),           // 28: core.PaginatedEntititesFetchResponse
+	nil,                                               // 29: core.GenericSchema.PropertiesEntry
+	(*InheritanceResponse_Parent)(nil),                // 30: core.InheritanceResponse.Parent
+	(*InheritanceResponse_Response)(nil),              // 31: core.InheritanceResponse.Response
+	(*GenericCreateResponse_Response)(nil),            // 32: core.GenericCreateResponse.Response
+	(*CategorySchemaResponse_Response)(nil),           // 33: core.CategorySchemaResponse.Response
+	(*GetCategoryDataResponse_Response)(nil),          // 34: core.GetCategoryDataResponse.Response
+	(*GetFieldDataResponse_Response)(nil),             // 35: core.GetFieldDataResponse.Response
+	(*GetEntityDataResponse_Response)(nil),            // 36: core.GetEntityDataResponse.Response
+	(*PaginatedCategoriesFetchResponse_Response)(nil), // 37: core.PaginatedCategoriesFetchResponse.Response
+	(*PaginatedFieldsFetchResponsePagination)(nil),    // 38: core.PaginatedFieldsFetchResponse.pagination
+	(*PaginatedFieldsFetchResponse_Response)(nil),     // 39: core.PaginatedFieldsFetchResponse.Response
+	(*PaginatedEntititesFetchResponsePagination)(nil), // 40: core.PaginatedEntititesFetchResponse.pagination
+	(*PaginatedEntititesFetchResponse_Response)(nil),  // 41: core.PaginatedEntititesFetchResponse.Response
+	(*structpb.Struct)(nil),                           // 42: google.protobuf.Struct
+	(*emptypb.Empty)(nil),                             // 43: google.protobuf.Empty
 }
 var file_core_proto_depIdxs = []int32{
-	1, // 0: core.CoreService.ServeCategorySchema:input_type -> google.protobuf.Empty
-	1, // 1: core.CoreService.ServeFieldSchema:input_type -> google.protobuf.Empty
-	0, // 2: core.CoreService.ServeCategorySchema:output_type -> core.Schema
-	0, // 3: core.CoreService.ServeFieldSchema:output_type -> core.Schema
-	2, // [2:4] is the sub-list for method output_type
-	0, // [0:2] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	29, // 0: core.GenericSchema.properties:type_name -> core.GenericSchema.PropertiesEntry
+	31, // 1: core.InheritanceResponse.data:type_name -> core.InheritanceResponse.Response
+	0,  // 2: core.CreateFieldRequest.formData:type_name -> core.Field
+	1,  // 3: core.CreateCategoryRequest.formData:type_name -> core.Category
+	42, // 4: core.CreateEntityRequest.formData:type_name -> google.protobuf.Struct
+	0,  // 5: core.EditFieldRequest.formData:type_name -> core.Field
+	1,  // 6: core.EditCategoryRequest.formData:type_name -> core.Category
+	42, // 7: core.EditEntityRequest.formData:type_name -> google.protobuf.Struct
+	32, // 8: core.GenericCreateResponse.data:type_name -> core.GenericCreateResponse.Response
+	33, // 9: core.CategorySchemaResponse.data:type_name -> core.CategorySchemaResponse.Response
+	34, // 10: core.GetCategoryDataResponse.data:type_name -> core.GetCategoryDataResponse.Response
+	35, // 11: core.GetFieldDataResponse.data:type_name -> core.GetFieldDataResponse.Response
+	36, // 12: core.GetEntityDataResponse.data:type_name -> core.GetEntityDataResponse.Response
+	37, // 13: core.PaginatedCategoriesFetchResponse.data:type_name -> core.PaginatedCategoriesFetchResponse.Response
+	39, // 14: core.PaginatedFieldsFetchResponse.data:type_name -> core.PaginatedFieldsFetchResponse.Response
+	41, // 15: core.PaginatedEntititesFetchResponse.data:type_name -> core.PaginatedEntititesFetchResponse.Response
+	0,  // 16: core.GenericSchema.PropertiesEntry.value:type_name -> core.Field
+	30, // 17: core.InheritanceResponse.Response.parents:type_name -> core.InheritanceResponse.Parent
+	2,  // 18: core.CategorySchemaResponse.Response.schema:type_name -> core.GenericSchema
+	1,  // 19: core.GetCategoryDataResponse.Response.formData:type_name -> core.Category
+	0,  // 20: core.GetFieldDataResponse.Response.formData:type_name -> core.Field
+	42, // 21: core.GetEntityDataResponse.Response.formData:type_name -> google.protobuf.Struct
+	4,  // 22: core.PaginatedCategoriesFetchResponse.Response.list:type_name -> core.PaginatedCategories
+	38, // 23: core.PaginatedFieldsFetchResponse.Response.pagination:type_name -> core.PaginatedFieldsFetchResponse.pagination
+	5,  // 24: core.PaginatedFieldsFetchResponse.Response.list:type_name -> core.PaginatedFields
+	40, // 25: core.PaginatedEntititesFetchResponse.Response.pagination:type_name -> core.PaginatedEntititesFetchResponse.pagination
+	3,  // 26: core.PaginatedEntititesFetchResponse.Response.list:type_name -> core.PaginatedEntities
+	9,  // 27: core.CoreService.CreateField:input_type -> core.CreateFieldRequest
+	10, // 28: core.CoreService.CreateCategory:input_type -> core.CreateCategoryRequest
+	11, // 29: core.CoreService.CreateEntity:input_type -> core.CreateEntityRequest
+	12, // 30: core.CoreService.EditField:input_type -> core.EditFieldRequest
+	13, // 31: core.CoreService.EditCategory:input_type -> core.EditCategoryRequest
+	14, // 32: core.CoreService.EditEntity:input_type -> core.EditEntityRequest
+	18, // 33: core.CoreService.DeleteField:input_type -> core.GenericFetchRequest
+	18, // 34: core.CoreService.DeleteEntity:input_type -> core.GenericFetchRequest
+	18, // 35: core.CoreService.DeleteCategory:input_type -> core.GenericFetchRequest
+	43, // 36: core.CoreService.NewCategorySchema:input_type -> google.protobuf.Empty
+	43, // 37: core.CoreService.NewFieldSchema:input_type -> google.protobuf.Empty
+	18, // 38: core.CoreService.GetCategorySchema:input_type -> core.GenericFetchRequest
+	18, // 39: core.CoreService.GetCategoryData:input_type -> core.GenericFetchRequest
+	18, // 40: core.CoreService.GetFieldData:input_type -> core.GenericFetchRequest
+	18, // 41: core.CoreService.GetEntityData:input_type -> core.GenericFetchRequest
+	25, // 42: core.CoreService.ListFields:input_type -> core.PaginatedFieldFetchRequest
+	24, // 43: core.CoreService.ListCategories:input_type -> core.PaginatedCategoriesFetchRequest
+	23, // 44: core.CoreService.ListEntities:input_type -> core.PaginatedEntitiesFetchRequest
+	18, // 45: core.CoreService.FieldsInheritance:input_type -> core.GenericFetchRequest
+	17, // 46: core.CoreService.CoreMiddleware:input_type -> core.CoreMiddlewareRequest
+	15, // 47: core.CoreService.CreateField:output_type -> core.GenericCreateResponse
+	15, // 48: core.CoreService.CreateCategory:output_type -> core.GenericCreateResponse
+	15, // 49: core.CoreService.CreateEntity:output_type -> core.GenericCreateResponse
+	16, // 50: core.CoreService.EditField:output_type -> core.GenericEditDeleteResponse
+	16, // 51: core.CoreService.EditCategory:output_type -> core.GenericEditDeleteResponse
+	16, // 52: core.CoreService.EditEntity:output_type -> core.GenericEditDeleteResponse
+	16, // 53: core.CoreService.DeleteField:output_type -> core.GenericEditDeleteResponse
+	16, // 54: core.CoreService.DeleteEntity:output_type -> core.GenericEditDeleteResponse
+	16, // 55: core.CoreService.DeleteCategory:output_type -> core.GenericEditDeleteResponse
+	6,  // 56: core.CoreService.NewCategorySchema:output_type -> core.Schema
+	6,  // 57: core.CoreService.NewFieldSchema:output_type -> core.Schema
+	19, // 58: core.CoreService.GetCategorySchema:output_type -> core.CategorySchemaResponse
+	20, // 59: core.CoreService.GetCategoryData:output_type -> core.GetCategoryDataResponse
+	21, // 60: core.CoreService.GetFieldData:output_type -> core.GetFieldDataResponse
+	22, // 61: core.CoreService.GetEntityData:output_type -> core.GetEntityDataResponse
+	27, // 62: core.CoreService.ListFields:output_type -> core.PaginatedFieldsFetchResponse
+	26, // 63: core.CoreService.ListCategories:output_type -> core.PaginatedCategoriesFetchResponse
+	28, // 64: core.CoreService.ListEntities:output_type -> core.PaginatedEntititesFetchResponse
+	8,  // 65: core.CoreService.FieldsInheritance:output_type -> core.InheritanceResponse
+	7,  // 66: core.CoreService.CoreMiddleware:output_type -> core.CoreMiddlewareResponse
+	47, // [47:67] is the sub-list for method output_type
+	27, // [27:47] is the sub-list for method input_type
+	27, // [27:27] is the sub-list for extension type_name
+	27, // [27:27] is the sub-list for extension extendee
+	0,  // [0:27] is the sub-list for field type_name
 }
 
 func init() { file_core_proto_init() }
@@ -128,6 +3159,78 @@ func file_core_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_core_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Field); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Category); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GenericSchema); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PaginatedEntities); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PaginatedCategories); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PaginatedFields); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Schema); i {
 			case 0:
 				return &v.state
@@ -139,6 +3242,450 @@ func file_core_proto_init() {
 				return nil
 			}
 		}
+		file_core_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CoreMiddlewareResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*InheritanceResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CreateFieldRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CreateCategoryRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CreateEntityRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EditFieldRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EditCategoryRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EditEntityRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GenericCreateResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GenericEditDeleteResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CoreMiddlewareRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GenericFetchRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CategorySchemaResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetCategoryDataResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetFieldDataResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetEntityDataResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PaginatedEntitiesFetchRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PaginatedCategoriesFetchRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PaginatedFieldFetchRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PaginatedCategoriesFetchResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PaginatedFieldsFetchResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[28].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PaginatedEntititesFetchResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[30].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*InheritanceResponse_Parent); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[31].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*InheritanceResponse_Response); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[32].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GenericCreateResponse_Response); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[33].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CategorySchemaResponse_Response); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[34].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetCategoryDataResponse_Response); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[35].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetFieldDataResponse_Response); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[36].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetEntityDataResponse_Response); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[37].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PaginatedCategoriesFetchResponse_Response); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[38].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PaginatedFieldsFetchResponsePagination); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[39].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PaginatedFieldsFetchResponse_Response); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[40].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PaginatedEntititesFetchResponsePagination); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_core_proto_msgTypes[41].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PaginatedEntititesFetchResponse_Response); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+	}
+	file_core_proto_msgTypes[8].OneofWrappers = []interface{}{
+		(*InheritanceResponse_Data)(nil),
+		(*InheritanceResponse_Error)(nil),
+	}
+	file_core_proto_msgTypes[15].OneofWrappers = []interface{}{
+		(*GenericCreateResponse_Data)(nil),
+		(*GenericCreateResponse_Error)(nil),
+	}
+	file_core_proto_msgTypes[19].OneofWrappers = []interface{}{
+		(*CategorySchemaResponse_Data)(nil),
+		(*CategorySchemaResponse_Error)(nil),
+	}
+	file_core_proto_msgTypes[20].OneofWrappers = []interface{}{
+		(*GetCategoryDataResponse_Data)(nil),
+		(*GetCategoryDataResponse_Error)(nil),
+	}
+	file_core_proto_msgTypes[21].OneofWrappers = []interface{}{
+		(*GetFieldDataResponse_Data)(nil),
+		(*GetFieldDataResponse_Error)(nil),
+	}
+	file_core_proto_msgTypes[22].OneofWrappers = []interface{}{
+		(*GetEntityDataResponse_Data)(nil),
+		(*GetEntityDataResponse_Error)(nil),
+	}
+	file_core_proto_msgTypes[26].OneofWrappers = []interface{}{
+		(*PaginatedCategoriesFetchResponse_Data)(nil),
+		(*PaginatedCategoriesFetchResponse_Error)(nil),
+	}
+	file_core_proto_msgTypes[27].OneofWrappers = []interface{}{
+		(*PaginatedFieldsFetchResponse_Data)(nil),
+		(*PaginatedFieldsFetchResponse_Error)(nil),
+	}
+	file_core_proto_msgTypes[28].OneofWrappers = []interface{}{
+		(*PaginatedEntititesFetchResponse_Data)(nil),
+		(*PaginatedEntititesFetchResponse_Error)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -146,7 +3693,7 @@ func file_core_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_core_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   1,
+			NumMessages:   42,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

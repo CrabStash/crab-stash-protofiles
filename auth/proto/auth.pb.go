@@ -26,8 +26,8 @@ type LoginRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Email  string `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty" valid:"email"`   // @gotags: valid:"email"
-	Passwd string `protobuf:"bytes,2,opt,name=passwd,proto3" json:"passwd,omitempty" valid:"required"` // @gotags: valid:"required"
+	Email  string `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty" valid:"required,email"`   // @gotags: valid:"required,email"
+	Passwd string `protobuf:"bytes,2,opt,name=passwd,proto3" json:"passwd,omitempty" valid:"required,minstringlength(8)"` // @gotags: valid:"required,minstringlength(8)"
 }
 
 func (x *LoginRequest) Reset() {
@@ -173,8 +173,8 @@ type RegisterRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Email     string `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty" valid:"email"`         // @gotags: valid:"email"
-	Passwd    string `protobuf:"bytes,2,opt,name=passwd,proto3" json:"passwd,omitempty" valid:"alphanum"`       // @gotags: valid:"alphanum"
+	Email     string `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty" valid:"required,email"`         // @gotags: valid:"required,email"
+	Passwd    string `protobuf:"bytes,2,opt,name=passwd,proto3" json:"passwd,omitempty" valid:"required,minstringlength(8)"`       // @gotags: valid:"required,minstringlength(8)"
 	FirstName string `protobuf:"bytes,3,opt,name=firstName,proto3" json:"firstName,omitempty" valid:"minstringlength(1)"` // @gotags: valid:"minstringlength(1)"
 	LastName  string `protobuf:"bytes,4,opt,name=lastName,proto3" json:"lastName,omitempty" valid:"minstringlength(1)"`   // @gotags: valid:"minstringlength(1)"
 }

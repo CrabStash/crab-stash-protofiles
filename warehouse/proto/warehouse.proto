@@ -80,7 +80,7 @@ message CreateResponse {
 // AddUserToWarehouse
 message AddUsersRequest {
   string warehouseID = 1; // @gotags: valid:"required,minstringlength(1)"
-  string userIds = 2; // @gotags: valid:"required,minstringlength(1)"
+  string email = 2; // @gotags: valid:"required,email"
 }
 
 message AddUsersResponse {
@@ -142,7 +142,8 @@ message ListUsersResponse {
     string lastName = 2; 
     string email = 3;
     string avatar = 4;
-    repeated string owns = 5; 
+    string id = 5;
+    repeated string owns = 6; 
   }
 
   message list {
@@ -182,10 +183,11 @@ message ListWarehousesResponse {
       string name = 1;
       string desc = 2;
       string logo = 3;
-      string owner = 4;
-      bool isPhysical = 5;
-      int64 capacity = 6;
-      Roles role = 7;
+      string id = 4;
+      string owner = 5;
+      bool isPhysical = 6;
+      int64 capacity = 7;
+      Roles role = 8;
   }
 
   message list {

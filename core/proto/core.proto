@@ -4,13 +4,302 @@ package core;
 
 option go_package = "github.com/CrabStash/crab-stash-protofiles/core/proto";
 import "google/protobuf/empty.proto";
+import "google/protobuf/struct.proto";
+
+// basic definitions
+
+message Field {
+  string title = 1; //@gotags: valid:"required"
+  string type = 2; //@gotags: valid:"required"
+  string help = 3; //@gotags: valid:"required"
+}
+
+message Category {
+  string title = 1; //@gotags: valid:"required"
+  string description = 2; //@gotags: valid:"required"
+  repeated string parents = 3; //@gotags: valid:"optional"
+  repeated string properties = 4; //@gotags: valid:"required"
+}
+
+message GenericSchema {
+  string title = 1; //@gotags: valid:"required"
+  string description = 2; //@gotags: valid:"required"
+  string type = 3; //@gotags: valid:"required"
+  map<string, Field> properties = 4; //@gotags: valid:"required"
+}
+
+message PaginatedEntities {
+  string name = 1;
+  string description = 2;
+}
+
+message PaginatedCategories {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+}
+
+message PaginatedFields {
+  string title = 1;
+  string type = 2;
+  string id = 3;
+}
+
+
+// Services
 
 message Schema {
   bytes file_content = 1;
 }
 
+message CoreMiddlewareResponse {
+  bool doesItBelong = 1;
+}
+
+// misc 
+message InheritanceResponse {
+  message Parent {
+    repeated string fieldNames = 1;
+    string id = 2;
+    string name = 3; //@gotags: json:"title"
+  }
+
+  message Response {
+    repeated Parent parents = 1;
+  }
+
+  int32 status = 1;
+  //@gotags: json:"response"
+  oneof response {
+    //@gotags: json:"data"
+    Response data = 2;
+    string error = 3; 
+  }
+}
+
+
+// Create
+message CreateFieldRequest {  
+  string warehouseID = 1; //@gotags: valid:"required"
+  Field formData = 2; //@gotags: valid:"required"
+}
+
+message CreateCategoryRequest {
+  string warehouseID = 1; //@gotags: valid:"required"
+  Category formData = 2; //@gotags: valid:"required"
+}
+
+message CreateEntityRequest {
+  string categoryID = 1;
+  google.protobuf.Struct formData = 2;
+}
+
+// Edit
+message EditFieldRequest {  
+  string fieldID = 1; //@gotags: valid:"required"
+  Field formData = 2; //@gotags: valid:"required"
+}
+
+message EditCategoryRequest {
+  string categoryID = 1; //@gotags: valid:"required"
+  Category formData = 2; //@gotags: valid:"required"
+}
+
+message EditEntityRequest {
+  string entityID = 1;
+  google.protobuf.Struct formData = 2; //@gotags: valid:"required"
+}
+
+// generics
+message GenericCreateResponse {
+  message Response {
+    string id = 1;
+  }
+  int32 status = 1;
+  // @gotags: json:"response"
+  oneof response {
+    // @gotags: json:"data"
+    Response data = 2;
+    string error = 3;
+  }
+}
+
+message GenericEditDeleteResponse {
+  int32 status = 1;
+  string response = 2;
+}
+
+message CoreMiddlewareRequest {
+  string in = 1; //@gotags: valid:"required"
+  string out = 2; //@gotags: valid:"required"
+  string type = 3; //@gotags: valid:"required"
+}
+
+message GenericFetchRequest {
+  string warehouseID = 1; //@gotags: valid:"required"
+  string entityID = 2; //@gotags: valid:"required"
+}
+
+message CategorySchemaResponse {
+  message Response {
+    GenericSchema schema = 1;
+  }
+
+  int32 status = 1;
+  //@gotags: json:"response"
+  oneof response {
+    //@gotags: json:"data"
+    Response data = 2;
+    string error = 3; 
+  }
+}
+
+message GetCategoryDataResponse {
+  message Response {
+    Category formData = 1;
+  }
+
+  int32 status = 1;
+  //@gotags: json:"response"
+  oneof response {
+    //@gotags: json:"data"
+    Response data = 2;
+    string error = 3; 
+  }
+}
+
+message GetFieldDataResponse {
+  message Response {
+    Field formData = 1;
+  }
+
+  int32 status = 1;
+  //@gotags: json:"response"
+  oneof response {
+    //@gotags: json:"data"
+    Response data = 2;
+    string error = 3; 
+  }
+}
+
+message GetEntityDataResponse {
+  message Response {
+    google.protobuf.Struct formData = 1;
+  }
+
+  int32 status = 1;
+  //@gotags: json:"response"
+  oneof response {
+    //@gotags: json:"data"
+    Response data = 2;
+    string error = 3; 
+  }
+}
+
+// Listing 
+
+message PaginatedEntitiesFetchRequest{
+  string id = 1; //@gotags: valid:"optional,minstringlength(1)"
+  int32 limit = 2; //@gotags: valid:"required,numeric,range(5|30)"
+  int32 page = 3; //@gotags: valid:"required,numeric"
+  string warehouseID = 4; //@gotags: valid:"required,minstringlength(1)"
+}
+
+message PaginatedCategoriesFetchRequest{
+  string id = 1; //@gotags: valid:"optional,minstringlength(1)"
+  string warehouseID = 2; //@gotags: valid:"required,minstringlength(1)"
+}
+
+message PaginatedFieldFetchRequest{
+  int32 limit = 1; //@gotags: valid:"required,numeric,range(5|30)"
+  int32 page = 2; //@gotags: valid:"required,numeric"
+  string warehouseID = 3; //@gotags: valid:"required,minstringlength(1)"
+}
+
+message PaginatedCategoriesFetchResponse {
+  message Response {
+    repeated PaginatedCategories list = 1;
+  }
+
+   int32 status = 1;
+   // @gotags: json:"response"
+   oneof response {
+    // @gotags: json:"data"
+    Response data = 2;
+    string error = 3;
+  } 
+}
+
+message PaginatedFieldsFetchResponse {
+  message pagination {
+    int32 limit = 1;
+    int32 total = 2;
+    int32 page = 3; 
+  }
+  
+
+  message Response {
+    pagination pagination = 1;
+    repeated PaginatedFields list = 2;
+  }
+
+   int32 status = 1;
+   // @gotags: json:"response"
+   oneof response {
+    // @gotags: json:"data"
+    Response data = 2;
+    string error = 3;
+  } 
+}
+message PaginatedEntititesFetchResponse {
+  message pagination {
+    int32 limit = 1;
+    int32 total = 2;
+    int32 page = 3; 
+  }
+  
+
+  message Response {
+    pagination pagination = 1;
+    repeated PaginatedEntities list = 2;
+  }
+
+   int32 status = 1;
+   // @gotags: json:"response"
+   oneof response {
+    // @gotags: json:"data"
+    Response data = 2;
+    string error = 3;
+  } 
+}
+
+
 // service
 service CoreService {
-  rpc ServeCategorySchema (google.protobuf.Empty) returns (Schema);
-  rpc ServeFieldSchema (google.protobuf.Empty) returns (Schema);
+  // creation
+    rpc CreateField (CreateFieldRequest) returns (GenericCreateResponse);
+    rpc CreateCategory (CreateCategoryRequest) returns (GenericCreateResponse);
+    rpc CreateEntity (CreateEntityRequest) returns (GenericCreateResponse);
+  // editing
+    rpc EditField (EditFieldRequest) returns (GenericEditDeleteResponse);
+    rpc EditCategory (EditCategoryRequest) returns (GenericEditDeleteResponse);
+    rpc EditEntity (EditEntityRequest) returns (GenericEditDeleteResponse);
+  // deleting
+    rpc DeleteField (GenericFetchRequest) returns (GenericEditDeleteResponse);
+    rpc DeleteEntity (GenericFetchRequest) returns (GenericEditDeleteResponse);
+    rpc DeleteCategory (GenericFetchRequest) returns (GenericEditDeleteResponse);
+  // fetching
+    rpc NewCategorySchema (google.protobuf.Empty) returns (Schema);
+    rpc NewFieldSchema (google.protobuf.Empty) returns (Schema);
+    rpc GetCategorySchema (GenericFetchRequest) returns (CategorySchemaResponse);
+    rpc GetCategoryData (GenericFetchRequest) returns (GetCategoryDataResponse);
+    rpc GetFieldData (GenericFetchRequest) returns (GetFieldDataResponse);
+    rpc GetEntityData (GenericFetchRequest) returns (GetEntityDataResponse);
+  // listing
+    rpc ListFields (PaginatedFieldFetchRequest) returns (PaginatedFieldsFetchResponse);
+    rpc ListCategories (PaginatedCategoriesFetchRequest) returns (PaginatedCategoriesFetchResponse);
+    rpc ListEntities (PaginatedEntitiesFetchRequest) returns (PaginatedEntititesFetchResponse);
+  //misc
+    rpc FieldsInheritance (GenericFetchRequest) returns (InheritanceResponse);
+    rpc CoreMiddleware (CoreMiddlewareRequest) returns (CoreMiddlewareResponse);
 }
