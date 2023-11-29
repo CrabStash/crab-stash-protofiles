@@ -92,6 +92,7 @@ message CreateCategoryRequest {
 message CreateEntityRequest {
   string categoryID = 1;
   google.protobuf.Struct formData = 2;
+  string warehouseID = 3;
 }
 
 // Edit
