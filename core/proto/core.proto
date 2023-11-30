@@ -109,6 +109,7 @@ message EditCategoryRequest {
 message EditEntityRequest {
   string entityID = 1;
   google.protobuf.Struct formData = 2; //@gotags: valid:"required"
+  string warehouseID = 3;
 }
 
 // generics
