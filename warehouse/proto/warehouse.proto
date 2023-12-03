@@ -261,6 +261,7 @@ message DashboardResponse {
     string name = 1;
     string description = 2;
     string category_id = 3;
+    string created = 4;
   }
 
   message Response {
