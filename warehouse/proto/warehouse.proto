@@ -246,11 +246,45 @@ message InternalDeleteAccRequest {
   string userID = 1; // @gotags: valid:"required,minstringlength(1)"
 }
 
+// Dashboard 
+message DashboardRequest {
+  string warehouseID = 1; // @gotags: valid:"required"
+}
+
+message DashboardResponse {
+  message EntitiesCount {
+    int32 all = 1; // @gotags: json:"all"
+    int32 unique = 2; // @gotags: json:"unique"
+  }
+
+  message NewestEntities {
+    string name = 1;
+    string description = 2;
+    string category_id = 3;
+    string created = 4;
+  }
+
+  message Response {
+    int32 employees = 1; // @gotags: json:"employees"
+    float warehouseValue = 2; // @gotags: json:"warehouseValue"
+    EntitiesCount entitiesCount = 3; // @gotags: json:"entitiesCount"
+    repeated NewestEntities newestEntities = 4; // @gotags: json:"newestEntities"
+  }
+  int32 status = 1;
+  // @gotags: json:"response"
+  oneof response {
+    // @gotags: json:"data"
+    Response data = 2;
+    string error = 3;
+  }
+}
+
 
 // Service
 
 service WarehouseService {
   rpc GetInfo (GetInfoRequest) returns (GetInfoResponse);
+  rpc Dashboard (DashboardRequest) returns (DashboardResponse);
   rpc UpdateWarehouse (UpdateRequest) returns (UpdateResponse);
   rpc CreateWarehouse (CreateRequest) returns (CreateResponse);
   rpc AddUsersToWarehouse (AddUsersRequest) returns (AddUsersResponse);
