@@ -26,7 +26,7 @@ type UserServiceClient interface {
 	UpdateUserInfo(ctx context.Context, in *UpdateUserInfoRequest, opts ...grpc.CallOption) (*UpdateUserInfoResponse, error)
 	GetUserInfo(ctx context.Context, in *GetUserInfoRequest, opts ...grpc.CallOption) (*GetUserInfoResponse, error)
 	DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*DeleteUserResponse, error)
-	//Internal comms below   v
+	// Internal comms below   v
 	InternalGetUserByEmailAuth(ctx context.Context, in *InternalGetUserByEmailRequest, opts ...grpc.CallOption) (*InternalGetUserByEmailAuthResponse, error)
 	InternalGetUserByEmailWarehouse(ctx context.Context, in *InternalGetUserByEmailRequest, opts ...grpc.CallOption) (*InternalGetUserByEmailWarehouseResponse, error)
 	InternalGetUserByUUID(ctx context.Context, in *InternalGetUserByUUIDCheck, opts ...grpc.CallOption) (*InternalGetUserByUUIDCheck, error)
@@ -111,7 +111,7 @@ type UserServiceServer interface {
 	UpdateUserInfo(context.Context, *UpdateUserInfoRequest) (*UpdateUserInfoResponse, error)
 	GetUserInfo(context.Context, *GetUserInfoRequest) (*GetUserInfoResponse, error)
 	DeleteUser(context.Context, *DeleteUserRequest) (*DeleteUserResponse, error)
-	//Internal comms below   v
+	// Internal comms below   v
 	InternalGetUserByEmailAuth(context.Context, *InternalGetUserByEmailRequest) (*InternalGetUserByEmailAuthResponse, error)
 	InternalGetUserByEmailWarehouse(context.Context, *InternalGetUserByEmailRequest) (*InternalGetUserByEmailWarehouseResponse, error)
 	InternalGetUserByUUID(context.Context, *InternalGetUserByUUIDCheck) (*InternalGetUserByUUIDCheck, error)
