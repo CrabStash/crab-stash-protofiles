@@ -24,6 +24,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type WarehouseServiceClient interface {
 	GetInfo(ctx context.Context, in *GetInfoRequest, opts ...grpc.CallOption) (*GetInfoResponse, error)
+	Dashboard(ctx context.Context, in *DashboardRequest, opts ...grpc.CallOption) (*DashboardResponse, error)
 	UpdateWarehouse(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*UpdateResponse, error)
 	CreateWarehouse(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error)
 	AddUsersToWarehouse(ctx context.Context, in *AddUsersRequest, opts ...grpc.CallOption) (*AddUsersResponse, error)
@@ -48,6 +49,15 @@ func NewWarehouseServiceClient(cc grpc.ClientConnInterface) WarehouseServiceClie
 func (c *warehouseServiceClient) GetInfo(ctx context.Context, in *GetInfoRequest, opts ...grpc.CallOption) (*GetInfoResponse, error) {
 	out := new(GetInfoResponse)
 	err := c.cc.Invoke(ctx, "/warehouse.WarehouseService/GetInfo", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *warehouseServiceClient) Dashboard(ctx context.Context, in *DashboardRequest, opts ...grpc.CallOption) (*DashboardResponse, error) {
+	out := new(DashboardResponse)
+	err := c.cc.Invoke(ctx, "/warehouse.WarehouseService/Dashboard", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -158,6 +168,7 @@ func (c *warehouseServiceClient) InternalDeleteAcc(ctx context.Context, in *Inte
 // for forward compatibility
 type WarehouseServiceServer interface {
 	GetInfo(context.Context, *GetInfoRequest) (*GetInfoResponse, error)
+	Dashboard(context.Context, *DashboardRequest) (*DashboardResponse, error)
 	UpdateWarehouse(context.Context, *UpdateRequest) (*UpdateResponse, error)
 	CreateWarehouse(context.Context, *CreateRequest) (*CreateResponse, error)
 	AddUsersToWarehouse(context.Context, *AddUsersRequest) (*AddUsersResponse, error)
@@ -178,6 +189,9 @@ type UnimplementedWarehouseServiceServer struct {
 
 func (UnimplementedWarehouseServiceServer) GetInfo(context.Context, *GetInfoRequest) (*GetInfoResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetInfo not implemented")
+}
+func (UnimplementedWarehouseServiceServer) Dashboard(context.Context, *DashboardRequest) (*DashboardResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Dashboard not implemented")
 }
 func (UnimplementedWarehouseServiceServer) UpdateWarehouse(context.Context, *UpdateRequest) (*UpdateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateWarehouse not implemented")
@@ -239,6 +253,24 @@ func _WarehouseService_GetInfo_Handler(srv interface{}, ctx context.Context, dec
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(WarehouseServiceServer).GetInfo(ctx, req.(*GetInfoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WarehouseService_Dashboard_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DashboardRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WarehouseServiceServer).Dashboard(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/warehouse.WarehouseService/Dashboard",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WarehouseServiceServer).Dashboard(ctx, req.(*DashboardRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -451,6 +483,10 @@ var WarehouseService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetInfo",
 			Handler:    _WarehouseService_GetInfo_Handler,
+		},
+		{
+			MethodName: "Dashboard",
+			Handler:    _WarehouseService_Dashboard_Handler,
 		},
 		{
 			MethodName: "UpdateWarehouse",
