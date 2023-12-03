@@ -268,7 +268,7 @@ message DashboardResponse {
     int32 employees = 1; // @gotags: json:"employees"
     float warehouseValue = 2; // @gotags: json:"warehouseValue"
     EntitiesCount entitiesCount = 3; // @gotags: json:"entitiesCount"
-    NewestEntities newestEntities = 4; // @gotags: json:"newestEntities"
+    repeated NewestEntities newestEntities = 4; // @gotags: json:"newestEntities"
   }
   int32 status = 1;
   // @gotags: json:"response"

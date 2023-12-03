@@ -2652,10 +2652,10 @@ type DashboardResponse_Response struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Employees      int32                             `protobuf:"varint,1,opt,name=employees,proto3" json:"employees"`            // @gotags: json:"employees"
-	WarehouseValue float32                           `protobuf:"fixed32,2,opt,name=warehouseValue,proto3" json:"warehouseValue"` // @gotags: json:"warehouseValue"
-	EntitiesCount  *DashboardResponse_EntitiesCount  `protobuf:"bytes,3,opt,name=entitiesCount,proto3" json:"entitiesCount"`     // @gotags: json:"entitiesCount"
-	NewestEntities *DashboardResponse_NewestEntities `protobuf:"bytes,4,opt,name=newestEntities,proto3" json:"newestEntities"`   // @gotags: json:"newestEntities"
+	Employees      int32                               `protobuf:"varint,1,opt,name=employees,proto3" json:"employees"`            // @gotags: json:"employees"
+	WarehouseValue float32                             `protobuf:"fixed32,2,opt,name=warehouseValue,proto3" json:"warehouseValue"` // @gotags: json:"warehouseValue"
+	EntitiesCount  *DashboardResponse_EntitiesCount    `protobuf:"bytes,3,opt,name=entitiesCount,proto3" json:"entitiesCount"`     // @gotags: json:"entitiesCount"
+	NewestEntities []*DashboardResponse_NewestEntities `protobuf:"bytes,4,rep,name=newestEntities,proto3" json:"newestEntities"`   // @gotags: json:"newestEntities"
 }
 
 func (x *DashboardResponse_Response) Reset() {
@@ -2711,7 +2711,7 @@ func (x *DashboardResponse_Response) GetEntitiesCount() *DashboardResponse_Entit
 	return nil
 }
 
-func (x *DashboardResponse_Response) GetNewestEntities() *DashboardResponse_NewestEntities {
+func (x *DashboardResponse_Response) GetNewestEntities() []*DashboardResponse_NewestEntities {
 	if x != nil {
 		return x.NewestEntities
 	}
@@ -2997,7 +2997,7 @@ var file_warehouse_proto_rawDesc = []byte{
 	0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x45, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x43, 0x6f, 0x75,
 	0x6e, 0x74, 0x52, 0x0d, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x43, 0x6f, 0x75, 0x6e,
 	0x74, 0x12, 0x53, 0x0a, 0x0e, 0x6e, 0x65, 0x77, 0x65, 0x73, 0x74, 0x45, 0x6e, 0x74, 0x69, 0x74,
-	0x69, 0x65, 0x73, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2b, 0x2e, 0x77, 0x61, 0x72, 0x65,
+	0x69, 0x65, 0x73, 0x18, 0x04, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x2b, 0x2e, 0x77, 0x61, 0x72, 0x65,
 	0x68, 0x6f, 0x75, 0x73, 0x65, 0x2e, 0x44, 0x61, 0x73, 0x68, 0x62, 0x6f, 0x61, 0x72, 0x64, 0x52,
 	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x4e, 0x65, 0x77, 0x65, 0x73, 0x74, 0x45, 0x6e,
 	0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x52, 0x0e, 0x6e, 0x65, 0x77, 0x65, 0x73, 0x74, 0x45, 0x6e,
