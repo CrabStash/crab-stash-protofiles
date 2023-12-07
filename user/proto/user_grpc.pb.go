@@ -26,7 +26,8 @@ type UserServiceClient interface {
 	UpdateUserInfo(ctx context.Context, in *UpdateUserInfoRequest, opts ...grpc.CallOption) (*UpdateUserInfoResponse, error)
 	GetUserInfo(ctx context.Context, in *GetUserInfoRequest, opts ...grpc.CallOption) (*GetUserInfoResponse, error)
 	DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*DeleteUserResponse, error)
-	//Internal comms below   v
+	ChangePassword(ctx context.Context, in *ChangePasswordRequest, opts ...grpc.CallOption) (*ChangePasswordResponse, error)
+	// Internal comms below   v
 	InternalGetUserByEmailAuth(ctx context.Context, in *InternalGetUserByEmailRequest, opts ...grpc.CallOption) (*InternalGetUserByEmailAuthResponse, error)
 	InternalGetUserByEmailWarehouse(ctx context.Context, in *InternalGetUserByEmailRequest, opts ...grpc.CallOption) (*InternalGetUserByEmailWarehouseResponse, error)
 	InternalGetUserByUUID(ctx context.Context, in *InternalGetUserByUUIDCheck, opts ...grpc.CallOption) (*InternalGetUserByUUIDCheck, error)
@@ -76,6 +77,15 @@ func (c *userServiceClient) DeleteUser(ctx context.Context, in *DeleteUserReques
 	return out, nil
 }
 
+func (c *userServiceClient) ChangePassword(ctx context.Context, in *ChangePasswordRequest, opts ...grpc.CallOption) (*ChangePasswordResponse, error) {
+	out := new(ChangePasswordResponse)
+	err := c.cc.Invoke(ctx, "/proto.UserService/ChangePassword", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *userServiceClient) InternalGetUserByEmailAuth(ctx context.Context, in *InternalGetUserByEmailRequest, opts ...grpc.CallOption) (*InternalGetUserByEmailAuthResponse, error) {
 	out := new(InternalGetUserByEmailAuthResponse)
 	err := c.cc.Invoke(ctx, "/proto.UserService/InternalGetUserByEmailAuth", in, out, opts...)
@@ -111,7 +121,8 @@ type UserServiceServer interface {
 	UpdateUserInfo(context.Context, *UpdateUserInfoRequest) (*UpdateUserInfoResponse, error)
 	GetUserInfo(context.Context, *GetUserInfoRequest) (*GetUserInfoResponse, error)
 	DeleteUser(context.Context, *DeleteUserRequest) (*DeleteUserResponse, error)
-	//Internal comms below   v
+	ChangePassword(context.Context, *ChangePasswordRequest) (*ChangePasswordResponse, error)
+	// Internal comms below   v
 	InternalGetUserByEmailAuth(context.Context, *InternalGetUserByEmailRequest) (*InternalGetUserByEmailAuthResponse, error)
 	InternalGetUserByEmailWarehouse(context.Context, *InternalGetUserByEmailRequest) (*InternalGetUserByEmailWarehouseResponse, error)
 	InternalGetUserByUUID(context.Context, *InternalGetUserByUUIDCheck) (*InternalGetUserByUUIDCheck, error)
@@ -133,6 +144,9 @@ func (UnimplementedUserServiceServer) GetUserInfo(context.Context, *GetUserInfoR
 }
 func (UnimplementedUserServiceServer) DeleteUser(context.Context, *DeleteUserRequest) (*DeleteUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteUser not implemented")
+}
+func (UnimplementedUserServiceServer) ChangePassword(context.Context, *ChangePasswordRequest) (*ChangePasswordResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ChangePassword not implemented")
 }
 func (UnimplementedUserServiceServer) InternalGetUserByEmailAuth(context.Context, *InternalGetUserByEmailRequest) (*InternalGetUserByEmailAuthResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InternalGetUserByEmailAuth not implemented")
@@ -228,6 +242,24 @@ func _UserService_DeleteUser_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_ChangePassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ChangePasswordRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).ChangePassword(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.UserService/ChangePassword",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).ChangePassword(ctx, req.(*ChangePasswordRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _UserService_InternalGetUserByEmailAuth_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(InternalGetUserByEmailRequest)
 	if err := dec(in); err != nil {
@@ -304,6 +336,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteUser",
 			Handler:    _UserService_DeleteUser_Handler,
+		},
+		{
+			MethodName: "ChangePassword",
+			Handler:    _UserService_ChangePassword_Handler,
 		},
 		{
 			MethodName: "InternalGetUserByEmailAuth",

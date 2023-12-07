@@ -101,11 +101,23 @@ message InternalGetUserByUUIDCheck{
     string response=3;
 }
 
+message ChangePasswordRequest {
+    string userID=1;//@gotags: valid:"required"
+    string oldPassword=2; // @gotags: valid:"required,minstringlength(8)"
+    string newPassword=3; // @gotags: valid:"required,minstringlength(8)"
+}
+
+message ChangePasswordResponse {
+    int32 status=1;
+    string response=2;
+}
+
 service UserService{
     rpc MeInfo(MeInfoRequest) returns(MeInfoResponse);
     rpc UpdateUserInfo(UpdateUserInfoRequest) returns(UpdateUserInfoResponse);
     rpc GetUserInfo(GetUserInfoRequest) returns(GetUserInfoResponse);
     rpc DeleteUser(DeleteUserRequest) returns(DeleteUserResponse);
+    rpc ChangePassword(ChangePasswordRequest) returns(ChangePasswordResponse);
     //Internal comms below   v
     rpc InternalGetUserByEmailAuth(InternalGetUserByEmailRequest) returns (InternalGetUserByEmailAuthResponse);
     rpc InternalGetUserByEmailWarehouse(InternalGetUserByEmailRequest) returns(InternalGetUserByEmailWarehouseResponse);
