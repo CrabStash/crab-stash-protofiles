@@ -31,10 +31,11 @@ message GenericSchema {
 message PaginatedEntities {
   string name = 1;
   string description = 2;
-  int32 quantity = 4;
-  float price = 5;
-  string category_title = 6;
-  string category_id = 7;
+  int32 quantity = 3;
+  float price = 4;
+  string category_title = 5;
+  string category_id = 6;
+  string id = 7;
 }
 
 message PaginatedCategories {

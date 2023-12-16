@@ -27,9 +27,9 @@ type Field struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Title string `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty" valid:"required"` //@gotags: valid:"required"
-	Type  string `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty" valid:"required"`   //@gotags: valid:"required"
-	Help  string `protobuf:"bytes,3,opt,name=help,proto3" json:"help,omitempty" valid:"required"`   //@gotags: valid:"required"
+	Title string `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"` //@gotags: valid:"required"
+	Type  string `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`   //@gotags: valid:"required"
+	Help  string `protobuf:"bytes,3,opt,name=help,proto3" json:"help,omitempty"`   //@gotags: valid:"required"
 }
 
 func (x *Field) Reset() {
@@ -90,10 +90,10 @@ type Category struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Title       string   `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty" valid:"required"`             //@gotags: valid:"required"
-	Description string   `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty" valid:"required"` //@gotags: valid:"required"
-	Parents     []string `protobuf:"bytes,3,rep,name=parents,proto3" json:"parents,omitempty" valid:"optional"`         //@gotags: valid:"optional"
-	Properties  []string `protobuf:"bytes,4,rep,name=properties,proto3" json:"properties,omitempty" valid:"required"`   //@gotags: valid:"required"
+	Title       string   `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`             //@gotags: valid:"required"
+	Description string   `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"` //@gotags: valid:"required"
+	Parents     []string `protobuf:"bytes,3,rep,name=parents,proto3" json:"parents,omitempty"`         //@gotags: valid:"optional"
+	Properties  []string `protobuf:"bytes,4,rep,name=properties,proto3" json:"properties,omitempty"`   //@gotags: valid:"required"
 }
 
 func (x *Category) Reset() {
@@ -161,10 +161,10 @@ type GenericSchema struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Title       string            `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty" valid:"required"`                                                                                                   //@gotags: valid:"required"
-	Description string            `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty" valid:"required"`                                                                                       //@gotags: valid:"required"
-	Type        string            `protobuf:"bytes,3,opt,name=type,proto3" json:"type,omitempty" valid:"required"`                                                                                                     //@gotags: valid:"required"
-	Properties  map[string]*Field `protobuf:"bytes,4,rep,name=properties,proto3" json:"properties,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3" valid:"required"` //@gotags: valid:"required"
+	Title       string            `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`                                                                                                   //@gotags: valid:"required"
+	Description string            `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`                                                                                       //@gotags: valid:"required"
+	Type        string            `protobuf:"bytes,3,opt,name=type,proto3" json:"type,omitempty"`                                                                                                     //@gotags: valid:"required"
+	Properties  map[string]*Field `protobuf:"bytes,4,rep,name=properties,proto3" json:"properties,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"` //@gotags: valid:"required"
 }
 
 func (x *GenericSchema) Reset() {
@@ -234,10 +234,11 @@ type PaginatedEntities struct {
 
 	Name          string  `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Description   string  `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
-	Quantity      int32   `protobuf:"varint,4,opt,name=quantity,proto3" json:"quantity,omitempty"`
-	Price         float32 `protobuf:"fixed32,5,opt,name=price,proto3" json:"price,omitempty"`
-	CategoryTitle string  `protobuf:"bytes,6,opt,name=category_title,json=categoryTitle,proto3" json:"category_title,omitempty"`
-	CategoryId    string  `protobuf:"bytes,7,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
+	Quantity      int32   `protobuf:"varint,3,opt,name=quantity,proto3" json:"quantity,omitempty"`
+	Price         float32 `protobuf:"fixed32,4,opt,name=price,proto3" json:"price,omitempty"`
+	CategoryTitle string  `protobuf:"bytes,5,opt,name=category_title,json=categoryTitle,proto3" json:"category_title,omitempty"`
+	CategoryId    string  `protobuf:"bytes,6,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
+	Id            string  `protobuf:"bytes,7,opt,name=id,proto3" json:"id,omitempty"`
 }
 
 func (x *PaginatedEntities) Reset() {
@@ -310,6 +311,13 @@ func (x *PaginatedEntities) GetCategoryTitle() string {
 func (x *PaginatedEntities) GetCategoryId() string {
 	if x != nil {
 		return x.CategoryId
+	}
+	return ""
+}
+
+func (x *PaginatedEntities) GetId() string {
+	if x != nil {
+		return x.Id
 	}
 	return ""
 }
@@ -546,7 +554,7 @@ type InheritanceResponse struct {
 	// Types that are assignable to Response:
 	//	*InheritanceResponse_Data
 	//	*InheritanceResponse_Error
-	Response isInheritanceResponse_Response `protobuf_oneof:"response" json:"response"`
+	Response isInheritanceResponse_Response `protobuf_oneof:"response"`
 }
 
 func (x *InheritanceResponse) Reset() {
@@ -615,7 +623,7 @@ type isInheritanceResponse_Response interface {
 
 type InheritanceResponse_Data struct {
 	//@gotags: json:"data"
-	Data *InheritanceResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
+	Data *InheritanceResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof"`
 }
 
 type InheritanceResponse_Error struct {
@@ -632,8 +640,8 @@ type CreateFieldRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	WarehouseID string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty" valid:"required"` //@gotags: valid:"required"
-	FormData    *Field `protobuf:"bytes,2,opt,name=formData,proto3" json:"formData,omitempty" valid:"required"`       //@gotags: valid:"required"
+	WarehouseID string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty"` //@gotags: valid:"required"
+	FormData    *Field `protobuf:"bytes,2,opt,name=formData,proto3" json:"formData,omitempty"`       //@gotags: valid:"required"
 }
 
 func (x *CreateFieldRequest) Reset() {
@@ -687,8 +695,8 @@ type CreateCategoryRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	WarehouseID string    `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty" valid:"required"` //@gotags: valid:"required"
-	FormData    *Category `protobuf:"bytes,2,opt,name=formData,proto3" json:"formData,omitempty" valid:"required"`       //@gotags: valid:"required"
+	WarehouseID string    `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty"` //@gotags: valid:"required"
+	FormData    *Category `protobuf:"bytes,2,opt,name=formData,proto3" json:"formData,omitempty"`       //@gotags: valid:"required"
 }
 
 func (x *CreateCategoryRequest) Reset() {
@@ -806,8 +814,8 @@ type EditFieldRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	FieldID  string `protobuf:"bytes,1,opt,name=fieldID,proto3" json:"fieldID,omitempty" valid:"required"`   //@gotags: valid:"required"
-	FormData *Field `protobuf:"bytes,2,opt,name=formData,proto3" json:"formData,omitempty" valid:"required"` //@gotags: valid:"required"
+	FieldID  string `protobuf:"bytes,1,opt,name=fieldID,proto3" json:"fieldID,omitempty"`   //@gotags: valid:"required"
+	FormData *Field `protobuf:"bytes,2,opt,name=formData,proto3" json:"formData,omitempty"` //@gotags: valid:"required"
 }
 
 func (x *EditFieldRequest) Reset() {
@@ -861,8 +869,8 @@ type EditCategoryRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	CategoryID string    `protobuf:"bytes,1,opt,name=categoryID,proto3" json:"categoryID,omitempty" valid:"required"` //@gotags: valid:"required"
-	FormData   *Category `protobuf:"bytes,2,opt,name=formData,proto3" json:"formData,omitempty" valid:"required"`     //@gotags: valid:"required"
+	CategoryID string    `protobuf:"bytes,1,opt,name=categoryID,proto3" json:"categoryID,omitempty"` //@gotags: valid:"required"
+	FormData   *Category `protobuf:"bytes,2,opt,name=formData,proto3" json:"formData,omitempty"`     //@gotags: valid:"required"
 }
 
 func (x *EditCategoryRequest) Reset() {
@@ -917,7 +925,7 @@ type EditEntityRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	EntityID    string           `protobuf:"bytes,1,opt,name=entityID,proto3" json:"entityID,omitempty"`
-	FormData    *structpb.Struct `protobuf:"bytes,2,opt,name=formData,proto3" json:"formData,omitempty" valid:"required"` //@gotags: valid:"required"
+	FormData    *structpb.Struct `protobuf:"bytes,2,opt,name=formData,proto3" json:"formData,omitempty"` //@gotags: valid:"required"
 	WarehouseID string           `protobuf:"bytes,3,opt,name=warehouseID,proto3" json:"warehouseID,omitempty"`
 }
 
@@ -986,7 +994,7 @@ type GenericCreateResponse struct {
 	// Types that are assignable to Response:
 	//	*GenericCreateResponse_Data
 	//	*GenericCreateResponse_Error
-	Response isGenericCreateResponse_Response `protobuf_oneof:"response" json:"response"`
+	Response isGenericCreateResponse_Response `protobuf_oneof:"response"`
 }
 
 func (x *GenericCreateResponse) Reset() {
@@ -1055,7 +1063,7 @@ type isGenericCreateResponse_Response interface {
 
 type GenericCreateResponse_Data struct {
 	// @gotags: json:"data"
-	Data *GenericCreateResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
+	Data *GenericCreateResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof"`
 }
 
 type GenericCreateResponse_Error struct {
@@ -1126,9 +1134,9 @@ type CoreMiddlewareRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	In   string `protobuf:"bytes,1,opt,name=in,proto3" json:"in,omitempty" valid:"required"`     //@gotags: valid:"required"
-	Out  string `protobuf:"bytes,2,opt,name=out,proto3" json:"out,omitempty" valid:"required"`   //@gotags: valid:"required"
-	Type string `protobuf:"bytes,3,opt,name=type,proto3" json:"type,omitempty" valid:"required"` //@gotags: valid:"required"
+	In   string `protobuf:"bytes,1,opt,name=in,proto3" json:"in,omitempty"`     //@gotags: valid:"required"
+	Out  string `protobuf:"bytes,2,opt,name=out,proto3" json:"out,omitempty"`   //@gotags: valid:"required"
+	Type string `protobuf:"bytes,3,opt,name=type,proto3" json:"type,omitempty"` //@gotags: valid:"required"
 }
 
 func (x *CoreMiddlewareRequest) Reset() {
@@ -1189,8 +1197,8 @@ type GenericFetchRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	WarehouseID string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty" valid:"required"` //@gotags: valid:"required"
-	EntityID    string `protobuf:"bytes,2,opt,name=entityID,proto3" json:"entityID,omitempty" valid:"required"`       //@gotags: valid:"required"
+	WarehouseID string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty"` //@gotags: valid:"required"
+	EntityID    string `protobuf:"bytes,2,opt,name=entityID,proto3" json:"entityID,omitempty"`       //@gotags: valid:"required"
 }
 
 func (x *GenericFetchRequest) Reset() {
@@ -1250,7 +1258,7 @@ type CategorySchemaResponse struct {
 	// Types that are assignable to Response:
 	//	*CategorySchemaResponse_Data
 	//	*CategorySchemaResponse_Error
-	Response isCategorySchemaResponse_Response `protobuf_oneof:"response" json:"response"`
+	Response isCategorySchemaResponse_Response `protobuf_oneof:"response"`
 }
 
 func (x *CategorySchemaResponse) Reset() {
@@ -1319,7 +1327,7 @@ type isCategorySchemaResponse_Response interface {
 
 type CategorySchemaResponse_Data struct {
 	//@gotags: json:"data"
-	Data *CategorySchemaResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
+	Data *CategorySchemaResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof"`
 }
 
 type CategorySchemaResponse_Error struct {
@@ -1341,7 +1349,7 @@ type GetCategoryDataResponse struct {
 	// Types that are assignable to Response:
 	//	*GetCategoryDataResponse_Data
 	//	*GetCategoryDataResponse_Error
-	Response isGetCategoryDataResponse_Response `protobuf_oneof:"response" json:"response"`
+	Response isGetCategoryDataResponse_Response `protobuf_oneof:"response"`
 }
 
 func (x *GetCategoryDataResponse) Reset() {
@@ -1410,7 +1418,7 @@ type isGetCategoryDataResponse_Response interface {
 
 type GetCategoryDataResponse_Data struct {
 	//@gotags: json:"data"
-	Data *GetCategoryDataResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
+	Data *GetCategoryDataResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof"`
 }
 
 type GetCategoryDataResponse_Error struct {
@@ -1432,7 +1440,7 @@ type GetFieldDataResponse struct {
 	// Types that are assignable to Response:
 	//	*GetFieldDataResponse_Data
 	//	*GetFieldDataResponse_Error
-	Response isGetFieldDataResponse_Response `protobuf_oneof:"response" json:"response"`
+	Response isGetFieldDataResponse_Response `protobuf_oneof:"response"`
 }
 
 func (x *GetFieldDataResponse) Reset() {
@@ -1501,7 +1509,7 @@ type isGetFieldDataResponse_Response interface {
 
 type GetFieldDataResponse_Data struct {
 	//@gotags: json:"data"
-	Data *GetFieldDataResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
+	Data *GetFieldDataResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof"`
 }
 
 type GetFieldDataResponse_Error struct {
@@ -1523,7 +1531,7 @@ type GetEntityDataResponse struct {
 	// Types that are assignable to Response:
 	//	*GetEntityDataResponse_Data
 	//	*GetEntityDataResponse_Error
-	Response isGetEntityDataResponse_Response `protobuf_oneof:"response" json:"response"`
+	Response isGetEntityDataResponse_Response `protobuf_oneof:"response"`
 }
 
 func (x *GetEntityDataResponse) Reset() {
@@ -1592,7 +1600,7 @@ type isGetEntityDataResponse_Response interface {
 
 type GetEntityDataResponse_Data struct {
 	//@gotags: json:"data"
-	Data *GetEntityDataResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
+	Data *GetEntityDataResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof"`
 }
 
 type GetEntityDataResponse_Error struct {
@@ -1608,10 +1616,10 @@ type PaginatedEntitiesFetchRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id          string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty" valid:"optional,minstringlength(1)"`                   //@gotags: valid:"optional,minstringlength(1)"
-	Limit       int32  `protobuf:"varint,2,opt,name=limit,proto3" json:"limit,omitempty" valid:"required,numeric,range(5|30)"`            //@gotags: valid:"required,numeric,range(5|30)"
-	Page        int32  `protobuf:"varint,3,opt,name=page,proto3" json:"page,omitempty" valid:"required,numeric"`              //@gotags: valid:"required,numeric"
-	WarehouseID string `protobuf:"bytes,4,opt,name=warehouseID,proto3" json:"warehouseID,omitempty" valid:"required,minstringlength(1)"` //@gotags: valid:"required,minstringlength(1)"
+	Id          string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`                   //@gotags: valid:"optional,minstringlength(1)"
+	Limit       int32  `protobuf:"varint,2,opt,name=limit,proto3" json:"limit,omitempty"`            //@gotags: valid:"required,numeric,range(5|30)"
+	Page        int32  `protobuf:"varint,3,opt,name=page,proto3" json:"page,omitempty"`              //@gotags: valid:"required,numeric"
+	WarehouseID string `protobuf:"bytes,4,opt,name=warehouseID,proto3" json:"warehouseID,omitempty"` //@gotags: valid:"required,minstringlength(1)"
 }
 
 func (x *PaginatedEntitiesFetchRequest) Reset() {
@@ -1679,8 +1687,8 @@ type PaginatedCategoriesFetchRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id          string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty" valid:"optional,minstringlength(1)"`                   //@gotags: valid:"optional,minstringlength(1)"
-	WarehouseID string `protobuf:"bytes,2,opt,name=warehouseID,proto3" json:"warehouseID,omitempty" valid:"required,minstringlength(1)"` //@gotags: valid:"required,minstringlength(1)"
+	Id          string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`                   //@gotags: valid:"optional,minstringlength(1)"
+	WarehouseID string `protobuf:"bytes,2,opt,name=warehouseID,proto3" json:"warehouseID,omitempty"` //@gotags: valid:"required,minstringlength(1)"
 }
 
 func (x *PaginatedCategoriesFetchRequest) Reset() {
@@ -1734,10 +1742,10 @@ type PaginatedFieldFetchRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Limit          int32  `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty" valid:"required,numeric,range(5|30)"`                  //@gotags: valid:"required,numeric,range(5|30)"
-	Page           int32  `protobuf:"varint,2,opt,name=page,proto3" json:"page,omitempty" valid:"required,numeric"`                    //@gotags: valid:"required,numeric"
-	WarehouseID    string `protobuf:"bytes,3,opt,name=warehouseID,proto3" json:"warehouseID,omitempty" valid:"required,minstringlength(1)"`       //@gotags: valid:"required,minstringlength(1)"
-	ParentCategory string `protobuf:"bytes,4,opt,name=parentCategory,proto3" json:"parentCategory,omitempty" valid:"optional"` //@gotags: valid:"optional"
+	Limit          int32  `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty"`                  //@gotags: valid:"required,numeric,range(5|30)"
+	Page           int32  `protobuf:"varint,2,opt,name=page,proto3" json:"page,omitempty"`                    //@gotags: valid:"required,numeric"
+	WarehouseID    string `protobuf:"bytes,3,opt,name=warehouseID,proto3" json:"warehouseID,omitempty"`       //@gotags: valid:"required,minstringlength(1)"
+	ParentCategory string `protobuf:"bytes,4,opt,name=parentCategory,proto3" json:"parentCategory,omitempty"` //@gotags: valid:"optional"
 }
 
 func (x *PaginatedFieldFetchRequest) Reset() {
@@ -1811,7 +1819,7 @@ type PaginatedCategoriesFetchResponse struct {
 	// Types that are assignable to Response:
 	//	*PaginatedCategoriesFetchResponse_Data
 	//	*PaginatedCategoriesFetchResponse_Error
-	Response isPaginatedCategoriesFetchResponse_Response `protobuf_oneof:"response" json:"response"`
+	Response isPaginatedCategoriesFetchResponse_Response `protobuf_oneof:"response"`
 }
 
 func (x *PaginatedCategoriesFetchResponse) Reset() {
@@ -1880,7 +1888,7 @@ type isPaginatedCategoriesFetchResponse_Response interface {
 
 type PaginatedCategoriesFetchResponse_Data struct {
 	// @gotags: json:"data"
-	Data *PaginatedCategoriesFetchResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
+	Data *PaginatedCategoriesFetchResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof"`
 }
 
 type PaginatedCategoriesFetchResponse_Error struct {
@@ -1902,7 +1910,7 @@ type PaginatedFieldsFetchResponse struct {
 	// Types that are assignable to Response:
 	//	*PaginatedFieldsFetchResponse_Data
 	//	*PaginatedFieldsFetchResponse_Error
-	Response isPaginatedFieldsFetchResponse_Response `protobuf_oneof:"response" json:"response"`
+	Response isPaginatedFieldsFetchResponse_Response `protobuf_oneof:"response"`
 }
 
 func (x *PaginatedFieldsFetchResponse) Reset() {
@@ -1971,7 +1979,7 @@ type isPaginatedFieldsFetchResponse_Response interface {
 
 type PaginatedFieldsFetchResponse_Data struct {
 	// @gotags: json:"data"
-	Data *PaginatedFieldsFetchResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
+	Data *PaginatedFieldsFetchResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof"`
 }
 
 type PaginatedFieldsFetchResponse_Error struct {
@@ -1993,7 +2001,7 @@ type PaginatedEntititesFetchResponse struct {
 	// Types that are assignable to Response:
 	//	*PaginatedEntititesFetchResponse_Data
 	//	*PaginatedEntititesFetchResponse_Error
-	Response isPaginatedEntititesFetchResponse_Response `protobuf_oneof:"response" json:"response"`
+	Response isPaginatedEntititesFetchResponse_Response `protobuf_oneof:"response"`
 }
 
 func (x *PaginatedEntititesFetchResponse) Reset() {
@@ -2062,7 +2070,7 @@ type isPaginatedEntititesFetchResponse_Response interface {
 
 type PaginatedEntititesFetchResponse_Data struct {
 	// @gotags: json:"data"
-	Data *PaginatedEntititesFetchResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
+	Data *PaginatedEntititesFetchResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof"`
 }
 
 type PaginatedEntititesFetchResponse_Error struct {
@@ -2080,7 +2088,7 @@ type InheritanceResponse_Parent struct {
 
 	FieldNames []string `protobuf:"bytes,1,rep,name=fieldNames,proto3" json:"fieldNames,omitempty"`
 	Id         string   `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
-	Name       string   `protobuf:"bytes,3,opt,name=name,proto3" json:"title"` //@gotags: json:"title"
+	Name       string   `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"` //@gotags: json:"title"
 }
 
 func (x *InheritanceResponse_Parent) Reset() {
@@ -2736,19 +2744,20 @@ var file_core_proto_rawDesc = []byte{
 	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x21, 0x0a, 0x05, 0x76, 0x61,
 	0x6c, 0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0b, 0x2e, 0x63, 0x6f, 0x72, 0x65,
 	0x2e, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x3a, 0x02, 0x38,
-	0x01, 0x22, 0xc3, 0x01, 0x0a, 0x11, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x65, 0x64, 0x45,
+	0x01, 0x22, 0xd3, 0x01, 0x0a, 0x11, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x65, 0x64, 0x45,
 	0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18,
 	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x20, 0x0a, 0x0b, 0x64,
 	0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09,
 	0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1a, 0x0a,
-	0x08, 0x71, 0x75, 0x61, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x18, 0x04, 0x20, 0x01, 0x28, 0x05, 0x52,
+	0x08, 0x71, 0x75, 0x61, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x18, 0x03, 0x20, 0x01, 0x28, 0x05, 0x52,
 	0x08, 0x71, 0x75, 0x61, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x12, 0x14, 0x0a, 0x05, 0x70, 0x72, 0x69,
-	0x63, 0x65, 0x18, 0x05, 0x20, 0x01, 0x28, 0x02, 0x52, 0x05, 0x70, 0x72, 0x69, 0x63, 0x65, 0x12,
+	0x63, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x02, 0x52, 0x05, 0x70, 0x72, 0x69, 0x63, 0x65, 0x12,
 	0x25, 0x0a, 0x0e, 0x63, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x5f, 0x74, 0x69, 0x74, 0x6c,
-	0x65, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0d, 0x63, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72,
+	0x65, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0d, 0x63, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72,
 	0x79, 0x54, 0x69, 0x74, 0x6c, 0x65, 0x12, 0x1f, 0x0a, 0x0b, 0x63, 0x61, 0x74, 0x65, 0x67, 0x6f,
-	0x72, 0x79, 0x5f, 0x69, 0x64, 0x18, 0x07, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0a, 0x63, 0x61, 0x74,
-	0x65, 0x67, 0x6f, 0x72, 0x79, 0x49, 0x64, 0x22, 0x5d, 0x0a, 0x13, 0x50, 0x61, 0x67, 0x69, 0x6e,
+	0x72, 0x79, 0x5f, 0x69, 0x64, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0a, 0x63, 0x61, 0x74,
+	0x65, 0x67, 0x6f, 0x72, 0x79, 0x49, 0x64, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x07, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0x5d, 0x0a, 0x13, 0x50, 0x61, 0x67, 0x69, 0x6e,
 	0x61, 0x74, 0x65, 0x64, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x69, 0x65, 0x73, 0x12, 0x0e,
 	0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x14,
 	0x0a, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74,
