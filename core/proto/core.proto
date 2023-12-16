@@ -43,6 +43,10 @@ message PaginatedFields {
   string title = 1;
   string type = 2;
   string id = 3;
+  int32 quantity = 4;
+  int32 price = 5;
+  string category_title = 6;
+  string category_id = 7;
 }
 
 
