@@ -12,6 +12,7 @@ message Field {
   string title = 1; //@gotags: valid:"required"
   string type = 2; //@gotags: valid:"required"
   string help = 3; //@gotags: valid:"required"
+  string format = 4; //@gotags: valid:"optional"
 }
 
 message Category {
