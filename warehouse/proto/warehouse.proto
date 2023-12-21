@@ -262,6 +262,9 @@ message DashboardResponse {
     string description = 2;
     string category_id = 3;
     string created = 4;
+    string category_title = 5;
+    float price = 6;
+    int32 quantity = 7;
   }
 
   message Response {
