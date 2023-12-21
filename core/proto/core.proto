@@ -36,6 +36,7 @@ message PaginatedEntities {
   string category_title = 4;
   float price = 5;
   int32 quantity = 6;
+  string id = 7;
 }
 
 message PaginatedCategories {
