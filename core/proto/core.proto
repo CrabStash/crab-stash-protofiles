@@ -43,6 +43,7 @@ message PaginatedCategories {
   string id = 1;
   string title = 2;
   string description = 3;
+  bool isChildless = 4;
 }
 
 message PaginatedFields {
