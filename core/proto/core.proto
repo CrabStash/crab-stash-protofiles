@@ -40,10 +40,10 @@ message PaginatedEntities {
 }
 
 message PaginatedCategories {
-  string id = 1;
-  string title = 2;
-  string description = 3;
-  bool isChildless = 4;
+  string id = 1; //@gotags: json:"id"
+  string title = 2; //@gotags: json:"title"
+  string description = 3; //@gotags: json:"description"
+  bool isChildless = 4; //@gotags: json:"isChildless"
 }
 
 message PaginatedFields {
