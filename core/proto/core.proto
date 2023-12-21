@@ -32,6 +32,10 @@ message GenericSchema {
 message PaginatedEntities {
   string name = 1;
   string description = 2;
+  string category_id = 3;
+  string category_title = 4;
+  float price = 5;
+  int32 quantity = 6;
 }
 
 message PaginatedCategories {
@@ -92,7 +96,7 @@ message CreateCategoryRequest {
 
 message CreateEntityRequest {
   string categoryID = 1;
-  google.protobuf.Struct formData = 2;
+  google.protobuf.Struct formData = 2; //@gotags: valid:"required"
   string warehouseID = 3;
 }
 
