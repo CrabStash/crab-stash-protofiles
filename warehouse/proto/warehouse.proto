@@ -62,6 +62,7 @@ message CreateRequest {
   string logo = 4; // @gotags: valid:"optional,url"
   bool isPhysical = 5; // @gotags: valid:"-" form:"isPhysical"
   int64 capacity = 6; // @gotags: valid:"int" form:"capacity"
+  string ID = 7; // @gotags: valid:"required"
 }
 
 message CreateResponse {
