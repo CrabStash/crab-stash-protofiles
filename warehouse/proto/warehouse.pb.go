@@ -83,8 +83,8 @@ type GetInfoRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	WarehouseID string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty"` // @gotags: valid:"required,minstringlength(1)"
-	UserID      string `protobuf:"bytes,2,opt,name=userID,proto3" json:"userID,omitempty"`           // @gotags: valid:"required,minstringlength(1)"
+	WarehouseID string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty" valid:"required,minstringlength(1)"` // @gotags: valid:"required,minstringlength(1)"
+	UserID      string `protobuf:"bytes,2,opt,name=userID,proto3" json:"userID,omitempty" valid:"required,minstringlength(1)"`           // @gotags: valid:"required,minstringlength(1)"
 }
 
 func (x *GetInfoRequest) Reset() {
@@ -144,7 +144,7 @@ type GetInfoResponse struct {
 	// Types that are assignable to Response:
 	//	*GetInfoResponse_Data
 	//	*GetInfoResponse_Error
-	Response isGetInfoResponse_Response `protobuf_oneof:"response"`
+	Response isGetInfoResponse_Response `protobuf_oneof:"response" json:"response"`
 }
 
 func (x *GetInfoResponse) Reset() {
@@ -213,7 +213,7 @@ type isGetInfoResponse_Response interface {
 
 type GetInfoResponse_Data struct {
 	// @gotags: json:"data"
-	Data *GetInfoResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof"`
+	Data *GetInfoResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
 }
 
 type GetInfoResponse_Error struct {
@@ -230,12 +230,12 @@ type UpdateRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	WarehouseID string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty"` // @gotags: valid:"required"
-	Name        string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`               // @gotags: valid:"required,minstringlength(1)" form:"name"
-	Desc        string `protobuf:"bytes,3,opt,name=desc,proto3" json:"desc,omitempty"`               // @gotags: valid:"required,minstringlength(1)" form:"desc"
-	Logo        string `protobuf:"bytes,4,opt,name=logo,proto3" json:"logo,omitempty"`               // @gotags: valid:"optional,url" form:"firstName"
-	IsPhysical  bool   `protobuf:"varint,5,opt,name=isPhysical,proto3" json:"isPhysical,omitempty"`  // @gotags: valid:"-" form:"firstName" form:"isPhysical"
-	Capacity    int64  `protobuf:"varint,6,opt,name=capacity,proto3" json:"capacity,omitempty"`      // @gotags: valid:"int" form:"firstName" form:"capacity"
+	WarehouseID string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty" valid:"required"` // @gotags: valid:"required"
+	Name        string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty" valid:"required,minstringlength(1)" form:"name"`               // @gotags: valid:"required,minstringlength(1)" form:"name"
+	Desc        string `protobuf:"bytes,3,opt,name=desc,proto3" json:"desc,omitempty" valid:"required,minstringlength(1)" form:"desc"`               // @gotags: valid:"required,minstringlength(1)" form:"desc"
+	Logo        string `protobuf:"bytes,4,opt,name=logo,proto3" json:"logo,omitempty" valid:"optional,url" form:"firstName"`               // @gotags: valid:"optional,url" form:"firstName"
+	IsPhysical  bool   `protobuf:"varint,5,opt,name=isPhysical,proto3" json:"isPhysical,omitempty" valid:"-" form:"firstName" form:"isPhysical"`  // @gotags: valid:"-" form:"firstName" form:"isPhysical"
+	Capacity    int64  `protobuf:"varint,6,opt,name=capacity,proto3" json:"capacity,omitempty" valid:"int" form:"firstName" form:"capacity"`      // @gotags: valid:"int" form:"firstName" form:"capacity"
 }
 
 func (x *UpdateRequest) Reset() {
@@ -373,12 +373,12 @@ type CreateRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	OwnerID    string `protobuf:"bytes,1,opt,name=ownerID,proto3" json:"ownerID,omitempty"`        // @gotags: valid:"required" form:"ownerID"
-	Name       string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`              // @gotags: valid:"required,minstringlength(1)" form:"name"
-	Desc       string `protobuf:"bytes,3,opt,name=desc,proto3" json:"desc,omitempty"`              // @gotags: valid:"required,minstringlength(1)" form:"desc"
-	Logo       string `protobuf:"bytes,4,opt,name=logo,proto3" json:"logo,omitempty"`              // @gotags: valid:"optional,url"
-	IsPhysical bool   `protobuf:"varint,5,opt,name=isPhysical,proto3" json:"isPhysical,omitempty"` // @gotags: valid:"-" form:"isPhysical"
-	Capacity   int64  `protobuf:"varint,6,opt,name=capacity,proto3" json:"capacity,omitempty"`     // @gotags: valid:"int" form:"capacity"
+	OwnerID    string `protobuf:"bytes,1,opt,name=ownerID,proto3" json:"ownerID,omitempty" valid:"required" form:"ownerID"`        // @gotags: valid:"required" form:"ownerID"
+	Name       string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty" valid:"required,minstringlength(1)" form:"name"`              // @gotags: valid:"required,minstringlength(1)" form:"name"
+	Desc       string `protobuf:"bytes,3,opt,name=desc,proto3" json:"desc,omitempty" valid:"required,minstringlength(1)" form:"desc"`              // @gotags: valid:"required,minstringlength(1)" form:"desc"
+	Logo       string `protobuf:"bytes,4,opt,name=logo,proto3" json:"logo,omitempty" valid:"optional,url"`              // @gotags: valid:"optional,url"
+	IsPhysical bool   `protobuf:"varint,5,opt,name=isPhysical,proto3" json:"isPhysical,omitempty" valid:"-" form:"isPhysical"` // @gotags: valid:"-" form:"isPhysical"
+	Capacity   int64  `protobuf:"varint,6,opt,name=capacity,proto3" json:"capacity,omitempty" valid:"int" form:"capacity"`     // @gotags: valid:"int" form:"capacity"
 }
 
 func (x *CreateRequest) Reset() {
@@ -466,7 +466,7 @@ type CreateResponse struct {
 	// Types that are assignable to Response:
 	//	*CreateResponse_Data
 	//	*CreateResponse_Error
-	Response isCreateResponse_Response `protobuf_oneof:"response"`
+	Response isCreateResponse_Response `protobuf_oneof:"response" json:"response"`
 }
 
 func (x *CreateResponse) Reset() {
@@ -535,7 +535,7 @@ type isCreateResponse_Response interface {
 
 type CreateResponse_Data struct {
 	// @gotags: json:"data"
-	Data *CreateResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof"`
+	Data *CreateResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
 }
 
 type CreateResponse_Error struct {
@@ -552,8 +552,8 @@ type AddUsersRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	WarehouseID string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty"` // @gotags: valid:"required,minstringlength(1)"
-	Email       string `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`             // @gotags: valid:"required,email"
+	WarehouseID string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty" valid:"required,minstringlength(1)"` // @gotags: valid:"required,minstringlength(1)"
+	Email       string `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty" valid:"required,email"`             // @gotags: valid:"required,email"
 }
 
 func (x *AddUsersRequest) Reset() {
@@ -663,8 +663,8 @@ type RemoveUserRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	WarehouseID string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty"` // @gotags: valid:"required,minstringlength(1)"
-	UserIds     string `protobuf:"bytes,2,opt,name=userIds,proto3" json:"userIds,omitempty"`         // @gotags: valid:"required,minstringlength(1)"
+	WarehouseID string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty" valid:"required,minstringlength(1)"` // @gotags: valid:"required,minstringlength(1)"
+	UserIds     string `protobuf:"bytes,2,opt,name=userIds,proto3" json:"userIds,omitempty" valid:"required,minstringlength(1)"`         // @gotags: valid:"required,minstringlength(1)"
 }
 
 func (x *RemoveUserRequest) Reset() {
@@ -774,7 +774,7 @@ type DeleteRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	WarehouseID string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty"` // @gotags: valid:"required,minstringlength(1)"
+	WarehouseID string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty" valid:"required,minstringlength(1)"` // @gotags: valid:"required,minstringlength(1)"
 }
 
 func (x *DeleteRequest) Reset() {
@@ -876,10 +876,10 @@ type ChangeRoleRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	WarehouseID  string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty"`               // @gotags: valid:"required,minstringlength(1)"
-	TargetUserID string `protobuf:"bytes,2,opt,name=targetUserID,proto3" json:"targetUserID,omitempty"`             // @gotags: valid:"required,minstringlength(1)"
-	Uuid         string `protobuf:"bytes,3,opt,name=uuid,proto3" json:"uuid,omitempty"`                             // @gotags: valid:"required,minstringlength(1)"
-	NewRole      Roles  `protobuf:"varint,4,opt,name=newRole,proto3,enum=warehouse.Roles" json:"newRole,omitempty"` // @gotags: valid:"-"
+	WarehouseID  string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty" valid:"required,minstringlength(1)"`               // @gotags: valid:"required,minstringlength(1)"
+	TargetUserID string `protobuf:"bytes,2,opt,name=targetUserID,proto3" json:"targetUserID,omitempty" valid:"required,minstringlength(1)"`             // @gotags: valid:"required,minstringlength(1)"
+	Uuid         string `protobuf:"bytes,3,opt,name=uuid,proto3" json:"uuid,omitempty" valid:"required,minstringlength(1)"`                             // @gotags: valid:"required,minstringlength(1)"
+	NewRole      Roles  `protobuf:"varint,4,opt,name=newRole,proto3,enum=warehouse.Roles" json:"newRole,omitempty" valid:"-"` // @gotags: valid:"-"
 }
 
 func (x *ChangeRoleRequest) Reset() {
@@ -1003,9 +1003,9 @@ type ListUsersRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	WarehouseID string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty"` //@gotags: valid:"required,minstringlength(1)"
-	Limit       int32  `protobuf:"varint,2,opt,name=limit,proto3" json:"limit,omitempty"`            //@gotags: valid:"required,numeric,range(5|30)"
-	Page        int32  `protobuf:"varint,3,opt,name=page,proto3" json:"page,omitempty"`              //@gotags: valid:"required,numeric"
+	WarehouseID string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty" valid:"required,minstringlength(1)"` //@gotags: valid:"required,minstringlength(1)"
+	Limit       int32  `protobuf:"varint,2,opt,name=limit,proto3" json:"limit,omitempty" valid:"required,numeric,range(5|30)"`            //@gotags: valid:"required,numeric,range(5|30)"
+	Page        int32  `protobuf:"varint,3,opt,name=page,proto3" json:"page,omitempty" valid:"required,numeric"`              //@gotags: valid:"required,numeric"
 }
 
 func (x *ListUsersRequest) Reset() {
@@ -1072,7 +1072,7 @@ type ListUsersResponse struct {
 	// Types that are assignable to Response:
 	//	*ListUsersResponse_Data
 	//	*ListUsersResponse_Error
-	Response isListUsersResponse_Response `protobuf_oneof:"response"`
+	Response isListUsersResponse_Response `protobuf_oneof:"response" json:"response"`
 }
 
 func (x *ListUsersResponse) Reset() {
@@ -1141,7 +1141,7 @@ type isListUsersResponse_Response interface {
 
 type ListUsersResponse_Data struct {
 	// @gotags: json:"data"
-	Data *ListUsersResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof"`
+	Data *ListUsersResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
 }
 
 type ListUsersResponse_Error struct {
@@ -1158,9 +1158,9 @@ type ListWarehousesRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Uuid  string `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid,omitempty"`    //@gotags: valid:"required,minstringlength(1)"
-	Limit int32  `protobuf:"varint,2,opt,name=limit,proto3" json:"limit,omitempty"` //@gotags: valid:"required,numeric,range(5|30)"
-	Page  int32  `protobuf:"varint,3,opt,name=page,proto3" json:"page,omitempty"`   //@gotags: valid:"required,numeric"
+	Uuid  string `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid,omitempty" valid:"required,minstringlength(1)"`    //@gotags: valid:"required,minstringlength(1)"
+	Limit int32  `protobuf:"varint,2,opt,name=limit,proto3" json:"limit,omitempty" valid:"required,numeric,range(5|30)"` //@gotags: valid:"required,numeric,range(5|30)"
+	Page  int32  `protobuf:"varint,3,opt,name=page,proto3" json:"page,omitempty" valid:"required,numeric"`   //@gotags: valid:"required,numeric"
 }
 
 func (x *ListWarehousesRequest) Reset() {
@@ -1227,7 +1227,7 @@ type ListWarehousesResponse struct {
 	// Types that are assignable to Response:
 	//	*ListWarehousesResponse_Data
 	//	*ListWarehousesResponse_Error
-	Response isListWarehousesResponse_Response `protobuf_oneof:"response"`
+	Response isListWarehousesResponse_Response `protobuf_oneof:"response" json:"response"`
 }
 
 func (x *ListWarehousesResponse) Reset() {
@@ -1296,7 +1296,7 @@ type isListWarehousesResponse_Response interface {
 
 type ListWarehousesResponse_Data struct {
 	// @gotags: json:"data"
-	Data *ListWarehousesResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof"`
+	Data *ListWarehousesResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
 }
 
 type ListWarehousesResponse_Error struct {
@@ -1312,7 +1312,7 @@ type InternalFetchWarehousesRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserID string `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID,omitempty"` // @gotags: valid:"required,minstringlength(1)"
+	UserID string `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID,omitempty" valid:"required,minstringlength(1)"` // @gotags: valid:"required,minstringlength(1)"
 }
 
 func (x *InternalFetchWarehousesRequest) Reset() {
@@ -1414,8 +1414,8 @@ type InternalFetchWarehouseRoleRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	WarehouseID string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty"` // @gotags: valid:"required,minstringlength(1)"
-	UserID      string `protobuf:"bytes,2,opt,name=userID,proto3" json:"userID,omitempty"`           // @gotags: valid:"required,minstringlength(1)"
+	WarehouseID string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty" valid:"required,minstringlength(1)"` // @gotags: valid:"required,minstringlength(1)"
+	UserID      string `protobuf:"bytes,2,opt,name=userID,proto3" json:"userID,omitempty" valid:"required,minstringlength(1)"`           // @gotags: valid:"required,minstringlength(1)"
 }
 
 func (x *InternalFetchWarehouseRoleRequest) Reset() {
@@ -1475,7 +1475,7 @@ type InternalFetchWarehouseRoleResponse struct {
 	// Types that are assignable to Response:
 	//	*InternalFetchWarehouseRoleResponse_Data
 	//	*InternalFetchWarehouseRoleResponse_Error
-	Response isInternalFetchWarehouseRoleResponse_Response `protobuf_oneof:"response"`
+	Response isInternalFetchWarehouseRoleResponse_Response `protobuf_oneof:"response" json:"response"`
 }
 
 func (x *InternalFetchWarehouseRoleResponse) Reset() {
@@ -1544,7 +1544,7 @@ type isInternalFetchWarehouseRoleResponse_Response interface {
 
 type InternalFetchWarehouseRoleResponse_Data struct {
 	// @gotags: json:"data"
-	Data *InternalFetchWarehouseRoleResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof"`
+	Data *InternalFetchWarehouseRoleResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
 }
 
 type InternalFetchWarehouseRoleResponse_Error struct {
@@ -1560,7 +1560,7 @@ type InternalDeleteAccRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserID string `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID,omitempty"` // @gotags: valid:"required,minstringlength(1)"
+	UserID string `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID,omitempty" valid:"required,minstringlength(1)"` // @gotags: valid:"required,minstringlength(1)"
 }
 
 func (x *InternalDeleteAccRequest) Reset() {
@@ -1608,7 +1608,7 @@ type DashboardRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	WarehouseID string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty"` // @gotags: valid:"required"
+	WarehouseID string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty" valid:"required"` // @gotags: valid:"required"
 }
 
 func (x *DashboardRequest) Reset() {
@@ -1661,7 +1661,7 @@ type DashboardResponse struct {
 	// Types that are assignable to Response:
 	//	*DashboardResponse_Data
 	//	*DashboardResponse_Error
-	Response isDashboardResponse_Response `protobuf_oneof:"response"`
+	Response isDashboardResponse_Response `protobuf_oneof:"response" json:"response"`
 }
 
 func (x *DashboardResponse) Reset() {
@@ -1730,7 +1730,7 @@ type isDashboardResponse_Response interface {
 
 type DashboardResponse_Data struct {
 	// @gotags: json:"data"
-	Data *DashboardResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof"`
+	Data *DashboardResponse_Response `protobuf:"bytes,2,opt,name=data,proto3,oneof" json:"data"`
 }
 
 type DashboardResponse_Error struct {
@@ -2039,7 +2039,7 @@ type ListUsersResponseList struct {
 	unknownFields protoimpl.UnknownFields
 
 	User *ListUsersResponseUser `protobuf:"bytes,1,opt,name=user,proto3" json:"user,omitempty"`
-	Role Roles                  `protobuf:"varint,2,opt,name=role,proto3,enum=warehouse.Roles" json:"role,omitempty"` //@gotags: json:"role"
+	Role Roles                  `protobuf:"varint,2,opt,name=role,proto3,enum=warehouse.Roles" json:"role"` //@gotags: json:"role"
 }
 
 func (x *ListUsersResponseList) Reset() {
@@ -2315,7 +2315,7 @@ type ListWarehousesResponseList struct {
 	unknownFields protoimpl.UnknownFields
 
 	Warehouse *ListWarehousesResponseWarehouse `protobuf:"bytes,1,opt,name=warehouse,proto3" json:"warehouse,omitempty"`
-	Role      Roles                            `protobuf:"varint,2,opt,name=role,proto3,enum=warehouse.Roles" json:"role,omitempty"` //@gotags: json:"role"
+	Role      Roles                            `protobuf:"varint,2,opt,name=role,proto3,enum=warehouse.Roles" json:"role"` //@gotags: json:"role"
 }
 
 func (x *ListWarehousesResponseList) Reset() {
@@ -2526,8 +2526,8 @@ type DashboardResponse_EntitiesCount struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	All    int32 `protobuf:"varint,1,opt,name=all,proto3" json:"all,omitempty"`       // @gotags: json:"all"
-	Unique int32 `protobuf:"varint,2,opt,name=unique,proto3" json:"unique,omitempty"` // @gotags: json:"unique"
+	All    int32 `protobuf:"varint,1,opt,name=all,proto3" json:"all"`       // @gotags: json:"all"
+	Unique int32 `protobuf:"varint,2,opt,name=unique,proto3" json:"unique"` // @gotags: json:"unique"
 }
 
 func (x *DashboardResponse_EntitiesCount) Reset() {
@@ -2660,10 +2660,10 @@ type DashboardResponse_Response struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Employees      int32                               `protobuf:"varint,1,opt,name=employees,proto3" json:"employees,omitempty"`            // @gotags: json:"employees"
-	WarehouseValue float32                             `protobuf:"fixed32,2,opt,name=warehouseValue,proto3" json:"warehouseValue,omitempty"` // @gotags: json:"warehouseValue"
-	EntitiesCount  *DashboardResponse_EntitiesCount    `protobuf:"bytes,3,opt,name=entitiesCount,proto3" json:"entitiesCount,omitempty"`     // @gotags: json:"entitiesCount"
-	NewestEntities []*DashboardResponse_NewestEntities `protobuf:"bytes,4,rep,name=newestEntities,proto3" json:"newestEntities,omitempty"`   // @gotags: json:"newestEntities"
+	Employees      int32                               `protobuf:"varint,1,opt,name=employees,proto3" json:"employees"`            // @gotags: json:"employees"
+	WarehouseValue float32                             `protobuf:"fixed32,2,opt,name=warehouseValue,proto3" json:"warehouseValue"` // @gotags: json:"warehouseValue"
+	EntitiesCount  *DashboardResponse_EntitiesCount    `protobuf:"bytes,3,opt,name=entitiesCount,proto3" json:"entitiesCount"`     // @gotags: json:"entitiesCount"
+	NewestEntities []*DashboardResponse_NewestEntities `protobuf:"bytes,4,rep,name=newestEntities,proto3" json:"newestEntities"`   // @gotags: json:"newestEntities"
 }
 
 func (x *DashboardResponse_Response) Reset() {
