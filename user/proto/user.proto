@@ -35,7 +35,7 @@ message UpdateUserInfoRequest{
     string lastName=2; //@gotags: valid:"minstringlength(1)" form:"lastName"
     string email=3; //@gotags: valid:"email" form:"email"
     string avatar=4; //@gotags: valid:"optional,url"
-    string default_warehouse = 5; //@gotags: valid:"minstringlength(1)" form:"default_warehouse"
+    string default_warehouse = 5; //@gotags: valid:"optional" form:"default_warehouse"
     }
     string userID=1;//@gotags: valid:"required"
     Data data=2; // @gotags: valid:"required" form:"data"

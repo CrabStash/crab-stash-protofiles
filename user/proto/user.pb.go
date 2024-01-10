@@ -982,7 +982,7 @@ type UpdateUserInfoRequest_Data struct {
 	LastName         string `protobuf:"bytes,2,opt,name=lastName,proto3" json:"lastName,omitempty" valid:"minstringlength(1)" form:"lastName"`                                         //@gotags: valid:"minstringlength(1)" form:"lastName"
 	Email            string `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty" valid:"email" form:"email"`                                               //@gotags: valid:"email" form:"email"
 	Avatar           string `protobuf:"bytes,4,opt,name=avatar,proto3" json:"avatar,omitempty" valid:"optional,url"`                                             //@gotags: valid:"optional,url"
-	DefaultWarehouse string `protobuf:"bytes,5,opt,name=default_warehouse,json=defaultWarehouse,proto3" json:"default_warehouse,omitempty" valid:"minstringlength(1)" form:"default_warehouse"` //@gotags: valid:"minstringlength(1)" form:"default_warehouse"
+	DefaultWarehouse string `protobuf:"bytes,5,opt,name=default_warehouse,json=defaultWarehouse,proto3" json:"default_warehouse,omitempty" valid:"optional" form:"default_warehouse"` //@gotags: valid:"optional" form:"default_warehouse"
 }
 
 func (x *UpdateUserInfoRequest_Data) Reset() {
