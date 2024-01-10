@@ -164,7 +164,7 @@ type UpdateUserInfoRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	UserID string                      `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID,omitempty" valid:"required"` //@gotags: valid:"required"
-	Data   *UpdateUserInfoRequest_Data `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty" valid:"required"`     // @gotags: valid:"required"
+	Data   *UpdateUserInfoRequest_Data `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty" valid:"required" form:"data"`     // @gotags: valid:"required" form:"data"
 }
 
 func (x *UpdateUserInfoRequest) Reset() {
@@ -978,11 +978,11 @@ type UpdateUserInfoRequest_Data struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	FirstName        string `protobuf:"bytes,1,opt,name=firstName,proto3" json:"firstName,omitempty" valid:"minstringlength(1)"`                                       //@gotags: valid:"minstringlength(1)"
-	LastName         string `protobuf:"bytes,2,opt,name=lastName,proto3" json:"lastName,omitempty" valid:"minstringlength(1)"`                                         //@gotags: valid:"minstringlength(1)"
-	Email            string `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty" valid:"email"`                                               //@gotags: valid:"email"
-	Avatar           []byte `protobuf:"bytes,4,opt,name=avatar,proto3" json:"avatar,omitempty" valid:"required"`                                             //@gotags: valid:"required"
-	DefaultWarehouse string `protobuf:"bytes,5,opt,name=default_warehouse,json=defaultWarehouse,proto3" json:"default_warehouse,omitempty" valid:"minstringlength(1)"` //@gotags: valid:"minstringlength(1)"
+	FirstName        string `protobuf:"bytes,1,opt,name=firstName,proto3" json:"firstName,omitempty" valid:"minstringlength(1)" form:"firstName"`                                       //@gotags: valid:"minstringlength(1)" form:"firstName"
+	LastName         string `protobuf:"bytes,2,opt,name=lastName,proto3" json:"lastName,omitempty" valid:"minstringlength(1)" form:"lastName"`                                         //@gotags: valid:"minstringlength(1)" form:"lastName"
+	Email            string `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty" valid:"email" form:"email"`                                               //@gotags: valid:"email" form:"email"
+	Avatar           []byte `protobuf:"bytes,4,opt,name=avatar,proto3" json:"avatar,omitempty" valid:"required" form:"avatar"`                                             //@gotags: valid:"required" form:"avatar"
+	DefaultWarehouse string `protobuf:"bytes,5,opt,name=default_warehouse,json=defaultWarehouse,proto3" json:"default_warehouse,omitempty" valid:"minstringlength(1)" form:"default_warehouse"` //@gotags: valid:"minstringlength(1)" form:"default_warehouse"
 }
 
 func (x *UpdateUserInfoRequest_Data) Reset() {

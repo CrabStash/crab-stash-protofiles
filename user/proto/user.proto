@@ -31,14 +31,14 @@ message MeInfoResponse{
 
 message UpdateUserInfoRequest{
     message Data{
-    string firstName=1; //@gotags: valid:"minstringlength(1)"
-    string lastName=2; //@gotags: valid:"minstringlength(1)"
-    string email=3; //@gotags: valid:"email"
-    bytes avatar=4; //@gotags: valid:"required"
-    string default_warehouse = 5; //@gotags: valid:"minstringlength(1)"
+    string firstName=1; //@gotags: valid:"minstringlength(1)" form:"firstName"
+    string lastName=2; //@gotags: valid:"minstringlength(1)" form:"lastName"
+    string email=3; //@gotags: valid:"email" form:"email"
+    bytes avatar=4; //@gotags: valid:"required" form:"avatar"
+    string default_warehouse = 5; //@gotags: valid:"minstringlength(1)" form:"default_warehouse"
     }
     string userID=1;//@gotags: valid:"required"
-    Data data=2; // @gotags: valid:"required"
+    Data data=2; // @gotags: valid:"required" form:"data"
 }
 
 message UpdateUserInfoResponse{ 

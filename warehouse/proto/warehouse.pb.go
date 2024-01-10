@@ -231,11 +231,11 @@ type UpdateRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	WarehouseID string `protobuf:"bytes,1,opt,name=warehouseID,proto3" json:"warehouseID,omitempty" valid:"required"` // @gotags: valid:"required"
-	Name        string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty" valid:"required,minstringlength(1)"`               // @gotags: valid:"required,minstringlength(1)"
-	Desc        string `protobuf:"bytes,3,opt,name=desc,proto3" json:"desc,omitempty" valid:"required,minstringlength(1)"`               // @gotags: valid:"required,minstringlength(1)"
-	Logo        []byte `protobuf:"bytes,4,opt,name=logo,proto3" json:"logo,omitempty" valid:"required"`               // @gotags: valid:"required"
-	IsPhysical  bool   `protobuf:"varint,5,opt,name=isPhysical,proto3" json:"isPhysical,omitempty" valid:"-"`  // @gotags: valid:"-"
-	Capacity    int64  `protobuf:"varint,6,opt,name=capacity,proto3" json:"capacity,omitempty" valid:"int"`      // @gotags: valid:"int"
+	Name        string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty" valid:"required,minstringlength(1)" form:"name"`               // @gotags: valid:"required,minstringlength(1)" form:"name"
+	Desc        string `protobuf:"bytes,3,opt,name=desc,proto3" json:"desc,omitempty" valid:"required,minstringlength(1)" form:"desc"`               // @gotags: valid:"required,minstringlength(1)" form:"desc"
+	Logo        []byte `protobuf:"bytes,4,opt,name=logo,proto3" json:"logo,omitempty" valid:"required" form:"firstName" form:"logo"`               // @gotags: valid:"required" form:"firstName" form:"logo"
+	IsPhysical  bool   `protobuf:"varint,5,opt,name=isPhysical,proto3" json:"isPhysical,omitempty" valid:"-" form:"firstName" form:"isPhysical"`  // @gotags: valid:"-" form:"firstName" form:"isPhysical"
+	Capacity    int64  `protobuf:"varint,6,opt,name=capacity,proto3" json:"capacity,omitempty" valid:"int" form:"firstName" form:"capacity"`      // @gotags: valid:"int" form:"firstName" form:"capacity"
 }
 
 func (x *UpdateRequest) Reset() {
@@ -373,12 +373,12 @@ type CreateRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	OwnerID    string `protobuf:"bytes,1,opt,name=ownerID,proto3" json:"ownerID,omitempty" valid:"required"`        // @gotags: valid:"required"
-	Name       string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty" valid:"required,minstringlength(1)"`              // @gotags: valid:"required,minstringlength(1)"
-	Desc       string `protobuf:"bytes,3,opt,name=desc,proto3" json:"desc,omitempty" valid:"required,minstringlength(1)"`              // @gotags: valid:"required,minstringlength(1)"
-	Logo       []byte `protobuf:"bytes,4,opt,name=logo,proto3" json:"logo,omitempty" valid:"required"`              // @gotags: valid:"required"
-	IsPhysical bool   `protobuf:"varint,5,opt,name=isPhysical,proto3" json:"isPhysical,omitempty" valid:"-"` // @gotags: valid:"-"
-	Capacity   int64  `protobuf:"varint,6,opt,name=capacity,proto3" json:"capacity,omitempty" valid:"int"`     // @gotags: valid:"int"
+	OwnerID    string `protobuf:"bytes,1,opt,name=ownerID,proto3" json:"ownerID,omitempty" valid:"required" form:"ownerID"`        // @gotags: valid:"required" form:"ownerID"
+	Name       string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty" valid:"required,minstringlength(1)" form:"name"`              // @gotags: valid:"required,minstringlength(1)" form:"name"
+	Desc       string `protobuf:"bytes,3,opt,name=desc,proto3" json:"desc,omitempty" valid:"required,minstringlength(1)" form:"desc"`              // @gotags: valid:"required,minstringlength(1)" form:"desc"
+	Logo       []byte `protobuf:"bytes,4,opt,name=logo,proto3" json:"logo,omitempty" valid:"required" form:"logo"`              // @gotags: valid:"required" form:"logo"
+	IsPhysical bool   `protobuf:"varint,5,opt,name=isPhysical,proto3" json:"isPhysical,omitempty" valid:"-" form:"isPhysical"` // @gotags: valid:"-" form:"isPhysical"
+	Capacity   int64  `protobuf:"varint,6,opt,name=capacity,proto3" json:"capacity,omitempty" valid:"int" form:"capacity"`     // @gotags: valid:"int" form:"capacity"
 }
 
 func (x *CreateRequest) Reset() {
