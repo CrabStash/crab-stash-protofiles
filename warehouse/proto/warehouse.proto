@@ -44,7 +44,7 @@ message UpdateRequest {
   string warehouseID = 1; // @gotags: valid:"required"
   string name = 2; // @gotags: valid:"required,minstringlength(1)"
   string desc = 3; // @gotags: valid:"required,minstringlength(1)"
-  string logo = 4; // @gotags: valid:"url,required"
+  bytes logo = 4; // @gotags: valid:"required"
   bool isPhysical = 5; // @gotags: valid:"-"
   int64 capacity = 6; // @gotags: valid:"int"
 }
@@ -59,7 +59,7 @@ message CreateRequest {
   string ownerID = 1; // @gotags: valid:"required"
   string name = 2; // @gotags: valid:"required,minstringlength(1)"
   string desc = 3; // @gotags: valid:"required,minstringlength(1)"
-  string logo = 4; // @gotags: valid:"url"
+  bytes logo = 4; // @gotags: valid:"required"
   bool isPhysical = 5; // @gotags: valid:"-"
   int64 capacity = 6; // @gotags: valid:"int"
 }

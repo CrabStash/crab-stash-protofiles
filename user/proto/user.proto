@@ -34,7 +34,7 @@ message UpdateUserInfoRequest{
     string firstName=1; //@gotags: valid:"minstringlength(1)"
     string lastName=2; //@gotags: valid:"minstringlength(1)"
     string email=3; //@gotags: valid:"email"
-    string avatar=4; //@gotags: valid:"url"
+    bytes avatar=4; //@gotags: valid:"required"
     string default_warehouse = 5; //@gotags: valid:"minstringlength(1)"
     }
     string userID=1;//@gotags: valid:"required"
