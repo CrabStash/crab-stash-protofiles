@@ -981,7 +981,7 @@ type UpdateUserInfoRequest_Data struct {
 	FirstName        string `protobuf:"bytes,1,opt,name=firstName,proto3" json:"firstName,omitempty" valid:"minstringlength(1)" form:"firstName"`                                       //@gotags: valid:"minstringlength(1)" form:"firstName"
 	LastName         string `protobuf:"bytes,2,opt,name=lastName,proto3" json:"lastName,omitempty" valid:"minstringlength(1)" form:"lastName"`                                         //@gotags: valid:"minstringlength(1)" form:"lastName"
 	Email            string `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty" valid:"email" form:"email"`                                               //@gotags: valid:"email" form:"email"
-	Avatar           []byte `protobuf:"bytes,4,opt,name=avatar,proto3" json:"avatar,omitempty" valid:"required" form:"avatar"`                                             //@gotags: valid:"required" form:"avatar"
+	Avatar           string `protobuf:"bytes,4,opt,name=avatar,proto3" json:"avatar,omitempty" valid:"optional,url"`                                             //@gotags: valid:"optional,url"
 	DefaultWarehouse string `protobuf:"bytes,5,opt,name=default_warehouse,json=defaultWarehouse,proto3" json:"default_warehouse,omitempty" valid:"minstringlength(1)" form:"default_warehouse"` //@gotags: valid:"minstringlength(1)" form:"default_warehouse"
 }
 
@@ -1038,11 +1038,11 @@ func (x *UpdateUserInfoRequest_Data) GetEmail() string {
 	return ""
 }
 
-func (x *UpdateUserInfoRequest_Data) GetAvatar() []byte {
+func (x *UpdateUserInfoRequest_Data) GetAvatar() string {
 	if x != nil {
 		return x.Avatar
 	}
-	return nil
+	return ""
 }
 
 func (x *UpdateUserInfoRequest_Data) GetDefaultWarehouse() string {
@@ -1163,7 +1163,7 @@ var file_user_proto_rawDesc = []byte{
 	0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x6c, 0x61, 0x73, 0x74, 0x4e,
 	0x61, 0x6d, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x18, 0x03, 0x20, 0x01,
 	0x28, 0x09, 0x52, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x12, 0x16, 0x0a, 0x06, 0x61, 0x76, 0x61,
-	0x74, 0x61, 0x72, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x06, 0x61, 0x76, 0x61, 0x74, 0x61,
+	0x74, 0x61, 0x72, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x61, 0x76, 0x61, 0x74, 0x61,
 	0x72, 0x12, 0x2b, 0x0a, 0x11, 0x64, 0x65, 0x66, 0x61, 0x75, 0x6c, 0x74, 0x5f, 0x77, 0x61, 0x72,
 	0x65, 0x68, 0x6f, 0x75, 0x73, 0x65, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x10, 0x64, 0x65,
 	0x66, 0x61, 0x75, 0x6c, 0x74, 0x57, 0x61, 0x72, 0x65, 0x68, 0x6f, 0x75, 0x73, 0x65, 0x22, 0x4c,
