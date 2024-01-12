@@ -42,11 +42,11 @@ message GetInfoResponse {
 // UpdateWarehouse
 message UpdateRequest {
   string warehouseID = 1; // @gotags: valid:"required"
-  string name = 2; // @gotags: valid:"required,minstringlength(1)"
-  string desc = 3; // @gotags: valid:"required,minstringlength(1)"
-  string logo = 4; // @gotags: valid:"url,required"
-  bool isPhysical = 5; // @gotags: valid:"-"
-  int64 capacity = 6; // @gotags: valid:"int"
+  string name = 2; // @gotags: valid:"required,minstringlength(1)" form:"name"
+  string desc = 3; // @gotags: valid:"required,minstringlength(1)" form:"desc"
+  string logo = 4; // @gotags: valid:"optional,url"
+  bool isPhysical = 5; // @gotags: valid:"-" form:"isPhysical"
+  int64 capacity = 6; // @gotags: valid:"int" form:"capacity"
 }
 
 message UpdateResponse {
@@ -56,12 +56,13 @@ message UpdateResponse {
 
 // CreateWarehouse
 message CreateRequest {
-  string ownerID = 1; // @gotags: valid:"required"
-  string name = 2; // @gotags: valid:"required,minstringlength(1)"
-  string desc = 3; // @gotags: valid:"required,minstringlength(1)"
-  string logo = 4; // @gotags: valid:"url"
-  bool isPhysical = 5; // @gotags: valid:"-"
-  int64 capacity = 6; // @gotags: valid:"int"
+  string ownerID = 1; // @gotags: valid:"required" form:"ownerID"
+  string name = 2; // @gotags: valid:"required,minstringlength(1)" form:"name"
+  string desc = 3; // @gotags: valid:"required,minstringlength(1)" form:"desc"
+  string logo = 4; // @gotags: valid:"optional,url"
+  bool isPhysical = 5; // @gotags: valid:"-" form:"isPhysical"
+  int64 capacity = 6; // @gotags: valid:"int" form:"capacity"
+  string ID = 7; // @gotags: valid:"required"
 }
 
 message CreateResponse {
@@ -262,6 +263,7 @@ message DashboardResponse {
     string description = 2;
     string category_id = 3;
     string created = 4;
+    string entity_id = 5;
   }
 
   message Response {
